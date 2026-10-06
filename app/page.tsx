@@ -22,8 +22,7 @@ import {
   X,
 } from 'lucide-react'
 
-const heroImage = 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-kBm7wH1qYDK2JVUcxxo3bYT5880kze.png'
-const cepiLogo = 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-yWTGDlJFwF8djQW5xw9d0oBGisdSsh.png'
+const cepiLogo = 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-7Ezo2vTuYX5AbUDY3GNV6xgjvUfGqs.png'
 
 type Role = 'Aluno' | 'Responsável' | 'Funcionário'
 type View = 'home' | 'student' | 'responsible' | 'admin'
@@ -60,7 +59,7 @@ function RoleCard({ role, icon: Icon, color, onClick }: { role: Role; icon: type
 }
 
 function Home({ go }: { go: (v: View) => void }) {
-  return <main className="landing"><section className="landing-copy"><img className="cepi-logo" src={cepiLogo} alt="Colégio CEPI Expansão" /><Brand /><div className="award">♨ <b>43 Anos de Excelência</b></div><h1>Bem-vindo ao<br />Zenix Education</h1><p>Selecione seu perfil para acessar o sistema</p><div className="roles"><RoleCard role="Aluno" icon={GraduationCap} color="green" onClick={() => go('student')} /><RoleCard role="Responsável" icon={Users} color="cyan" onClick={() => go('responsible')} /><RoleCard role="Funcionário" icon={ClipboardList} color="olive" onClick={() => go('admin')} /></div><footer>© 2025 Zenix Education · Todos os direitos reservados</footer></section><section className="landing-image" style={{ backgroundImage: `url(${heroImage})` }} aria-label="Alunos da Zenix Education" /></main>
+  return <main className="landing"><section className="landing-copy"><Brand /><div className="award">♨ <b>43 Anos de Excelência</b></div><h1>Bem-vindo ao<br />Zenix Education</h1><p>Selecione seu perfil para acessar o sistema</p><div className="roles"><RoleCard role="Aluno" icon={GraduationCap} color="green" onClick={() => go('student')} /><RoleCard role="Responsável" icon={Users} color="cyan" onClick={() => go('responsible')} /><RoleCard role="Funcionário" icon={ClipboardList} color="olive" onClick={() => go('admin')} /></div><footer>© 2025 Zenix Education · Todos os direitos reservados</footer></section><section className="landing-image" aria-label="Área institucional do Colégio CEPI"><div className="institutional-panel"><img src={cepiLogo} alt="Colégio CEPI Expansão" /><span>Educação que transforma</span></div></section></main>
 }
 
 function StudentDashboard({ role, onBack }: { role: 'student' | 'responsible'; onBack: () => void }) {
