@@ -1,0 +1,79 @@
+'use client'
+
+import { useState } from 'react'
+import {
+  ArrowRight,
+  Bell,
+  BookOpen,
+  CalendarDays,
+  ChevronDown,
+  ChevronRight,
+  ClipboardList,
+  GraduationCap,
+  LayoutDashboard,
+  Megaphone,
+  Menu,
+  NotebookPen,
+  Search,
+  Settings,
+  ShieldAlert,
+  Users,
+  UserRound,
+  X,
+} from 'lucide-react'
+
+const heroImage = 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-kBm7wH1qYDK2JVUcxxo3bYT5880kze.png'
+
+type Role = 'Aluno' | 'Responsável' | 'Funcionário'
+type View = 'home' | 'student' | 'responsible' | 'admin'
+
+const quickItems = [
+  ['Comunicados', 'Avisos e comunicados', Megaphone, 'blue'],
+  ['Notas', 'Boletim por bimestre', ClipboardList, 'green'],
+  ['Horários', 'Grade de aulas', CalendarDays, 'purple'],
+  ['Calendário', 'Eventos e feriados', CalendarDays, 'indigo'],
+  ['Agenda de aulas', 'Registros de aulas', BookOpen, 'teal'],
+  ['Ocorrências', 'Registros disciplinares', ShieldAlert, 'orange'],
+  ['Perfil', 'Dados do aluno', Settings, 'slate'],
+] as const
+
+function Brand({ compact = false }: { compact?: boolean }) {
+  return (
+    <div className="brand">
+      <div className="brand-mark">Z<span>²</span></div>
+      {!compact && <div><strong>ZENIX EDUCATION</strong><small>Sistema de Gestão Escolar</small></div>}
+    </div>
+  )
+}
+
+function Header({ onMenu }: { onMenu: () => void }) {
+  return <header className="topbar"><button className="mobile-menu" onClick={onMenu} aria-label="Abrir menu"><Menu size={20} /></button><Brand compact /><div className="search"><Search size={15} /><span>Para onde você quer ir?</span></div><div className="top-actions"><Bell size={18} /><div className="avatar">RM</div><ChevronDown size={14} /></div></header>
+}
+
+function SideNav({ view, setView, open }: { view: View; setView: (v: View) => void; open: boolean }) {
+  return <aside className={`sidenav ${open ? 'open' : ''}`}><div className="side-brand"><Brand /></div><button className="close-nav" onClick={() => setView(view)} aria-label="Fechar menu"><X size={18} /></button><div className="nav-section"><span>CADASTRO <ChevronDown size={12} /></span><button><Users size={15} /> Alunos</button><button><UserRound size={15} /> Responsáveis</button><button><BookOpen size={15} /> Turmas</button></div><div className="nav-section"><span>ACADÊMICO <ChevronDown size={12} /></span><button><CalendarDays size={15} /> Calendário</button><button><ClipboardList size={15} /> Lançamento de Notas</button><button><NotebookPen size={15} /> Diário de Classe</button><button><CalendarDays size={15} /> Horários</button><button><BookOpen size={15} /> Reforço / Extras</button><button><ShieldAlert size={15} /> Ocorrências</button></div><div className="nav-section"><span>SIMULADOS E PROVAS <ChevronDown size={12} /></span><button><ClipboardList size={15} /> Banco de Questões</button><button><ClipboardList size={15} /> Simulados</button><button><ClipboardList size={15} /> Provas</button></div><div className="nav-section"><span>PORTARIA <ChevronDown size={12} /></span><button><ShieldAlert size={15} /> Painel ao vivo</button><button><Users size={15} /> Visitantes</button><button><UserRound size={15} /> Autorizações de saída</button><button><ShieldAlert size={15} /> Ocorrências</button><button><ClipboardList size={15} /> Histórico de acesso</button></div><div className="side-user"><div className="avatar green">AM</div><div><b>Administrador Modelo</b><small>admin@zenixeducation.com...</small></div></div><button className="logout">↪ Sair</button></aside>
+}
+
+function RoleCard({ role, icon: Icon, color, onClick }: { role: Role; icon: typeof GraduationCap; color: string; onClick: () => void }) {
+  return <button className="role-card" onClick={onClick}><div className={`role-icon ${color}`}><Icon size={23} /></div><div><strong>Sou {role}</strong><small>{role === 'Aluno' ? 'Acesse notas, horários e comunicados' : role === 'Responsável' ? 'Acompanhe o desempenho do seu filho' : 'Acesse o painel administrativo'}</small></div><ChevronRight size={19} /></button>
+}
+
+function Home({ go }: { go: (v: View) => void }) {
+  return <main className="landing"><section className="landing-copy"><Brand /><div className="award">♨ <b>43 Anos de Excelência</b></div><h1>Bem-vindo ao<br />Zenix Education</h1><p>Selecione seu perfil para acessar o sistema</p><div className="roles"><RoleCard role="Aluno" icon={GraduationCap} color="green" onClick={() => go('student')} /><RoleCard role="Responsável" icon={Users} color="cyan" onClick={() => go('responsible')} /><RoleCard role="Funcionário" icon={ClipboardList} color="olive" onClick={() => go('admin')} /></div><footer>© 2025 Zenix Education · Todos os direitos reservados</footer></section><section className="landing-image" style={{ backgroundImage: `url(${heroImage})` }} aria-label="Alunos da Zenix Education" /></main>
+}
+
+function StudentDashboard({ role, onBack }: { role: 'student' | 'responsible'; onBack: () => void }) {
+  const isParent = role === 'responsible'
+  return <div className="portal"><div className="portal-head"><Brand compact /><div className="portal-profile"><span>{isParent ? 'RM' : 'AM'}</span><ChevronDown size={14} /></div></div>{isParent ? <><div className="welcome blue-bg"><div className="big-avatar">RM</div><div><small>Portal do Responsável</small><h2>Olá, Responsável!</h2><p>1 aluno vinculado</p></div></div><label className="eyebrow">SELECIONE O ALUNO</label><button className="student-select"><div className="big-avatar small">AM</div><b>Aluno Modelo<br /><small>RA 20260011</small></b><span>Mãe</span></button></> : <div className="welcome green-bg"><div className="big-avatar">Z</div><div><small>Bem-vindo de volta</small><h2>Aluno Modelo 101</h2><p>RA: <b>20260011</b></p></div></div>}<div className="portal-card">{isParent ? <><div className="student-row"><div className="big-avatar small">AM</div><div><b>Aluno Modelo 101</b><small>RA: 20260011</small><span>Pedagógico　 Mãe</span></div></div></> : <div className="card-title"><Megaphone size={16} /> Comunicados recentes <a>Ver todos →</a></div>}<div className="card-title quick-title">ACESSO RÁPIDO</div><div className="quick-grid">{quickItems.map(([name, description, Icon, color]) => <button key={name} className="quick-item"><div className={`quick-icon ${color}`}><Icon size={17} /></div><div><b>{name}</b><small>{description}</small></div><ChevronRight size={15} /></button>)}</div></div><button className="back-button" onClick={onBack}>Voltar ao início</button><footer className="portal-footer">Desenvolvido por ZenixCode</footer></div>
+}
+
+function AdminDashboard({ onBack }: { onBack: () => void }) {
+  return <div className="admin-shell"><SideNav view="admin" setView={onBack} open={false} /><div className="admin-main"><Header onMenu={() => {}} /><div className="admin-content"><div className="admin-title"><div><h1>Olá, Administrador 👋</h1><p>Aqui está um resumo do portal hoje.</p></div><button className="outline-button"><Settings size={15} /> Personalizar</button></div><div className="stats"><div><Users size={18} /><b>11</b><span>Alunos</span></div><div><Users size={18} /><b>3</b><span>Responsáveis</span></div><div><BookOpen size={18} /><b>4</b><span>Profissionais</span></div></div><div className="admin-card"><div className="card-title"><span>♨</span> Aniversariantes da semana</div><div className="empty">Nenhum aniversariante nos próximos 7 dias.</div></div><div className="admin-card notices"><div className="card-title"><ShieldAlert size={15} /> Avisos de cadastro <mark>32</mark></div>{[['Alunos sem responsável financeiro','Alunos ativos que não têm responsável financeiro cadastrado.','11'],['Alunos sem data de nascimento','Alunos ativos cujo cadastro não tem data de nascimento.','10'],['Alunos sem foto','Alunos ativos sem foto no cadastro.','11']].map(([a,b,n]) => <div className="notice" key={a}><ShieldAlert size={17} /><div><b>{a}</b><small>{b}</small></div><mark>{n}</mark><ChevronDown size={14} /></div>)}</div><div className="admin-card"><div className="card-title quick-title">ACESSO RÁPIDO</div><div className="admin-links">{['Gerenciar alunos','Gerenciar turmas','Enviar mensagem','Mensagens em massa','Equipe','Configurações'].map(x => <button key={x}><Settings size={16} />{x}</button>)}</div></div></div></div></div>
+}
+
+export default function Page() {
+  const [view, setView] = useState<View>('home')
+  if (view === 'home') return <Home go={setView} />
+  if (view === 'admin') return <AdminDashboard onBack={() => setView('home')} />
+  return <StudentDashboard role={view} onBack={() => setView('home')} />
+}
