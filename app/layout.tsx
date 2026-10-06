@@ -5,7 +5,7 @@ import './globals.css'
 export const metadata: Metadata = {
   title: 'Zenix Education | Gestão Escolar',
   description: 'Sistema de Gestão Escolar Zenix Education',
-  generator: 'v0.app',
+  generator: 'Squad42',
   icons: {
     icon: [
       {
