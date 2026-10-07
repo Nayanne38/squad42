@@ -12,6 +12,7 @@ import {
   GraduationCap,
   LayoutDashboard,
   Megaphone,
+  MessageCircle,
   Menu,
   NotebookPen,
   Search,
