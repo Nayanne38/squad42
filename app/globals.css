@@ -7,8 +7,8 @@
 html, body { margin:0; min-height:100%; font-family:Arial, Helvetica, sans-serif; color:var(--text); background:var(--surface); }
 button { font:inherit; cursor:pointer; }
 .brand { display:flex; align-items:center; gap:12px; color:#10284a; }
-.brand-mark { width:31px; height:31px; display:grid; place-items:center; background:#07135b; color:#2c5cff; font-weight:900; font-size:20px; font-style:italic; box-shadow:inset 0 0 12px #354cff; }
-.brand-mark span { font-size:10px; margin-left:-3px; }
+.brand-mark { width:31px; height:31px; display:grid; place-items:center; background:#07135b; border-radius:3px; overflow:hidden; box-shadow:inset 0 0 12px #354cff; }
+.brand-mark img { width:100%; height:100%; object-fit:contain; display:block; }
 .brand strong { display:block; font-size:14px; letter-spacing:.2px; }
 .brand small { display:block; color:#00a443; font-size:12px; margin-top:3px; }
 .landing { display:grid; grid-template-columns:38% 62%; min-height:100vh; background:#003c20; }

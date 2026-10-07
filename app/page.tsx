@@ -42,7 +42,7 @@ const quickItems = [
 function Brand({ compact = false }: { compact?: boolean }) {
   return (
     <div className="brand">
-      <div className="brand-mark">Z<span>²</span></div>
+      <div className="brand-mark"><img src={cepiLogo} alt="Colégio CEPI Expansão" /></div>
       {!compact && <div><strong>ZENIX EDUCATION</strong><small>Sistema de Gestão Escolar</small></div>}
     </div>
   )
