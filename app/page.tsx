@@ -71,6 +71,11 @@ function AdminDashboard({ onBack }: { onBack: () => void }) {
   return <div className="admin-shell"><SideNav view="admin" setView={onBack} open={false} /><div className="admin-main"><Header onMenu={() => {}} /><div className="admin-content"><div className="admin-title"><div><h1>Olá, Administrador 👋</h1><p>Aqui está um resumo do portal hoje.</p></div><button className="outline-button"><Settings size={15} /> Personalizar</button></div><div className="stats"><div><Users size={18} /><b>11</b><span>Alunos</span></div><div><Users size={18} /><b>3</b><span>Responsáveis</span></div><div><BookOpen size={18} /><b>4</b><span>Profissionais</span></div></div><div className="admin-card"><div className="card-title"><span>♨</span> Aniversariantes da semana</div><div className="empty">Nenhum aniversariante nos próximos 7 dias.</div></div><div className="admin-card notices"><div className="card-title"><ShieldAlert size={15} /> Avisos de cadastro <mark>32</mark></div>{[['Alunos sem responsável financeiro','Alunos ativos que não têm responsável financeiro cadastrado.','11'],['Alunos sem data de nascimento','Alunos ativos cujo cadastro não tem data de nascimento.','10'],['Alunos sem foto','Alunos ativos sem foto no cadastro.','11']].map(([a,b,n]) => <div className="notice" key={a}><ShieldAlert size={17} /><div><b>{a}</b><small>{b}</small></div><mark>{n}</mark><ChevronDown size={14} /></div>)}</div><div className="admin-card"><div className="card-title quick-title">ACESSO RÁPIDO</div><div className="admin-links"><a href="/funcionario/rede-social/feed"><MessageCircle size={16} /> Rede Social Escolar</a>{['Gerenciar alunos','Gerenciar turmas','Enviar mensagem','Mensagens em massa','Equipe','Configurações'].map(x => <button key={x}><Settings size={16} />{x}</button>)}</div></div></div></div></div>
 }
 
+export function AreaDashboard({ area }: { area: 'admin' | 'aluno' | 'responsavel' | 'funcionario' }) {
+  if (area === 'admin' || area === 'funcionario') return <AdminDashboard onBack={() => {}} />
+  return <StudentDashboard role={area === 'responsavel' ? 'responsible' : 'student'} onBack={() => {}} />
+}
+
 export default function Page() {
   const [view, setView] = useState<View>('home')
   if (view === 'home') return <Home go={setView} />

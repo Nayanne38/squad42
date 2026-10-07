@@ -2,7 +2,7 @@
 
 import { useState, type FormEvent } from 'react'
 import { ArrowLeft, LockKeyhole, Mail } from 'lucide-react'
-import { useParams } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 
 const roleCopy = {
   aluno: { title: 'Login do Aluno', subtitle: 'Acesse suas notas, horários e comunicados.', label: 'Aluno', email: '20260011@zenixeducation.com.br', password: 'ZxDt2NjdpGuq#41' },
@@ -12,7 +12,9 @@ const roleCopy = {
 
 export default function LoginPage() {
   const { role } = useParams<{ role: string }>()
+  const router = useRouter()
   const copy = roleCopy[role as keyof typeof roleCopy] ?? roleCopy.aluno
+  const destination = role === 'aluno' ? '/aluno' : role === 'responsavel' ? '/responsavel' : '/funcionario'
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [message, setMessage] = useState('')
@@ -23,6 +25,7 @@ export default function LoginPage() {
     const isAlternate = 'alternateEmail' in copy && email.trim().toLowerCase() === copy.alternateEmail && password === copy.alternatePassword
     if (isPrimary || isAlternate) {
       setMessage('Acesso demonstrativo liberado. Bem-vindo à Zenix Education!')
+      window.setTimeout(() => router.push(isAlternate ? '/admin' : destination), 250)
       return
     }
     setMessage('E-mail ou senha inválidos para este perfil.')
