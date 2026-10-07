@@ -1,7 +1,7 @@
 export type SocialRole = 'aluno' | 'responsavel' | 'funcionario'
 export type Post = { id:number; name:string; profile:string; date:string; text:string; image?:string; initials:string; color:string; likes:number; comments:number }
 export type Group = { id:number; title:string; subject:string; members:string; color:string; icon:string }
-export type Video = { id:number; title:string; professor:string; duration:string; color:string; initials:string }
+export type Video = { id:number; title:string; professor:string; duration:string; color:string; initials:string; videoUrl?:string }
 export type Hobby = { id:number; title:string; description:string; emoji:string; color:string }
 export type Contact = { id:number; name:string; profile:string; initials:string; color:string; online:boolean }
 export type Message = { id:number; contactId:number; text:string; mine:boolean; time:string }
@@ -19,7 +19,7 @@ export const mockGroups: Group[] = [
   {id:4,title:'Inglês em Foco',subject:'Língua Inglesa',members:'19 participantes',color:'orange',icon:'A'},
 ]
 export const mockVideos: Video[] = [
-  {id:1,title:'Introdução às frações',professor:'Prof. Ricardo Mendes',duration:'12 min',color:'blue',initials:'RM'},
+  {id:1,title:'Introdução às frações',professor:'Prof. Ricardo Mendes',duration:'12 min',color:'blue',initials:'RM',videoUrl:'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4'},
   {id:2,title:'A formação do relevo',professor:'Prof. Mariana Costa',duration:'18 min',color:'green',initials:'MC'},
   {id:3,title:'Reading strategies',professor:'Prof. Ana Beatriz',duration:'15 min',color:'purple',initials:'AB'},
 ]
