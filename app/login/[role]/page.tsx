@@ -24,6 +24,8 @@ export default function LoginPage() {
     const isPrimary = email.trim().toLowerCase() === copy.email && password === copy.password
     const isAlternate = 'alternateEmail' in copy && email.trim().toLowerCase() === copy.alternateEmail && password === copy.alternatePassword
     if (isPrimary || isAlternate) {
+      const sessionRole = isAlternate ? 'admin' : role
+      sessionStorage.setItem('zenix-demo-session', sessionRole)
       setMessage('Acesso demonstrativo liberado. Bem-vindo à Zenix Education!')
       window.setTimeout(() => router.push(isAlternate ? '/admin' : destination), 250)
       return
