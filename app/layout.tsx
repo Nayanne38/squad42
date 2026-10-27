@@ -3,7 +3,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Zenix teste AGORA VAI ESSA BRINCADEIRA | Gestão Escolar",
+  title: "Zenix teste AGORA VAI ESSA BRINCADEIRA TESTESTESTES| Gestão Escolar",
   description: "Sistema de Gestão Escolar Zenix Education",
   generator: "Squad42",
   icons: {
