@@ -204,7 +204,7 @@ function PostCard({
           {comments.length ? (
             comments.map((item, index) => (
               <p key={`${post.id}-comment-${index}`}>
-                <b>Comentário</b>
+                <b>Comentário: </b>
                 {item}
               </p>
             ))
@@ -735,7 +735,7 @@ export default function SocialNetwork({
         </div>
         <div className="feed-list">
           {posts.slice(0, 2).map((p) => (
-            <PostCard key={p.id} post={p} />
+            <PostCard key={p.id} post={p}/>
           ))}
         </div>
       </>

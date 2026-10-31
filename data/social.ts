@@ -70,7 +70,7 @@ export const mockPosts: Post[] = [
     initials: "MC",
     color: "blue",
     likes: 24,
-    comments: 8,
+    comments: 0,
   },
   {
     id: 2,
@@ -81,7 +81,7 @@ export const mockPosts: Post[] = [
     initials: "JP",
     color: "green",
     likes: 18,
-    comments: 4,
+    comments: 0,
   },
   {
     id: 3,
@@ -92,7 +92,7 @@ export const mockPosts: Post[] = [
     initials: "FL",
     color: "purple",
     likes: 31,
-    comments: 12,
+    comments: 0,
   },
 ];
 export const mockGroups: Group[] = [
