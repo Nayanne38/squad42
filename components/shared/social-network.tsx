@@ -32,7 +32,7 @@ import {
   mockPosts,
   mockVideos,
   type SocialRole,
-} from "@/data/social";
+} from "@/data/shared/social";
 
 const logo =
   "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-7Ezo2vTuYX5AbUDY3GNV6xgjvUfGqs.png";

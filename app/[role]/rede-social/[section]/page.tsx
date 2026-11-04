@@ -1,4 +1,4 @@
-import SocialNetwork from "@/components/social-network";
+import SocialNetwork from "@/components/shared/social-network";
 import type { SocialRole } from "@/data/social";
 
 const roles = new Set<SocialRole>(["aluno", "responsavel", "funcionario"]);
