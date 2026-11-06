@@ -2025,3 +2025,932 @@ h1 {
     height: 220px;
   }
 }
+
+.grades-page {
+  max-width: 950px;
+  min-height: 100vh;
+  margin: auto;
+  padding: 0 0 25px;
+  color: #17385c;
+}
+
+.grades-header {
+  height: 55px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #dce5ef;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.grades-back {
+  color: #2871ee;
+  text-decoration: none;
+}
+
+.grades-welcome {
+  margin: 18px 0;
+  padding: 25px;
+  border-radius: 14px;
+  background: #00a443;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.grades-welcome small,
+.grades-student small,
+.grades-summary small {
+  display: block;
+  font-size: 10px;
+  margin-bottom: 7px;
+  letter-spacing: 0.4px;
+}
+
+.grades-welcome h1 {
+  font-size: 23px;
+  margin: 5px 0;
+}
+
+.grades-welcome p {
+  font-size: 12px;
+  margin: 0;
+}
+
+.grades-avatar {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #ffffff30;
+  border: 1px solid #ffffff60;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.grades-student {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  padding: 18px;
+  background: white;
+  border: 1px solid #dce5ef;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.grades-student small {
+  color: #8296b0;
+}
+
+.grades-student strong {
+  font-size: 13px;
+}
+
+.grades-content {
+  background: white;
+  border: 1px solid #dce5ef;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.grades-title h2 {
+  font-size: 17px;
+  margin: 0 0 5px;
+}
+
+.grades-title p {
+  font-size: 12px;
+  color: #8296b0;
+  margin: 0;
+}
+
+.bimester-selector {
+  display: flex;
+  gap: 8px;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+
+.bimester-selector button {
+  border: 1px solid #dce5ef;
+  background: white;
+  color: #637b99;
+  border-radius: 8px;
+  padding: 10px 14px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.bimester-selector button.active {
+  background: #e9f1ff;
+  border-color: #2871ee;
+  color: #2162c7;
+  font-weight: 600;
+}
+
+.grades-table-wrapper {
+  overflow-x: auto;
+}
+
+.grades-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.grades-table th,
+.grades-table td {
+  padding: 14px 12px;
+  border-bottom: 1px solid #edf1f6;
+  font-size: 12px;
+}
+
+.grades-table th {
+  color: #8296b0;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+.grade-status {
+  display: inline-block;
+  padding: 5px 9px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.grade-status.aprovado {
+  color: #078b47;
+  background: #e1f8eb;
+}
+
+.grade-status.recuperacao {
+  color: #b77900;
+  background: #fff3d6;
+}
+
+.grade-status.atencao {
+  color: #c03939;
+  background: #fde8e8;
+}
+
+.grades-summary {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.grades-summary > div {
+  background: #f5f8fc;
+  border-radius: 9px;
+  padding: 15px;
+}
+
+.grades-summary small {
+  color: #8296b0;
+}
+
+.grades-summary strong {
+  font-size: 20px;
+  color: #17385c;
+}
+
+@media (max-width: 600px) {
+  .grades-student {
+    grid-template-columns: 1fr;
+  }
+
+  .grades-summary {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .grades-summary > div:first-child {
+    grid-column: span 2;
+  }
+
+  .grades-content {
+    padding: 13px;
+  }
+}
+
+.schedule-page {
+  max-width: 950px;
+  min-height: 100vh;
+  margin: auto;
+  padding-bottom: 25px;
+  color: #17385c;
+}
+
+.schedule-header {
+  height: 55px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #dce5ef;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.schedule-back {
+  color: #2871ee;
+  text-decoration: none;
+}
+
+.schedule-welcome {
+  margin: 18px 0;
+  padding: 25px;
+  border-radius: 14px;
+  background: #00a443;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.schedule-welcome h1 {
+  font-size: 23px;
+  margin: 5px 0;
+}
+
+.schedule-welcome p {
+  font-size: 12px;
+  margin: 0;
+}
+
+.schedule-avatar {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #ffffff30;
+  border: 1px solid #ffffff60;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.schedule-student {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  padding: 18px;
+  background: white;
+  border: 1px solid #dce5ef;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.schedule-student small {
+  display: block;
+  color: #8296b0;
+  font-size: 10px;
+  margin-bottom: 7px;
+}
+
+.schedule-student strong {
+  font-size: 13px;
+}
+
+.schedule-content {
+  background: white;
+  border: 1px solid #dce5ef;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.schedule-title h2 {
+  font-size: 17px;
+  margin: 0 0 5px;
+}
+
+.schedule-title p {
+  font-size: 12px;
+  color: #8296b0;
+  margin: 0;
+}
+
+.schedule-table-wrapper {
+  overflow-x: auto;
+  margin-top: 20px;
+}
+
+.schedule-table {
+  width: 100%;
+  min-width: 650px;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.schedule-table th,
+.schedule-table td {
+  padding: 14px 8px;
+  border-bottom: 1px solid #edf1f6;
+  font-size: 11px;
+}
+
+.schedule-table th {
+  color: #8296b0;
+  text-transform: uppercase;
+  font-size: 10px;
+}
+
+.schedule-time {
+  color: #637b99;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.schedule-subject {
+  display: inline-block;
+  background: #edf4ff;
+  color: #2865b5;
+  padding: 7px 9px;
+  border-radius: 7px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.schedule-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.schedule-legend span {
+  background: #f5f8fc;
+  padding: 10px 13px;
+  border-radius: 8px;
+  color: #637b99;
+  font-size: 11px;
+}
+
+@media (max-width: 600px) {
+  .schedule-student {
+    grid-template-columns: 1fr;
+  }
+
+  .schedule-content {
+    padding: 12px;
+  }
+}
+
+.calendar-page {
+  max-width: 950px;
+  min-height: 100vh;
+  margin: auto;
+  padding-bottom: 25px;
+  color: #17385c;
+}
+
+.calendar-header {
+  height: 55px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #dce5ef;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.calendar-back {
+  color: #2871ee;
+  text-decoration: none;
+}
+
+.calendar-welcome {
+  margin: 18px 0;
+  padding: 25px;
+  border-radius: 14px;
+  background: #00a443;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.calendar-welcome h1 {
+  font-size: 23px;
+  margin: 5px 0;
+}
+
+.calendar-welcome p {
+  font-size: 12px;
+  margin: 0;
+}
+
+.calendar-avatar {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #ffffff30;
+  border: 1px solid #ffffff60;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.calendar-student {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  padding: 18px;
+  background: white;
+  border: 1px solid #dce5ef;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.calendar-student small {
+  display: block;
+  color: #8296b0;
+  font-size: 10px;
+  margin-bottom: 7px;
+}
+
+.calendar-student strong {
+  font-size: 13px;
+}
+
+.calendar-content {
+  background: white;
+  border: 1px solid #dce5ef;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.calendar-month-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.calendar-month-header h2 {
+  font-size: 19px;
+  text-transform: capitalize;
+  margin: 0 0 5px;
+}
+
+.calendar-month-header p {
+  font-size: 12px;
+  color: #8296b0;
+  margin: 0;
+}
+
+.calendar-navigation {
+  display: flex;
+  gap: 8px;
+}
+
+.calendar-navigation button {
+  width: 36px;
+  height: 36px;
+  border: 1px solid #dce5ef;
+  border-radius: 8px;
+  background: white;
+  color: #2871ee;
+  cursor: pointer;
+  font-size: 17px;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  margin-top: 22px;
+  border-top: 1px solid #edf1f6;
+  border-left: 1px solid #edf1f6;
+}
+
+.calendar-weekday {
+  text-align: center;
+  padding: 13px 2px;
+  color: #8296b0;
+  font-size: 11px;
+  font-weight: 600;
+  border-right: 1px solid #edf1f6;
+  border-bottom: 1px solid #edf1f6;
+}
+
+.calendar-day {
+  min-height: 75px;
+  border: 0;
+  border-right: 1px solid #edf1f6;
+  border-bottom: 1px solid #edf1f6;
+  background: white;
+  color: #17385c;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.calendar-day:hover {
+  background: #f1f6ff;
+}
+
+.calendar-day.other-month {
+  color: #c0cad7;
+  background: #fafbfd;
+}
+
+.calendar-day.selected {
+  background: #e9f1ff;
+  color: #2162c7;
+  font-weight: bold;
+  outline: 1px solid #2871ee;
+  outline-offset: -1px;
+}
+
+.calendar-dot,
+.calendar-selected-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #00a443;
+}
+
+.calendar-selected-dot {
+  background: #2871ee;
+}
+
+.calendar-legend {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 15px;
+}
+
+.calendar-legend span {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #8296b0;
+  font-size: 11px;
+}
+
+.calendar-events {
+  border-top: 1px solid #edf1f6;
+  margin-top: 22px;
+  padding-top: 18px;
+}
+
+.calendar-events-header h3 {
+  font-size: 15px;
+  margin: 0 0 5px;
+}
+
+.calendar-events-header p {
+  color: #8296b0;
+  font-size: 11px;
+  margin: 0 0 15px;
+  text-transform: capitalize;
+}
+
+.calendar-event {
+  padding: 14px;
+  margin-bottom: 10px;
+  border: 1px solid #e5ebf3;
+  border-radius: 9px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 7px;
+}
+
+.calendar-event strong {
+  font-size: 13px;
+}
+
+.calendar-event p {
+  margin: 0;
+  color: #8296b0;
+  font-size: 12px;
+}
+
+.event-type {
+  padding: 4px 9px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.event-type.prova {
+  background: #fff0e3;
+  color: #c47723;
+}
+
+.event-type.atividade {
+  background: #e9f1ff;
+  color: #2871ee;
+}
+
+.event-type.reuniao {
+  background: #f1eaff;
+  color: #8153c5;
+}
+
+.event-type.evento {
+  background: #e1f8eb;
+  color: #078b47;
+}
+
+.calendar-empty {
+  background: #f5f8fc;
+  padding: 18px;
+  border-radius: 9px;
+  color: #8296b0;
+  font-size: 12px;
+}
+
+@media (max-width: 600px) {
+  .calendar-student {
+    grid-template-columns: 1fr;
+  }
+
+  .calendar-content {
+    padding: 12px;
+  }
+
+  .calendar-day {
+    min-height: 55px;
+  }
+
+  .calendar-weekday {
+    font-size: 10px;
+  }
+}
+
+.agenda-page {
+  max-width: 950px;
+  min-height: 100vh;
+  margin: auto;
+  padding-bottom: 25px;
+  color: #17385c;
+}
+
+.agenda-header {
+  height: 55px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #dce5ef;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.agenda-back {
+  color: #2871ee;
+  text-decoration: none;
+}
+
+.agenda-welcome {
+  margin: 18px 0;
+  padding: 25px;
+  border-radius: 14px;
+  background: #00a443;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.agenda-welcome h1 {
+  font-size: 23px;
+  margin: 5px 0;
+}
+
+.agenda-welcome p {
+  font-size: 12px;
+  margin: 0;
+}
+
+.agenda-avatar {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #ffffff30;
+  border: 1px solid #ffffff60;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.agenda-student {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  padding: 18px;
+  background: white;
+  border: 1px solid #dce5ef;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.agenda-student small {
+  display: block;
+  color: #8296b0;
+  font-size: 10px;
+  margin-bottom: 7px;
+}
+
+.agenda-student strong {
+  font-size: 13px;
+}
+
+.agenda-content {
+  background: white;
+  border: 1px solid #dce5ef;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.agenda-title h2 {
+  font-size: 17px;
+  margin: 0 0 5px;
+}
+
+.agenda-title p {
+  font-size: 12px;
+  color: #8296b0;
+  margin: 0;
+}
+
+.agenda-summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.agenda-summary > div {
+  background: #f5f8fc;
+  border-radius: 9px;
+  padding: 15px;
+}
+
+.agenda-summary small {
+  display: block;
+  color: #8296b0;
+  font-size: 10px;
+  margin-bottom: 7px;
+}
+
+.agenda-summary strong {
+  font-size: 22px;
+}
+
+.agenda-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.agenda-filters button {
+  border: 1px solid #dce5ef;
+  background: white;
+  color: #637b99;
+  border-radius: 8px;
+  padding: 9px 14px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.agenda-filters button.active {
+  background: #e9f1ff;
+  border-color: #2871ee;
+  color: #2162c7;
+  font-weight: 600;
+}
+
+.agenda-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.agenda-item {
+  border: 1px solid #e5ebf3;
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.agenda-item-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.agenda-type {
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.agenda-type.conteúdo,
+.agenda-type.conteúdo {
+  background: #e9f1ff;
+  color: #2871ee;
+}
+
+.agenda-type.atividade {
+  background: #fff3d6;
+  color: #b77900;
+}
+
+.agenda-type.trabalho {
+  background: #f1eaff;
+  color: #8153c5;
+}
+
+.agenda-date {
+  color: #8296b0;
+  font-size: 11px;
+}
+
+.agenda-subject {
+  color: #2871ee;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.agenda-item h3 {
+  font-size: 14px;
+  margin: 6px 0;
+}
+
+.agenda-item p {
+  color: #8296b0;
+  font-size: 12px;
+  margin: 0 0 13px;
+}
+
+.agenda-complete {
+  border: 1px solid #b9e8ce;
+  background: #e1f8eb;
+  color: #078b47;
+  border-radius: 7px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.agenda-complete:hover {
+  background: #c9f0d9;
+}
+
+.agenda-done,
+.agenda-content-label {
+  display: inline-block;
+  color: #078b47;
+  background: #e1f8eb;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.agenda-content-label {
+  color: #2871ee;
+  background: #e9f1ff;
+}
+
+.agenda-empty {
+  padding: 22px;
+  text-align: center;
+  background: #f5f8fc;
+  border-radius: 9px;
+  color: #8296b0;
+  font-size: 12px;
+}
+
+@media (max-width: 600px) {
+  .agenda-student {
+    grid-template-columns: 1fr;
+  }
+
+  .agenda-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .agenda-content {
+    padding: 13px;
+  }
+}

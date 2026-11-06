@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
@@ -408,18 +409,77 @@ function StudentDashboard({
               <ChevronRight size={15} />
             </a>
           )}
-          {quickItems.map(([name, description, Icon, color]) => (
-            <button key={name} className="quick-item">
-              <div className={`quick-icon ${color}`}>
-                <Icon size={17} />
-              </div>
-              <div>
-                <b>{name}</b>
-                <small>{description}</small>
-              </div>
-              <ChevronRight size={15} />
-            </button>
-          ))}
+          
+          {quickItems.map(([name, description, Icon, color]) => {
+            const content = (
+              <>
+                <div className={`quick-icon ${color}`}>
+                  <Icon size={17} />
+                </div>
+                <div>
+                  <b>{name}</b>
+                  <small>{description}</small>
+                </div>
+                <ChevronRight size={15} />
+              </>
+            );
+
+              if (name === "Agenda de aulas") {
+                return (
+                  <Link
+                    key={name}
+                    href="/aluno/agenda"
+                    className="quick-item"
+                  >
+                    {content}
+                  </Link>
+                );
+              }
+
+            if (name === "Calendário") {
+              return (
+                <Link
+                  key={name}
+                  href="/aluno/calendario"
+                  className="quick-item"
+                >
+                  {content}
+                </Link>
+              );
+            }
+
+
+            if (name === "Horários") {
+              return (
+                <Link
+                  key={name}
+                  href="/aluno/horarios"
+                  className="quick-item"
+                >
+                  {content}
+                </Link>
+              );
+            }
+
+            if (name === "Notas") {
+              return (
+                <Link
+                  key={name}
+                  href="/aluno/notas"
+                  className="quick-item"
+                >
+                  {content}
+                </Link>
+              );
+            }
+
+            return (
+              <button key={name} className="quick-item">
+                {content}
+              </button>
+            );
+          })}
+
         </div>
       </div>
       <a
