@@ -1,7 +1,7 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import { AreaDashboard } from "../page";
+import { AreaDashboard } from "@/app/page";
 
 export default function AreaPage() {
   const { role } = useParams<{ role: string }>();
