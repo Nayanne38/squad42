@@ -89,6 +89,28 @@ export function PostCard({
   );
 }
 
+export function PostCardProfile({
+  post,
+}: {
+  post: (typeof mockPosts)[number];
+}) {
+  return (
+    <article className="social-card post-card">
+      <div className="post-head">
+        <Avatar initials={post.initials} color={post.color} />
+        <div>
+          <b>{post.name}</b>
+          <small>{post.profile} · {post.date}</small>
+        </div>
+        <MoreHorizontal size={18} />
+      </div>
+      <p>{post.text}</p>
+      {post.image && <img className="post-image" src={post.image} alt="Registro de atividade escolar" />}
+    </article>
+  );
+}
+
+
 export function PostComposer({ role, onPublish }: { role: SocialRole; onPublish: (text: string) => void }) {
   const [text, setText] = useState("");
   const profileLabels = { aluno: "Aluno Modelo 101", responsavel: "Responsável Modelo", funcionario: "Fernanda Lima" };

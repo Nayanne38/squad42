@@ -35,14 +35,34 @@ export default function SocialNetwork({ role = "aluno", initialSection = "feed",
   const publish = (text: string) => { const id = Date.now(); setOwnPostIds((currentIds) => [...currentIds, id]); setPosts((currentPosts) => [{ ...mockPosts[0], id, name: profile, profile: role === "aluno" ? "Aluno" : "Professora", initials: role === "aluno" ? "AM" : "FL", color: role === "aluno" ? "blue" : "purple", date: "Agora", text, likes: 0, comments: 0, image: undefined }, ...currentPosts]); };
   const like = (postId: number) => { const liked = likedPosts.includes(postId); setLikedPosts((currentIds) => liked ? currentIds.filter((id) => id !== postId) : [...currentIds, postId]); setPosts((currentPosts) => currentPosts.map((post) => post.id === postId ? { ...post, likes: post.likes + (liked ? -1 : 1) } : post)); };
   const comment = (postId: number, text: string) => { setCommentsByPost((current) => ({ ...current, [postId]: [...(current[postId] ?? []), text] })); setPosts((currentPosts) => currentPosts.map((post) => post.id === postId ? { ...post, comments: post.comments + 1 } : post)); };
-  const feed = <><div className="social-heading"><div><Badge>Comunidade escolar</Badge><h1>Olá, {profile.split(" ")[0]}!</h1><p>Acompanhe as novidades da sua comunidade.</p></div></div>{(role === "aluno" || role === "funcionario") && <PostComposer role={role} onPublish={publish} />}<div className="feed-list">{posts.map((post) => <PostCard key={post.id} post={post} liked={likedPosts.includes(post.id)} onLike={() => like(post.id)} onComment={(text) => comment(post.id, text)} comments={commentsByPost[post.id] ?? []} isOwn={ownPostIds.includes(post.id)} onEdit={(text) => setPosts((currentPosts) => currentPosts.map((item) => item.id === post.id ? { ...item, text } : item))} onDelete={() => setPosts((currentPosts) => currentPosts.filter((item) => item.id !== post.id))} />)}</div></>;
+  const feed = <>
+  <div className="social-heading">
+    <div>
+      <Badge>Comunidade escolar</Badge>
+      <h1>Olá, {profile.split(" ")[0]}!</h1>
+      <p>Acompanhe as novidades da sua comunidade.</p>
+    </div>
+  </div>
+  {(role === "aluno" || role === "funcionario") && <PostComposer role={role} onPublish={publish} />}
+  <div className="feed-list">
+    {
+    posts.map(
+      (post) => <PostCard key={post.id} post={post} liked={likedPosts.includes(post.id)}
+      onLike={() => like(post.id)} 
+      onComment={(text) => comment(post.id, text)} comments={commentsByPost[post.id] ?? []} isOwn={ownPostIds.includes(post.id)} 
+      onEdit={(text) => setPosts((currentPosts) => currentPosts.map((item) => item.id === post.id ? { ...item, text } : item))} 
+      onDelete={() => setPosts((currentPosts) => currentPosts.filter((item) => item.id !== post.id))} />)
+    }
+ </div>
+  </>;
+  
   let content: React.ReactNode = feed;
   if (section === "murais") content = <MuralView role={role} />;
   if (section === "video-aulas") content = <><PageIntro title="Vídeo-aulas" text="Aprenda no seu ritmo com os conteúdos dos seus professores." /><div className="video-grid">{mockVideos.map((item) => <VideoCard key={item.id} video={item} onOpen={setVideo} />)}</div></>;
   if (section === "grupos") content = <><PageIntro title="Grupos de estudos" text="Encontre seus colegas e aprenda em conjunto." /><div className="groups-grid">{mockGroups.map((group) => <GroupCard key={group.id} group={group} />)}</div></>;
   if (section === "hobbies") content = <><PageIntro title="Hobbies" text="Descubra interesses em comum com a comunidade escolar." /><div className="hobbies-grid">{mockHobbies.map((hobby) => <HobbyCard key={hobby.id} hobby={hobby} />)}</div></>;
   if (section === "chat") content = <Chat />;
-  if (section === "perfil") content = <ProfileView role={role} posts={posts} />;
+  if (section === "perfil") content = <ProfileView role={role} posts={posts} ownPostIds={ownPostIds} likedPosts={likedPosts} />;
   if (section === "publicar") content = <><PageIntro title="Publicar no mural" text="Compartilhe uma novidade com a comunidade escolar." /><div className="social-card publish-form"><label htmlFor="pub">O que você quer compartilhar?</label><textarea id="pub" placeholder="Escreva sua publicação..." /><label htmlFor="board">Selecione um mural</label><select id="board"><option>Mural geral</option><option>Avisos da turma</option></select><button className="primary-button">Publicar</button></div></>;
   if (section === "turmas") content = <><PageIntro title="Turmas" text="Gerencie as turmas e acompanhe a comunidade de cada sala." /><div className="classes-table">{mockClasses.map((item) => <div className="class-row" key={item.id}><div className="group-icon blue"><Users /></div><div><b>{item.name}</b><small>{item.subject} · {item.room}</small></div><Badge>{item.students} alunos</Badge></div>)}</div></>;
 
