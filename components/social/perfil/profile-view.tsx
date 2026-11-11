@@ -1,7 +1,6 @@
 import { Pencil } from "lucide-react";
 import { mockPosts, type SocialRole } from "@/data/shared/social";
 import { Avatar } from "@/components/social/shared/social-ui";
-import { PostCard } from "@/components/social/feed/feed-components";
 import { PostCardProfile } from "@/components/social/feed/feed-components";
 
 export function ProfileView({ role, posts, ownPostIds, likedPosts }: { role: SocialRole; posts: typeof mockPosts; ownPostIds: number[]; likedPosts: number[] }) {
@@ -21,8 +20,7 @@ export function ProfileView({ role, posts, ownPostIds, likedPosts }: { role: Soc
       <h2>{profileLabels[role]}</h2>
       <p>{role === "aluno" ? "Aluno · 8º Ano A" : role === "responsavel" ? "Responsável de Aluno Modelo 101" : "Coordenação Pedagógica"}</p>
     </div>
-    <button className="outline-button"><Pencil />Editar foto de perfil</button>
-    {/*<input type="file" className="outline-button" accept="image/*" />*/}
+    <label className="outline-button"><input type="file" className="invisible" accept="image/*" /><Pencil />Editar Foto de Perfil</label>
   </div>
     
   <div className="profile-tabs">

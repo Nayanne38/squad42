@@ -6,7 +6,7 @@ import { mockClasses, mockGroups, mockHobbies, mockPosts, mockVideos, type Socia
 import { Chat } from "@/components/social/chat/chat";
 import { GroupCard } from "@/components/social/groups/group-components";
 import { HobbyCard } from "@/components/social/hobbies/hobby-components";
-import { MuralView } from "@/components/social/murais/mural-view";
+import { initialMuralPosts, MuralView } from "@/components/social/murais/mural-view";
 import { ProfileView } from "@/components/social/perfil/profile-view";
 import { PostCard, PostComposer } from "@/components/social/feed/feed-components";
 import { Avatar, Badge } from "@/components/social/shared/social-ui";
@@ -25,6 +25,7 @@ function PageIntro({ title, text }: { title: string; text: string }) { return <d
 export default function SocialNetwork({ role = "aluno", initialSection = "feed", onBack }: { role?: SocialRole; initialSection?: string; onBack?: () => void }) {
   const [section, setSection] = useState(initialSection);
   const [posts, setPosts] = useState(mockPosts);
+  const [postsByMural, setPostsByMural] = useState(initialMuralPosts);
   const [likedPosts, setLikedPosts] = useState<number[]>([]);
   const [ownPostIds, setOwnPostIds] = useState<number[]>([]);
   const [commentsByPost, setCommentsByPost] = useState<Record<number, string[]>>({});
@@ -57,7 +58,7 @@ export default function SocialNetwork({ role = "aluno", initialSection = "feed",
   </>;
   
   let content: React.ReactNode = feed;
-  if (section === "murais") content = <MuralView role={role} />;
+  if (section === "murais") content = <MuralView role={role} postsByMural={postsByMural} setPostsByMural={setPostsByMural} />;
   if (section === "video-aulas") content = <><PageIntro title="Vídeo-aulas" text="Aprenda no seu ritmo com os conteúdos dos seus professores." /><div className="video-grid">{mockVideos.map((item) => <VideoCard key={item.id} video={item} onOpen={setVideo} />)}</div></>;
   if (section === "grupos") content = <><PageIntro title="Grupos de estudos" text="Encontre seus colegas e aprenda em conjunto." /><div className="groups-grid">{mockGroups.map((group) => <GroupCard key={group.id} group={group} />)}</div></>;
   if (section === "hobbies") content = <><PageIntro title="Hobbies" text="Descubra interesses em comum com a comunidade escolar." /><div className="hobbies-grid">{mockHobbies.map((hobby) => <HobbyCard key={hobby.id} hobby={hobby} />)}</div></>;

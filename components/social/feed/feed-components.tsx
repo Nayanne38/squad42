@@ -121,7 +121,9 @@ export function PostComposer({ role, onPublish }: { role: SocialRole; onPublish:
     <div className="social-card composer">
       <div className="post-head"><Avatar initials={initials} color={role === "funcionario" ? "purple" : "blue"} /><div><b>{currentName}</b><small>Compartilhe algo com a comunidade</small></div></div>
       <textarea value={text} onChange={(event) => setText(event.target.value)} placeholder="No que você está pensando?" aria-label="Texto da publicação" />
-      <div className="composer-bottom"><button className="attach"><ImagePlus /> Adicionar imagem</button><button className="primary-button" disabled={!text.trim()} onClick={() => { onPublish(text); setText(""); }}>Publicar <Send /></button></div>
+      <div className="composer-bottom">
+      <label className="attach"><input type="file" className="invisible" accept="image/*" /><ImagePlus />Adicionar imagem</label>
+      <button className="primary-button" disabled={!text.trim()} onClick={() => { onPublish(text); setText(""); }}>Publicar <Send /></button></div>
     </div>
   );
 }
