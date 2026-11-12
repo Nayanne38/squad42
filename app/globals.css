@@ -28,6 +28,10 @@ button {
 .invisible {
     display: none;
   }
+.direita {
+  text-align: right;
+  top: 0%;
+}
 .brand {
   display: flex;
   align-items: center;
@@ -1832,6 +1836,18 @@ h1 {
   border-radius: 7px;
   margin-bottom: 12px;
   color: #4e6887;
+}
+.publish-form input {
+  border: 1px solid #dfe7f1;
+  padding: 11px;
+  border-radius: 7px;
+  color: #4e6887;
+  font: inherit;
+}
+.publish-form input:focus {
+  border-color: #2d75ee;
+  box-shadow: 0 0 0 3px #e5efff;
+  outline: none;
 }
 .profile-hero {
   padding: 25px;
