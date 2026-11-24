@@ -907,6 +907,9 @@ h1 {
   background: #07135b;
   object-fit: cover;
 }
+.social-badge {
+  margin: 10px;
+}
 .mural-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -922,14 +925,17 @@ h1 {
   margin: 16px 0 8px;
   color: #18385b;
   font-size: 18px;
+  padding-inline: 20px;
 }
 .mural-card p {
   color: #7187a1;
   font-size: 13px;
   line-height: 1.5;
+  padding-inline: 20px;
 }
-.mural-card .primary-button {
+.primary-button {
   align-self: flex-start;
+  margin: 10px;
 }
 .social-quick-item {
   border-color: #b7d8ff;
@@ -948,6 +954,9 @@ h1 {
 .social-quick-icon {
   background: #e1edff;
   color: #2163e7;
+}
+.empty-state {
+  padding-bottom: 20px;
 }
 @media (max-width: 800px) {
   .landing {
@@ -1205,11 +1214,13 @@ h1 {
   font-size: 28px;
   letter-spacing: -0.7px;
   margin: 12px 0 6px;
+  padding-inline: 20px;
 }
 .social-heading p {
   color: #7890ac;
   margin: 0;
   font-size: 13px;
+  padding-inline: 20px;
 }
 .social-card {
   background: #fff;
