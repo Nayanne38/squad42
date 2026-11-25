@@ -88,7 +88,10 @@ export function StudentDashboard({
           </div>
         ) : (
           <div className="card-title">
-            <Megaphone size={16} /> Comunicados recentes <a>Ver todos →</a>
+            <Megaphone size={16} /> Comunicados recentes
+            <Link href={`/${routeRole}/comunicados`}>
+              Ver todos →
+            </Link>
           </div>
         )}
         <div className="card-title quick-title">ACESSO RÁPIDO</div>
@@ -123,6 +126,15 @@ export function StudentDashboard({
                   <ChevronRight size={15} />
                 </>
               );
+
+              if (name === "Comunicados") {
+                return (
+                  <Link
+                    key={name} href={`/${routeRole}/comunicados`} className="quick-item">
+                    {content}
+                  </Link>
+                );
+              }
 
               if (name === "Agenda de aulas") {
                 return (
