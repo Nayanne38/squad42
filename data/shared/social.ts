@@ -98,7 +98,7 @@ export const mockPosts: Post[] = [
 export const mockGroups: Group[] = [
   {
     id: 1,
-    title: "8º Ano A",
+    title: "Clube de Matemática",
     subject: "Matemática",
     members: "28 participantes",
     color: "blue",
