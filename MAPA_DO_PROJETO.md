@@ -332,3 +332,25 @@ public/
 5. Tratar `components/shared/area-dashboard.tsx`, `app/(platform)/[role]/page.tsx` e o login como áreas de integração, alteradas somente com coordenação entre os grupos.
 6. Não alterar `app/globals.css` para uma funcionalidade específica sem avaliar o impacto global.
 7. Atualmente os estados do Feed, curtidas, comentários e publicações são locais; nenhuma dessas mudanças é persistida em banco de dados.
+
+## 9. Atualização — telas e dados adicionados na finalização
+
+> Tudo continua com dados simulados (sem banco de dados). Estados novos ficam em `sessionStorage`/`localStorage` apenas para a demonstração.
+
+| Tela / recurso | Arquivo | Perfis |
+|---|---|---|
+| Dados centrais (alunos, responsáveis, equipe, turmas, vínculos, permissões) | `data/shared/school.ts` | todos |
+| Proteção de sessão DEMO reutilizável e aluno selecionado | `lib/demo-session.ts` | todos |
+| Moldura das telas internas | `components/shared/zx-page.tsx` | todos |
+| Edição de perfil e foto (`/[role]/perfil`) | `app/[role]/perfil/page.tsx` | aluno, responsável, professor, admin |
+| Turmas, alunos e responsáveis (`/[role]/turmas`) | `app/[role]/turmas/page.tsx` | professor (só suas turmas), admin (todas) |
+| Cadastros, vínculos, avisos de cadastro e permissões (`/admin/cadastros/[section]`) | `app/[role]/cadastros/[section]/page.tsx` | admin |
+| Publicação de avisos por turma (`/[role]/comunicados`) | `app/[role]/comunicados/page.tsx` | professor e admin publicam; aluno e responsável leem |
+| Seleção real de filhos vinculados | `components/aluno/student-dashboard.tsx` | responsável |
+| Entrar/sair de grupos de estudo e aba "Grupos de estudo" no perfil | `components/social/groups/group-components.tsx`, `components/social/perfil/profile-view.tsx` | aluno, professor |
+| Vídeo-aulas concluídas/pendentes | `components/social/videos/video-components.tsx` | aluno, responsável |
+| Regras de quem pode conversar com quem | `components/social/chat/chat.tsx`, `chatAllowedKinds` em `data/shared/social.ts` | todos |
+
+Observações:
+- Notas, horários, agenda, calendário e comunicados já são telas independentes em `app/[role]/`; o texto das seções 1 e 2 que diz o contrário está desatualizado.
+- O responsável só enxerga os alunos vinculados a ele; a escolha do filho vale para notas, horários, agenda, calendário e comunicados.
