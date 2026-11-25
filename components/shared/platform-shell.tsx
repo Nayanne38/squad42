@@ -78,9 +78,12 @@ export function SideNav({
         <span>
           PROFESSOR <ChevronDown size={12} />
         </span>
-        <button>
+        <a className="nav-link" href="/funcionario/turmas">
           <BookOpen size={15} /> Minhas Turmas
-        </button>
+        </a>
+        <a className="nav-link" href="/funcionario/comunicados">
+          <Bell size={15} /> Avisos e comunicados
+        </a>
         <button>
           <ClipboardList size={15} /> Lançamento de Notas
         </button>
@@ -112,9 +115,9 @@ export function SideNav({
         <span>
           CONTA <ChevronDown size={12} />
         </span>
-        <button>
+        <a className="nav-link" href="/funcionario/perfil">
           <UserRound size={15} /> Perfil
-        </button>
+        </a>
       </div>
     </>
   );
@@ -139,15 +142,32 @@ export function SideNav({
             <span>
               CADASTRO <ChevronDown size={12} />
             </span>
-            <button>
+            <a className="nav-link" href="/admin/cadastros/alunos">
               <Users size={15} /> Alunos
-            </button>
-            <button>
+            </a>
+            <a className="nav-link" href="/admin/cadastros/responsaveis">
               <UserRound size={15} /> Responsáveis
-            </button>
-            <button>
+            </a>
+            <a className="nav-link" href="/admin/turmas">
               <BookOpen size={15} /> Turmas
-            </button>
+            </a>
+            <a className="nav-link" href="/admin/cadastros/equipe">
+              <Users size={15} /> Equipe
+            </a>
+          </div>
+          <div className="nav-section">
+            <span>
+              COMUNICAÇÃO E CONTA <ChevronDown size={12} />
+            </span>
+            <a className="nav-link" href="/admin/comunicados">
+              <Bell size={15} /> Avisos e comunicados
+            </a>
+            <a className="nav-link" href="/admin/cadastros/permissoes">
+              <ShieldAlert size={15} /> Permissões de acesso
+            </a>
+            <a className="nav-link" href="/admin/perfil">
+              <UserRound size={15} /> Perfil
+            </a>
           </div>
           <div className="nav-section">
             <span>

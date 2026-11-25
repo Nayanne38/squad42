@@ -9,8 +9,27 @@ import {
   Users,
 } from "lucide-react";
 import { Header, SideNav } from "@/components/shared/platform-shell";
+import {
+  getRegistrationNotices,
+  getUpcomingBirthdays,
+  guardians,
+  staff,
+  students,
+} from "@/data/shared/school";
+
+const adminLinks: [string, string][] = [
+  ["Gerenciar alunos", "/admin/cadastros/alunos"],
+  ["Gerenciar turmas", "/admin/turmas"],
+  ["Enviar mensagem", "/admin/comunicados"],
+  ["Mensagens em massa", "/admin/comunicados"],
+  ["Equipe", "/admin/cadastros/equipe"],
+  ["Configurações", "/admin/cadastros/permissoes"],
+];
 
 export function AdminDashboard({ onBack }: { onBack: () => void }) {
+  const notices = getRegistrationNotices();
+  const totalNotices = notices.reduce((total, item) => total + item.students.length, 0);
+  const birthdays = getUpcomingBirthdays();
   return (
     <div className="admin-shell">
       <SideNav view="admin" setView={onBack} open={false} />
@@ -23,9 +42,9 @@ export function AdminDashboard({ onBack }: { onBack: () => void }) {
               <p>Aqui está um resumo do portal hoje.</p>
             </div>
             <div className="admin-title-actions">
-              <button className="outline-button">
-                <Settings size={15} /> Personalizar
-              </button>
+              <a className="outline-button" href="/admin/perfil">
+                <Settings size={15} /> Meu perfil
+              </a>
               <button className="outline-button" onClick={onBack}>
                 Sair
               </button>
@@ -34,17 +53,17 @@ export function AdminDashboard({ onBack }: { onBack: () => void }) {
           <div className="stats">
             <div>
               <Users size={18} />
-              <b>11</b>
+              <b>{students.length}</b>
               <span>Alunos</span>
             </div>
             <div>
               <Users size={18} />
-              <b>3</b>
+              <b>{guardians.length}</b>
               <span>Responsáveis</span>
             </div>
             <div>
               <BookOpen size={18} />
-              <b>4</b>
+              <b>{staff.length}</b>
               <span>Profissionais</span>
             </div>
           </div>
@@ -52,36 +71,28 @@ export function AdminDashboard({ onBack }: { onBack: () => void }) {
             <div className="card-title">
               <span>♨</span> Aniversariantes da semana
             </div>
-            <div className="empty">
-              Nenhum aniversariante nos próximos 7 dias.
-            </div>
+            {birthdays.length === 0 ? (
+              <div className="empty">
+                Nenhum aniversariante nos próximos 7 dias.
+              </div>
+            ) : (
+              <div style={{ padding: "6px 0", fontSize: 13 }}>{birthdays.map((item) => item.name).join(", ")}</div>
+            )}
           </div>
           <div className="admin-card notices">
             <div className="card-title">
-              <ShieldAlert size={15} /> Avisos de cadastro <mark>32</mark>
+              <ShieldAlert size={15} /> Avisos de cadastro <mark>{totalNotices}</mark>
             </div>
-            {[
-              [
-                "Alunos sem responsável financeiro",
-                "Alunos ativos que não têm responsável financeiro cadastrado.",
-                "11",
-              ],
-              [
-                "Alunos sem data de nascimento",
-                "Alunos ativos cujo cadastro não tem data de nascimento.",
-                "10",
-              ],
-              ["Alunos sem foto", "Alunos ativos sem foto no cadastro.", "11"],
-            ].map(([title, description, count]) => (
-              <div className="notice" key={title}>
+            {notices.map(({ title, description, students: affected }) => (
+              <a className="notice" key={title} href="/admin/cadastros/avisos" style={{ textDecoration: "none", color: "inherit" }}>
                 <ShieldAlert size={17} />
                 <div>
                   <b>{title}</b>
                   <small>{description}</small>
                 </div>
-                <mark>{count}</mark>
+                <mark>{affected.length}</mark>
                 <ChevronDown size={14} />
-              </div>
+              </a>
             ))}
           </div>
           <div className="admin-card">
@@ -90,18 +101,11 @@ export function AdminDashboard({ onBack }: { onBack: () => void }) {
               <a href="/funcionario/rede-social/feed">
                 <MessageCircle size={16} /> Rede Social Escolar
               </a>
-              {[
-                "Gerenciar alunos",
-                "Gerenciar turmas",
-                "Enviar mensagem",
-                "Mensagens em massa",
-                "Equipe",
-                "Configurações",
-              ].map((item) => (
-                <button key={item}>
+              {adminLinks.map(([item, href]) => (
+                <a key={item} href={href}>
                   <Settings size={16} />
                   {item}
-                </button>
+                </a>
               ))}
             </div>
           </div>
