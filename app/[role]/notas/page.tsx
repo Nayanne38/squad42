@@ -4,6 +4,7 @@
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useSelectedStudent } from "@/lib/demo-session";
 
 const disciplinas = [
   { nome: "Matemática", notas: [8.0, 7.5, 9.0, 8.5] },
@@ -35,6 +36,8 @@ export default function NotasPage() {
       router.replace("/");
     }
   }, [role, router]);
+
+  const student = useSelectedStudent(role);
 
   if (!authorized) return null;
 
@@ -74,11 +77,11 @@ export default function NotasPage() {
       <section className="grades-student">
         <div>
           <small>ALUNO</small>
-          <strong>Aluno Modelo 101</strong>
+          <strong>{student.name}</strong>
         </div>
         <div>
           <small>REGISTRO ACADÊMICO</small>
-          <strong>20260011</strong>
+          <strong>{student.ra}</strong>
         </div>
         <div>
           <small>ANO LETIVO</small>

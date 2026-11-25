@@ -4,6 +4,7 @@
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useSelectedStudent } from "@/lib/demo-session";
 
 type Atividade = {
   id: number;
@@ -113,6 +114,8 @@ export default function AgendaPage() {
     }
   }, [role, router]);
 
+  const student = useSelectedStudent(role);
+
   if (!authorized) return null;
 
   function concluirAtividade(id: number) {
@@ -166,11 +169,11 @@ export default function AgendaPage() {
       <section className="agenda-student">
         <div>
           <small>ALUNO</small>
-          <strong>Aluno Modelo 101</strong>
+          <strong>{student.name}</strong>
         </div>
         <div>
           <small>REGISTRO ACADÊMICO</small>
-          <strong>20260011</strong>
+          <strong>{student.ra}</strong>
         </div>
         <div>
           <small>ANO LETIVO</small>

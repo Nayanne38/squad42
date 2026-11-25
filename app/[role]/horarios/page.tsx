@@ -4,6 +4,7 @@
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useSelectedStudent } from "@/lib/demo-session";
 
 const horarios = [
   {
@@ -83,6 +84,8 @@ export default function HorariosPage() {
     }
   }, [role, router]);
 
+  const student = useSelectedStudent(role);
+
   if (!authorized) return null;
 
   return (
@@ -106,7 +109,7 @@ export default function HorariosPage() {
       <section className="schedule-student">
         <div>
           <small>ALUNO</small>
-          <strong>Aluno Modelo 101</strong>
+          <strong>{student.name}</strong>
         </div>
         <div>
           <small>TURMA</small>
