@@ -98,7 +98,7 @@ export function AdminDashboard({ onBack }: { onBack: () => void }) {
           <div className="admin-card">
             <div className="card-title quick-title">ACESSO RÁPIDO</div>
             <div className="admin-links">
-              <a href="/funcionario/rede-social/feed">
+              <a href="/admin/rede-social/feed">
                 <MessageCircle size={16} /> Rede Social Escolar
               </a>
               {adminLinks.map(([item, href]) => (

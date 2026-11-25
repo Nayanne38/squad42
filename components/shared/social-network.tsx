@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useSessionIn } from "@/lib/demo-session";
 import { ArrowLeft, Bell, BookOpen, Home, MessageCircle, Search, Settings, Sparkles, Users, Video } from "lucide-react";
 import { mockClasses, mockGroups, mockHobbies, mockPosts, mockVideos, type SocialRole } from "@/data/shared/social";
 import { Chat } from "@/components/social/chat/chat";
@@ -22,8 +23,9 @@ const allowed: Record<SocialRole, { key: string; label: string; icon: typeof Hom
 
 function PageIntro({ title, text }: { title: string; text: string }) { return <div className="social-heading"><Badge>Rede Social Escolar</Badge><h1>{title}</h1><p>{text}</p></div>; }
 
-export default function SocialNetwork({ role = "aluno", initialSection = "feed", onBack }: { role?: SocialRole; initialSection?: string; onBack?: () => void }) {
-  const [section, setSection] = useState(initialSection);
+export default function SocialNetwork({ role = "aluno", initialSection = "feed", sessions, onBack }: { role?: SocialRole; initialSection?: string; sessions?: string[]; onBack?: () => void }) {
+  const authorized = useSessionIn(sessions ?? [role]);
+  const [requestedSection, setSection] = useState(initialSection);
   const [posts, setPosts] = useState(mockPosts);
   const [murals, setMurals] = useState(initialMurals);
   const [postsByMural, setPostsByMural] = useState(initialMuralPosts);
@@ -43,6 +45,8 @@ export default function SocialNetwork({ role = "aluno", initialSection = "feed",
   const [videoFilter, setVideoFilter] = useState<"todas" | "pendentes" | "concluidas">("todas");
   const [joinedGroupIds, setJoinedGroupIds] = useState<number[]>([1]);
   const nav = allowed[role];
+  // Só abre seções permitidas ao perfil; qualquer outra URL cai na primeira seção do menu.
+  const section = nav.some((item) => item.key === requestedSection) || (requestedSection === "publicar" && role !== "responsavel") ? requestedSection : nav[0].key;
   const current = nav.find((item) => item.key === section) ?? nav[0];
   const profile = profileLabels[role];
   const publish = (text: string) => { const id = Date.now(); setOwnPostIds((currentIds) => [...currentIds, id]); setPosts((currentPosts) => [{ ...mockPosts[0], id, name: profile, profile: role === "aluno" ? "Aluno" : "Professora", initials: role === "aluno" ? "AM" : "FL", color: role === "aluno" ? "blue" : "purple", date: "Agora", text, likes: 0, comments: 0, image: undefined }, ...currentPosts]); };
@@ -103,6 +107,8 @@ export default function SocialNetwork({ role = "aluno", initialSection = "feed",
   if (section === "perfil") content = <ProfileView role={role} posts={posts} ownPostIds={ownPostIds} likedPosts={likedPosts} groups={studyGroups} joinedIds={joinedGroupIds} />;
   if (section === "publicar") content = <><PageIntro title="Criar mural" text="Crie um espaço para compartilhar comunicados e novidades com a comunidade escolar." /><form className="social-card publish-form" onSubmit={createMural}><label htmlFor="mural-title">Nome do mural</label><input id="mural-title" value={newMuralTitle} onChange={(event) => setNewMuralTitle(event.target.value)} placeholder="Ex.: Feira de Ciências" required /><label htmlFor="mural-description">Descrição</label><textarea id="mural-description" value={newMuralDescription} onChange={(event) => setNewMuralDescription(event.target.value)} placeholder="Descreva o objetivo deste mural..." required /><button className="primary-button" type="submit">Criar mural</button></form></>;
   if (section === "turmas") content = <><PageIntro title="Turmas" text="Gerencie as turmas e acompanhe a comunidade de cada sala." /><div className="classes-table">{mockClasses.map((item) => <div className="class-row" key={item.id}><div className="group-icon blue"><Users /></div><div><b>{item.name}</b><small>{item.subject} · {item.room}</small></div><Badge>{item.students} alunos</Badge></div>)}</div></>;
+
+  if (!authorized) return null;
 
   return <div className="social-shell"><aside className="social-nav"><div className="social-brand"><img src={logo} alt="CEPI" /><div><b>ZENIX EDUCATION</b><small>Rede Social Escolar</small></div></div><button className="back-platform" onClick={() => window.history.back()}><ArrowLeft /> Voltar à plataforma</button><nav>{nav.map((item) => { const Icon = item.icon; return <button className={section === item.key ? "active" : ""} key={item.key} onClick={() => setSection(item.key)}><Icon />{item.label}</button>; })}</nav><div className="social-user"><Avatar initials={role === "funcionario" ? "FL" : "AM"} color="green" /><span><b>{profile}</b><small>Perfil conectado</small></span></div></aside><main className="social-main"><header className="social-header"><div><b>Rede Social Escolar</b><small>Conecte-se, compartilhe e aprenda</small></div><div className="social-header-actions"><Search /><Bell /><Avatar initials={role === "funcionario" ? "FL" : "AM"} color="green" /></div></header><div className="social-content">{content}</div></main>{video && <VideoModal video={video} watched={watchedVideoIds.includes(video.id)} onComplete={() => setWatchedVideoIds((current) => current.includes(video.id) ? current : [...current, video.id])} onClose={() => setVideo(null)} />}</div>;
 }

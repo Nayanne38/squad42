@@ -29,6 +29,29 @@ export function useDemoGuard(role: string, allowed: readonly string[]) {
   return authorized;
 }
 
+/** Libera a tela quando a sessão DEMO é de qualquer um dos perfis informados (ex.: administrador também acessa a área do funcionário). */
+export function useSessionIn(sessions: readonly string[]) {
+  const router = useRouter();
+  const [authorized, setAuthorized] = useState(false);
+  const key = sessions.join("|");
+
+  useEffect(() => {
+    let session: string | null = null;
+    try {
+      session = sessionStorage.getItem(DEMO_SESSION_KEY);
+    } catch {
+      session = null;
+    }
+    if (session && key.split("|").includes(session)) {
+      setAuthorized(true);
+    } else {
+      router.replace("/");
+    }
+  }, [key, router]);
+
+  return authorized;
+}
+
 /** Aluno exibido nas telas acadêmicas (para o responsável, o filho selecionado no dashboard). */
 export function useSelectedStudent(role: string) {
   const [student, setStudent] = useState<Student>(() => resolveStudentForRole(role, null));
