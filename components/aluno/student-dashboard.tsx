@@ -88,7 +88,10 @@ export function StudentDashboard({
           </div>
         ) : (
           <div className="card-title">
-            <Megaphone size={16} /> Comunicados recentes <a>Ver todos →</a>
+            <Megaphone size={16} /> Comunicados recentes
+            <Link href={`/${routeRole}/comunicados`}>
+              Ver todos →
+            </Link>
           </div>
         )}
         <div className="card-title quick-title">ACESSO RÁPIDO</div>
