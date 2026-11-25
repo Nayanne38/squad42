@@ -5,6 +5,7 @@ import {
   ChevronRight,
   ClipboardList,
   GraduationCap,
+  ShieldCheck,
   Users,
 } from "lucide-react";
 import { AdminDashboard } from "@/components/administrador/admin-dashboard";
@@ -17,7 +18,7 @@ import {
 const cepiLogo =
   "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-7Ezo2vTuYX5AbUDY3GNV6xgjvUfGqs.png";
 
-type Role = "Aluno" | "Responsável" | "Funcionário";
+type Role = "Aluno" | "Responsável" | "Funcionário" | "Administrador";
 
 function RoleCard({
   role,
@@ -42,7 +43,9 @@ function RoleCard({
             ? "Acesse notas, horários e comunicados"
             : role === "Responsável"
               ? "Acompanhe o desempenho do seu filho"
-              : "Acesse o painel administrativo"}
+              : role === "Funcionário"
+                ? "Gerencie turmas, avisos e a rede social"
+                : "Acesse o painel administrativo"}
         </small>
       </div>
       <ChevronRight size={19} />
@@ -82,6 +85,12 @@ function Home({ go: _go }: { go: (view: View) => void }) {
             icon={ClipboardList}
             color="olive"
             href="/login/funcionario"
+          />
+          <RoleCard
+            role="Administrador"
+            icon={ShieldCheck}
+            color="blue"
+            href="/login/admin"
           />
         </div>
         <footer>© 2025 Zenix Education · Todos os direitos reservados</footer>

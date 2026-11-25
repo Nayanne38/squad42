@@ -28,6 +28,13 @@ const roleCopy = {
     alternateEmail: "admin@zenixeducation.com.br",
     alternatePassword: "ZxygsZeQg3Hp#88",
   },
+  admin: {
+    title: "Login do Administrador",
+    subtitle: "Acesse cadastros, turmas, avisos e permissões.",
+    label: "Administrador",
+    email: "admin@zenixeducation.com.br",
+    password: "ZxygsZeQg3Hp#88",
+  },
 } as const;
 
 export default function LoginPage() {
@@ -39,7 +46,9 @@ export default function LoginPage() {
       ? "/aluno"
       : role === "responsavel"
         ? "/responsavel"
-        : "/funcionario";
+        : role === "admin"
+          ? "/admin"
+          : "/funcionario";
   // Login de demonstração já preenchido: basta clicar em "Entrar".
   const [email, setEmail] = useState<string>(copy.email);
   const [password, setPassword] = useState<string>(copy.password);
