@@ -39,6 +39,9 @@ export default function SocialNetwork({ role = "aluno", initialSection = "feed",
   const [ownPostIds, setOwnPostIds] = useState<number[]>([]);
   const [commentsByPost, setCommentsByPost] = useState<Record<number, string[]>>({});
   const [video, setVideo] = useState<(typeof mockVideos)[number] | null>(null);
+  const [watchedVideoIds, setWatchedVideoIds] = useState<number[]>([]);
+  const [videoFilter, setVideoFilter] = useState<"todas" | "pendentes" | "concluidas">("todas");
+  const [joinedGroupIds, setJoinedGroupIds] = useState<number[]>([1]);
   const nav = allowed[role];
   const current = nav.find((item) => item.key === section) ?? nav[0];
   const profile = profileLabels[role];
@@ -55,6 +58,15 @@ export default function SocialNetwork({ role = "aluno", initialSection = "feed",
     setNewMuralTitle("");
     setNewMuralDescription("");
     setSection("murais");
+  };
+  const toggleJoin = (groupId: number) => {
+    const joined = joinedGroupIds.includes(groupId);
+    setJoinedGroupIds((current) => joined ? current.filter((id) => id !== groupId) : [...current, groupId]);
+    setStudyGroups((current) => current.map((group) => {
+      if (group.id !== groupId) return group;
+      const total = Math.max(0, (parseInt(group.members, 10) || 0) + (joined ? -1 : 1));
+      return { ...group, members: `${total} ${total === 1 ? "participante" : "participantes"}` };
+    }));
   };
   const like = (postId: number) => { const liked = likedPosts.includes(postId); setLikedPosts((currentIds) => liked ? currentIds.filter((id) => id !== postId) : [...currentIds, postId]); setPosts((currentPosts) => currentPosts.map((post) => post.id === postId ? { ...post, likes: post.likes + (liked ? -1 : 1) } : post)); };
   const comment = (postId: number, text: string) => { setCommentsByPost((current) => ({ ...current, [postId]: [...(current[postId] ?? []), text] })); setPosts((currentPosts) => currentPosts.map((post) => post.id === postId ? { ...post, comments: post.comments + 1 } : post)); };
@@ -81,13 +93,16 @@ export default function SocialNetwork({ role = "aluno", initialSection = "feed",
   
   let content: React.ReactNode = feed;
   if (section === "murais") content = <MuralView role={role} murals={murals} postsByMural={postsByMural} setPostsByMural={setPostsByMural} ownPostIdsByMural={ownPostIdsByMural} setOwnPostIdsByMural={setOwnPostIdsByMural} onNavigateToCreateMural={() => setSection("publicar")} />;
-  if (section === "video-aulas") content = <><PageIntro title="Vídeo-aulas" text="Aprenda no seu ritmo com os conteúdos dos seus professores." /><div className="video-grid">{mockVideos.map((item) => <VideoCard key={item.id} video={item} onOpen={setVideo} />)}</div></>;
-  if (section === "grupos") content = <StudyGroupsView role={role} groups={studyGroups} setGroups={setStudyGroups} groupPosts={groupPosts} setGroupPosts={setGroupPosts} ownPostIdsByGroup={ownPostIdsByGroup} setOwnPostIdsByGroup={setOwnPostIdsByGroup} likedPostIdsByGroup={likedPostIdsByGroup} setLikedPostIdsByGroup={setLikedPostIdsByGroup} commentsByGroup={commentsByGroup} setCommentsByGroup={setCommentsByGroup} />;
+  if (section === "video-aulas") {
+    const visibleVideos = mockVideos.filter((item) => videoFilter === "todas" || (videoFilter === "concluidas") === watchedVideoIds.includes(item.id));
+    content = <><PageIntro title="Vídeo-aulas" text="Aprenda no seu ritmo com os conteúdos dos seus professores." /><p className="video-progress">{watchedVideoIds.length} de {mockVideos.length} aulas concluídas · {mockVideos.length - watchedVideoIds.length} pendentes</p><div className="zx-tabs">{([["todas", "Todas"], ["pendentes", "Pendentes"], ["concluidas", "Concluídas"]] as const).map(([key, label]) => <button key={key} className={videoFilter === key ? "active" : ""} onClick={() => setVideoFilter(key)}>{label}</button>)}</div>{visibleVideos.length === 0 ? <p className="zx-empty">Nenhuma vídeo-aula nesta lista.</p> : <div className="video-grid">{visibleVideos.map((item) => <VideoCard key={item.id} video={item} watched={watchedVideoIds.includes(item.id)} onOpen={setVideo} />)}</div>}</>;
+  }
+  if (section === "grupos") content = <StudyGroupsView role={role} joinedIds={joinedGroupIds} onToggleJoin={toggleJoin} groups={studyGroups} setGroups={setStudyGroups} groupPosts={groupPosts} setGroupPosts={setGroupPosts} ownPostIdsByGroup={ownPostIdsByGroup} setOwnPostIdsByGroup={setOwnPostIdsByGroup} likedPostIdsByGroup={likedPostIdsByGroup} setLikedPostIdsByGroup={setLikedPostIdsByGroup} commentsByGroup={commentsByGroup} setCommentsByGroup={setCommentsByGroup} />;
   if (section === "hobbies") content = <><PageIntro title="Hobbies" text="Descubra interesses em comum com a comunidade escolar." /><div className="hobbies-grid">{mockHobbies.map((hobby) => <HobbyCard key={hobby.id} hobby={hobby} />)}</div></>;
-  if (section === "chat") content = <Chat />;
-  if (section === "perfil") content = <ProfileView role={role} posts={posts} ownPostIds={ownPostIds} likedPosts={likedPosts} />;
+  if (section === "chat") content = <Chat role={role} />;
+  if (section === "perfil") content = <ProfileView role={role} posts={posts} ownPostIds={ownPostIds} likedPosts={likedPosts} groups={studyGroups} joinedIds={joinedGroupIds} />;
   if (section === "publicar") content = <><PageIntro title="Criar mural" text="Crie um espaço para compartilhar comunicados e novidades com a comunidade escolar." /><form className="social-card publish-form" onSubmit={createMural}><label htmlFor="mural-title">Nome do mural</label><input id="mural-title" value={newMuralTitle} onChange={(event) => setNewMuralTitle(event.target.value)} placeholder="Ex.: Feira de Ciências" required /><label htmlFor="mural-description">Descrição</label><textarea id="mural-description" value={newMuralDescription} onChange={(event) => setNewMuralDescription(event.target.value)} placeholder="Descreva o objetivo deste mural..." required /><button className="primary-button" type="submit">Criar mural</button></form></>;
   if (section === "turmas") content = <><PageIntro title="Turmas" text="Gerencie as turmas e acompanhe a comunidade de cada sala." /><div className="classes-table">{mockClasses.map((item) => <div className="class-row" key={item.id}><div className="group-icon blue"><Users /></div><div><b>{item.name}</b><small>{item.subject} · {item.room}</small></div><Badge>{item.students} alunos</Badge></div>)}</div></>;
 
-  return <div className="social-shell"><aside className="social-nav"><div className="social-brand"><img src={logo} alt="CEPI" /><div><b>ZENIX EDUCATION</b><small>Rede Social Escolar</small></div></div><button className="back-platform" onClick={() => window.history.back()}><ArrowLeft /> Voltar à plataforma</button><nav>{nav.map((item) => { const Icon = item.icon; return <button className={section === item.key ? "active" : ""} key={item.key} onClick={() => setSection(item.key)}><Icon />{item.label}</button>; })}</nav><div className="social-user"><Avatar initials={role === "funcionario" ? "FL" : "AM"} color="green" /><span><b>{profile}</b><small>Perfil conectado</small></span></div></aside><main className="social-main"><header className="social-header"><div><b>Rede Social Escolar</b><small>Conecte-se, compartilhe e aprenda</small></div><div className="social-header-actions"><Search /><Bell /><Avatar initials={role === "funcionario" ? "FL" : "AM"} color="green" /></div></header><div className="social-content">{content}</div></main>{video && <VideoModal video={video} onClose={() => setVideo(null)} />}</div>;
+  return <div className="social-shell"><aside className="social-nav"><div className="social-brand"><img src={logo} alt="CEPI" /><div><b>ZENIX EDUCATION</b><small>Rede Social Escolar</small></div></div><button className="back-platform" onClick={() => window.history.back()}><ArrowLeft /> Voltar à plataforma</button><nav>{nav.map((item) => { const Icon = item.icon; return <button className={section === item.key ? "active" : ""} key={item.key} onClick={() => setSection(item.key)}><Icon />{item.label}</button>; })}</nav><div className="social-user"><Avatar initials={role === "funcionario" ? "FL" : "AM"} color="green" /><span><b>{profile}</b><small>Perfil conectado</small></span></div></aside><main className="social-main"><header className="social-header"><div><b>Rede Social Escolar</b><small>Conecte-se, compartilhe e aprenda</small></div><div className="social-header-actions"><Search /><Bell /><Avatar initials={role === "funcionario" ? "FL" : "AM"} color="green" /></div></header><div className="social-content">{content}</div></main>{video && <VideoModal video={video} watched={watchedVideoIds.includes(video.id)} onComplete={() => setWatchedVideoIds((current) => current.includes(video.id) ? current : [...current, video.id])} onClose={() => setVideo(null)} />}</div>;
 }

@@ -35,8 +35,10 @@ export type Hobby = {
   emoji: string;
   color: string;
 };
+export type ContactKind = "professor" | "coordenacao" | "aluno" | "responsavel";
 export type Contact = {
   id: number;
+  kind?: ContactKind;
   name: string;
   profile: string;
   initials: string;
@@ -190,6 +192,7 @@ export const mockHobbies: Hobby[] = [
 export const mockContacts: Contact[] = [
   {
     id: 1,
+    kind: "professor",
     name: "Mariana Costa",
     profile: "Professora de Ciências",
     initials: "MC",
@@ -198,6 +201,7 @@ export const mockContacts: Contact[] = [
   },
   {
     id: 2,
+    kind: "aluno",
     name: "João Pedro",
     profile: "Aluno · 8º Ano A",
     initials: "JP",
@@ -206,6 +210,7 @@ export const mockContacts: Contact[] = [
   },
   {
     id: 3,
+    kind: "coordenacao",
     name: "Fernanda Lima",
     profile: "Coordenação Pedagógica",
     initials: "FL",
@@ -214,13 +219,30 @@ export const mockContacts: Contact[] = [
   },
   {
     id: 4,
+    kind: "professor",
     name: "Ana Beatriz",
     profile: "Professora de Inglês",
     initials: "AB",
     color: "orange",
     online: true,
   },
+  {
+    id: 5,
+    kind: "responsavel",
+    name: "Carlos Pedro",
+    profile: "Responsável de João Pedro",
+    initials: "CP",
+    color: "blue",
+    online: false,
+  },
 ];
+
+/** Quem cada perfil pode iniciar conversa (controle de privacidade do chat). */
+export const chatAllowedKinds: Record<SocialRole, ContactKind[]> = {
+  aluno: ["professor", "coordenacao", "aluno"],
+  responsavel: ["professor", "coordenacao"],
+  funcionario: ["professor", "coordenacao", "aluno", "responsavel"],
+};
 export const mockMessages: Message[] = [
   {
     id: 1,

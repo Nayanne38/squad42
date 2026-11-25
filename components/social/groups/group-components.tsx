@@ -6,12 +6,14 @@ import { type Group, type Post, type SocialRole } from "@/data/shared/social";
 import { PostCard, PostComposer } from "@/components/social/feed/feed-components";
 import { Badge, PageIntro } from "@/components/social/shared/social-ui";
 
-export function GroupCard({ group, onClick }: { group: Group; onClick: () => void }) {
-  return <button className="group-card" onClick={onClick}><div className={`group-icon ${group.color}`}>{group.icon}</div><div><b>{group.title}</b><small>{group.subject}</small><span>{group.members}</span></div><ChevronRight /></button>;
+export function GroupCard({ group, joined = false, onClick }: { group: Group; joined?: boolean; onClick: () => void }) {
+  return <button className="group-card" onClick={onClick}><div className={`group-icon ${group.color}`}>{group.icon}</div><div><b>{group.title}</b><small>{group.subject}</small><span>{group.members}{joined ? " · Participando" : ""}</span></div><ChevronRight /></button>;
 }
 
 export function StudyGroupsView({
   role,
+  joinedIds,
+  onToggleJoin,
   groups,
   setGroups,
   groupPosts,
@@ -24,6 +26,8 @@ export function StudyGroupsView({
   setCommentsByGroup,
 }: {
   role: SocialRole;
+  joinedIds: number[];
+  onToggleJoin: (groupId: number) => void;
   groups: Group[];
   setGroups: Dispatch<SetStateAction<Group[]>>;
   groupPosts: Record<number, Post[]>;
@@ -143,7 +147,7 @@ export function StudyGroupsView({
       {role === "funcionario" && <div className="direita"><button className="primary-button" onClick={() => setCreatingGroup(true)}>Criar grupo</button></div>}
       <div className="groups-grid">
         {groups.map((group) => (
-          <GroupCard key={group.id} group={group} onClick={() => setActiveGroupId(group.id)} />
+          <GroupCard key={group.id} group={group} joined={role !== "funcionario" && joinedIds.includes(group.id)} onClick={() => setActiveGroupId(group.id)} />
         ))}
       </div>
     </>;
@@ -152,9 +156,18 @@ export function StudyGroupsView({
   return <>
     <button className="back-platform" onClick={() => setActiveGroupId(null)}><ArrowLeft /> Voltar aos grupos</button>
     <PageIntro title={activeGroup.title} text={`${activeGroup.subject} · ${activeGroup.members}`} />
+    {role === "funcionario"
+      ? <p className="zx-notice">Como professor, você acompanha as discussões deste grupo e pode participar a qualquer momento.</p>
+      : <div className="zx-actions">
+          <button className={joinedIds.includes(activeGroup.id) ? "outline-button" : "primary-button"} onClick={() => onToggleJoin(activeGroup.id)}>
+            {joinedIds.includes(activeGroup.id) ? "Sair do grupo" : "Entrar no grupo"}
+          </button>
+        </div>}
     <div className="social-card mural-card">
       <Badge>Mural do grupo de estudo</Badge>
-       <PostComposer role={role} onPublish={publishPost} />
+       {role === "funcionario" || joinedIds.includes(activeGroup.id)
+        ? <PostComposer role={role} onPublish={publishPost} />
+        : <p className="zx-notice">Entre no grupo para publicar e comentar.</p>}
     {posts.length > 0 ? <div className="feed-list">
       {posts.map((post) => (
         <PostCard

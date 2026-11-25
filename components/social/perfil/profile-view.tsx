@@ -1,9 +1,15 @@
+"use client";
+
+import { useState } from "react";
+import Link from "next/link";
 import { Pencil } from "lucide-react";
-import { mockPosts, type SocialRole } from "@/data/shared/social";
+import { mockPosts, type Group, type SocialRole } from "@/data/shared/social";
 import { Avatar } from "@/components/social/shared/social-ui";
 import { PostCardProfile } from "@/components/social/feed/feed-components";
 
-export function ProfileView({ role, posts, ownPostIds, likedPosts }: { role: SocialRole; posts: typeof mockPosts; ownPostIds: number[]; likedPosts: number[] }) {
+export function ProfileView({ role, posts, ownPostIds, likedPosts, groups = [], joinedIds = [] }: { role: SocialRole; posts: typeof mockPosts; ownPostIds: number[]; likedPosts: number[]; groups?: Group[]; joinedIds?: number[] }) {
+  const [tab, setTab] = useState<"posts" | "groups">("posts");
+  const myGroups = role === "funcionario" ? groups : groups.filter((group) => joinedIds.includes(group.id));
   const profileLabels = { aluno: "Aluno Modelo 101", responsavel: "Responsável Modelo", funcionario: "Fernanda Lima" };
   const profilePosts = posts.filter((post) => post.name === profileLabels[role] || ownPostIds.includes(post.id));
   const lPosts = posts.filter((post) => post.name === profileLabels[role] || likedPosts.includes(post.id));
@@ -20,16 +26,19 @@ export function ProfileView({ role, posts, ownPostIds, likedPosts }: { role: Soc
       <h2>{profileLabels[role]}</h2>
       <p>{role === "aluno" ? "Aluno · 8º Ano A" : role === "responsavel" ? "Responsável de Aluno Modelo 101" : "Coordenação Pedagógica"}</p>
     </div>
-    <label className="outline-button"><input type="file" className="invisible" accept="image/*" /><Pencil />Editar Foto de Perfil</label>
+    <Link className="outline-button" href={`/${role}/perfil`}><Pencil />Editar perfil e foto</Link>
   </div>
     
   <div className="profile-tabs">
-    <button className="active">Publicações</button>
-    <button>Grupos de estudo</button>
+    <button className={tab === "posts" ? "active" : ""} onClick={() => setTab("posts")}>Publicações</button>
+    {role !== "responsavel" && <button className={tab === "groups" ? "active" : ""} onClick={() => setTab("groups")}>Grupos de estudo</button>}
   </div>
   
-  <div className="feed-list">{profilePosts.filter((p) => lPosts.includes(p)).map((post) => 
+  {tab === "groups" ? (myGroups.length > 0
+    ? <div className="groups-grid">{myGroups.map((group) => <div className="group-card" key={group.id}><div className={`group-icon ${group.color}`}>{group.icon}</div><div><b>{group.title}</b><small>{group.subject}</small><span>{group.members}</span></div></div>)}</div>
+    : <p className="zx-empty">Você ainda não participa de nenhum grupo de estudo.</p>)
+  : <div className="feed-list">{profilePosts.filter((p) => lPosts.includes(p)).map((post) => 
     <PostCardProfile key={post.id} post={post}  />)}
-  </div>
+  </div>}
 </>;
 }
