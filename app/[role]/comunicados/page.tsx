@@ -1,9 +1,14 @@
 "use client";
 
-import { useParams, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
+import { useEffect, useState, type FormEvent } from "react";
 import { Megaphone } from "lucide-react";
 import Link from "next/link";
+import { useDemoGuard } from "@/lib/demo-session";
+import { getClass, readSelectedStudent, schoolClasses } from "@/data/shared/school";
+
+const STORAGE_KEY = "zenix-comunicados-publicados";
+const PUBLISHERS = ["funcionario", "admin"];
 
 type Comunicado = {
   id: number;
@@ -13,6 +18,9 @@ type Comunicado = {
   data: string;
   importante: boolean;
   lido: boolean;
+  /** Turma que recebe o aviso; vazio = todas as turmas. */
+  turma?: string;
+  publicado?: boolean;
 };
 
 const comunicadosIniciais: Comunicado[] = [
@@ -76,35 +84,86 @@ function formatarData(data: string) {
 
 export default function ComunicadosPage() {
   const { role } = useParams<{ role: string }>();
-  const router = useRouter();
 
-  const [authorized, setAuthorized] = useState(false);
-  const [comunicados, setComunicados] = useState(comunicadosIniciais);
+  const authorized = useDemoGuard(role, ["aluno", "responsavel", "funcionario", "admin"]);
+  const podePublicar = PUBLISHERS.includes(role);
+  const [publicados, setPublicados] = useState<Comunicado[]>([]);
+  const [lidos, setLidos] = useState<number[]>([]);
+  const [turmaDoAluno, setTurmaDoAluno] = useState("");
   const [filtro, setFiltro] = useState("todos");
+  const [titulo, setTitulo] = useState("");
+  const [mensagemNova, setMensagemNova] = useState("");
+  const [turmaDestino, setTurmaDestino] = useState("");
+  const [importanteNovo, setImportanteNovo] = useState(false);
+  const [erro, setErro] = useState("");
+  const [sucesso, setSucesso] = useState("");
 
   useEffect(() => {
-    const session = sessionStorage.getItem("zenix-demo-session");
-
-    if (
-      session === role &&
-      (role === "aluno" || role === "responsavel")
-    ) {
-      setAuthorized(true);
-    } else {
-      router.replace("/");
+    try {
+      const salvo = localStorage.getItem(STORAGE_KEY);
+      if (salvo) setPublicados(JSON.parse(salvo));
+    } catch {
+      /* sem armazenamento: apenas os comunicados iniciais */
     }
-  }, [role, router]);
+    if (role === "aluno" || role === "responsavel") {
+      setTurmaDoAluno(getClass(readSelectedStudent(role).classId)?.name ?? "");
+    }
+  }, [role]);
 
   if (!authorized) return null;
 
+  const todos = [...publicados, ...comunicadosIniciais].map((item) => ({
+    ...item,
+    lido: item.lido || lidos.includes(item.id) || podePublicar,
+  }));
+  // Aluno e responsável só veem avisos de todas as turmas ou da turma do aluno selecionado.
+  const comunicados = todos.filter(
+    (item) => podePublicar || !item.turma || item.turma === turmaDoAluno
+  );
+
+  function salvarPublicados(lista: Comunicado[]) {
+    setPublicados(lista);
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(lista));
+    } catch {
+      /* ignora */
+    }
+  }
+
+  function publicar(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setSucesso("");
+    if (titulo.trim().length < 3) return setErro("Informe um título com pelo menos 3 caracteres.");
+    if (mensagemNova.trim().length < 5) return setErro("Escreva a mensagem do aviso.");
+    setErro("");
+    const hoje = new Date();
+    const data = `${hoje.getFullYear()}-${String(hoje.getMonth() + 1).padStart(2, "0")}-${String(hoje.getDate()).padStart(2, "0")}`;
+    salvarPublicados([
+      {
+        id: Date.now(),
+        titulo: titulo.trim(),
+        mensagem: mensagemNova.trim(),
+        remetente: role === "admin" ? "Administração" : "Fernanda Lima · Professora",
+        data,
+        importante: importanteNovo,
+        lido: false,
+        turma: turmaDestino || undefined,
+        publicado: true,
+      },
+      ...publicados,
+    ]);
+    setTitulo("");
+    setMensagemNova("");
+    setImportanteNovo(false);
+    setSucesso("Aviso publicado! Alunos e responsáveis da turma já podem vê-lo.");
+  }
+
+  function excluirPublicado(id: number) {
+    salvarPublicados(publicados.filter((item) => item.id !== id));
+  }
+
   function marcarComoLido(id: number) {
-    setComunicados((atuais) =>
-      atuais.map((comunicado) =>
-        comunicado.id === id
-          ? { ...comunicado, lido: true }
-          : comunicado
-      )
-    );
+    setLidos((atuais) => (atuais.includes(id) ? atuais : [...atuais, id]));
   }
 
   const comunicadosFiltrados = comunicados.filter((item) => {
@@ -140,7 +199,11 @@ export default function ComunicadosPage() {
         <div>
           <small>ÁREA ACADÊMICA</small>
           <h1>Comunicados</h1>
-          <p>Acompanhe os avisos e informações da escola.</p>
+          <p>
+            {podePublicar
+              ? "Publique avisos para as turmas e acompanhe os comunicados enviados."
+              : "Acompanhe os avisos e informações da escola."}
+          </p>
         </div>
 
         <div className="comunicados-avatar">
@@ -153,6 +216,34 @@ export default function ComunicadosPage() {
           <h2>Avisos e comunicados</h2>
           <p>Fique por dentro das novidades escolares.</p>
         </div>
+
+        {podePublicar && (
+          <form className="comunicados-compose" onSubmit={publicar} noValidate>
+            <strong>Publicar novo aviso</strong>
+            <label htmlFor="aviso-titulo">Título</label>
+            <input id="aviso-titulo" type="text" value={titulo} onChange={(e) => setTitulo(e.target.value)} />
+            <label htmlFor="aviso-mensagem">Mensagem</label>
+            <textarea id="aviso-mensagem" value={mensagemNova} onChange={(e) => setMensagemNova(e.target.value)} />
+            <label htmlFor="aviso-turma">Destinatários</label>
+            <select id="aviso-turma" value={turmaDestino} onChange={(e) => setTurmaDestino(e.target.value)}>
+              <option value="">Todas as turmas</option>
+              {schoolClasses.map((item) => (
+                <option key={item.id} value={item.name}>
+                  {item.name}
+                </option>
+              ))}
+            </select>
+            <label className="comunicados-check">
+              <input type="checkbox" checked={importanteNovo} onChange={(e) => setImportanteNovo(e.target.checked)} />
+              Marcar como importante
+            </label>
+            {erro && <p className="zx-error">{erro}</p>}
+            {sucesso && <p className="zx-success" role="status">{sucesso}</p>}
+            <div className="zx-actions">
+              <button type="submit" className="primary-button">Publicar aviso</button>
+            </div>
+          </form>
+        )}
 
         <div className="comunicados-summary">
           <div>
@@ -218,12 +309,19 @@ export default function ComunicadosPage() {
 
                 <small className="comunicados-sender">
                   {item.remetente}
+                  {item.turma ? ` · ${item.turma}` : ""}
                 </small>
 
                 <h3>{item.titulo}</h3>
                 <p>{item.mensagem}</p>
 
-                {!item.lido ? (
+                {podePublicar ? (
+                  item.publicado ? (
+                    <button className="comunicados-read" onClick={() => excluirPublicado(item.id)}>
+                      Excluir aviso
+                    </button>
+                  ) : null
+                ) : !item.lido ? (
                   <button
                     className="comunicados-read"
                     onClick={() => marcarComoLido(item.id)}
