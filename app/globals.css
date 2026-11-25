@@ -3668,3 +3668,23 @@ button.zx-card.selected {
     gap: 10px;
   }
 }
+
+.login-demo-switch {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+  font-size: 12px;
+}
+.login-demo-switch button {
+  flex: 1;
+  border: 1px solid #dce5ef;
+  background: white;
+  color: #17385c;
+  border-radius: 8px;
+  padding: 8px;
+  font-weight: 600;
+}
+.login-demo-switch button:hover {
+  border-color: #1b8a45;
+  color: #075126;
+}

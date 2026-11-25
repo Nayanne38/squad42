@@ -40,8 +40,9 @@ export default function LoginPage() {
       : role === "responsavel"
         ? "/responsavel"
         : "/funcionario";
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  // Login de demonstração já preenchido: basta clicar em "Entrar".
+  const [email, setEmail] = useState<string>(copy.email);
+  const [password, setPassword] = useState<string>(copy.password);
   const [message, setMessage] = useState("");
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -119,6 +120,30 @@ export default function LoginPage() {
             Entrar
           </button>
         </form>
+        {"alternateEmail" in copy && (
+          <div className="login-demo-switch">
+            <button
+              type="button"
+              onClick={() => {
+                setEmail(copy.email);
+                setPassword(copy.password);
+                setMessage("");
+              }}
+            >
+              Professor
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setEmail(copy.alternateEmail);
+                setPassword(copy.alternatePassword);
+                setMessage("");
+              }}
+            >
+              Administrador
+            </button>
+          </div>
+        )}
         {message && (
           <p
             className={`login-message ${message.startsWith("Acesso") ? "success" : "error"}`}
@@ -128,7 +153,8 @@ export default function LoginPage() {
           </p>
         )}
         <p className="login-note">
-          Use suas credenciais institucionais para acessar a plataforma.
+          Modo demonstração: o login deste perfil já vem preenchido, é só
+          clicar em Entrar.
         </p>
       </section>
       <section
