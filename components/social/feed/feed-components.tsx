@@ -1,8 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import { Heart, ImagePlus, MessageCircle, MoreHorizontal, Send } from "lucide-react";
-import { mockPosts, type SocialRole } from "@/data/shared/social";
+import { Heart, MessageCircle, MoreHorizontal, Paperclip, Send, X } from "lucide-react";
+import { formatFileSize, mockPosts, type Attachment, type SocialRole } from "@/data/shared/social";
+
+const MAX_FILES = 3;
+const MAX_FILE_BYTES = 5 * 1024 * 1024;
+
+function AttachmentList({ attachments }: { attachments?: Attachment[] }) {
+  if (!attachments?.length) return null;
+  return <div className="attachment-list">{attachments.map((file, index) => <span className="attachment-chip" key={`${file.name}-${index}`}><Paperclip size={13} />{file.name}<small>{file.size}</small></span>)}</div>;
+}
 import { Avatar } from "@/components/social/shared/social-ui";
 
 export function PostCard({
@@ -61,6 +69,7 @@ export function PostCard({
         </form>
       ) : <p>{post.text}</p>}
       {post.image && <img className="post-image" src={post.image} alt="Registro de atividade escolar" />}
+      <AttachmentList attachments={post.attachments} />
       <div className="post-actions">
         <button className={liked ? "liked" : ""} onClick={onLike} aria-pressed={liked}>
           <Heart fill={liked ? "currentColor" : "none"} /> {post.likes}
@@ -106,13 +115,36 @@ export function PostCardProfile({
       </div>
       <p>{post.text}</p>
       {post.image && <img className="post-image" src={post.image} alt="Registro de atividade escolar" />}
+      <AttachmentList attachments={post.attachments} />
     </article>
   );
 }
 
 
-export function PostComposer({ role, onPublish }: { role: SocialRole; onPublish: (text: string) => void }) {
+export function PostComposer({ role, onPublish }: { role: SocialRole; onPublish: (text: string, attachments?: Attachment[], image?: string) => void }) {
   const [text, setText] = useState("");
+  const [files, setFiles] = useState<File[]>([]);
+  const [fileError, setFileError] = useState("");
+
+  const addFiles = (list: FileList | null) => {
+    if (!list) return;
+    const incoming = Array.from(list);
+    const tooBig = incoming.find((file) => file.size > MAX_FILE_BYTES);
+    if (tooBig) return setFileError(`"${tooBig.name}" passa de 5 MB.`);
+    if (files.length + incoming.length > MAX_FILES) return setFileError(`Anexe no máximo ${MAX_FILES} arquivos por publicação.`);
+    setFileError("");
+    setFiles((current) => [...current, ...incoming]);
+  };
+  const publish = () => {
+    const firstImage = files.find((file) => file.type.startsWith("image/"));
+    onPublish(
+      text,
+      files.filter((file) => file !== firstImage).map((file) => ({ name: file.name, size: formatFileSize(file.size) })),
+      firstImage ? URL.createObjectURL(firstImage) : undefined,
+    );
+    setText("");
+    setFiles([]);
+  };
   const profileLabels = { aluno: "Aluno Modelo 101", responsavel: "Responsável Modelo", funcionario: "Fernanda Lima" };
   const currentName = profileLabels[role];
   const initials = role === "funcionario" ? "FL" : "AM";
@@ -122,8 +154,10 @@ export function PostComposer({ role, onPublish }: { role: SocialRole; onPublish:
       <div className="post-head"><Avatar initials={initials} color={role === "funcionario" ? "purple" : "blue"} /><div><b>{currentName}</b><small>Compartilhe algo com a comunidade</small></div></div>
       <textarea value={text} onChange={(event) => setText(event.target.value)} placeholder="No que você está pensando?" aria-label="Texto da publicação" />
       <div className="composer-bottom">
-      <label className="attach"><input type="file" className="invisible" accept="image/*" /><ImagePlus />Adicionar imagem</label>
-      <button className="primary-button" disabled={!text.trim()} onClick={() => { onPublish(text); setText(""); }}>Publicar <Send /></button></div>
+      <label className="attach"><input type="file" multiple className="invisible" accept="image/*,.pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.txt" aria-label="Anexar arquivos" onChange={(event) => { addFiles(event.target.files); event.target.value = ""; }} /><Paperclip />Anexar arquivo</label>
+      <button className="primary-button" disabled={!text.trim()} onClick={publish}>Publicar <Send /></button></div>
+      {fileError && <p className="zx-error">{fileError}</p>}
+      {files.length > 0 && <div className="attachment-list">{files.map((file, index) => <span className="attachment-chip" key={`${file.name}-${index}`}><Paperclip size={13} />{file.name}<small>{formatFileSize(file.size)}</small><button type="button" aria-label={`Remover ${file.name}`} onClick={() => setFiles((current) => current.filter((_, i) => i !== index))}><X size={12} /></button></span>)}</div>}
     </div>
   );
 }

@@ -1,6 +1,8 @@
 export type SocialRole = "aluno" | "responsavel" | "funcionario";
+export type Attachment = { name: string; size: string };
 export type Post = {
   id: number;
+  attachments?: Attachment[];
   name: string;
   profile: string;
   date: string;
@@ -47,6 +49,7 @@ export type Contact = {
 };
 export type Message = {
   id: number;
+  file?: string;
   contactId: number;
   text: string;
   mine: boolean;
@@ -236,6 +239,32 @@ export const mockContacts: Contact[] = [
     online: false,
   },
 ];
+
+export type Notification = { id: number; text: string; section: string };
+
+/** Notificações simuladas por perfil (sem backend). */
+export const mockNotifications: Record<SocialRole, Notification[]> = {
+  aluno: [
+    { id: 1, text: "Mariana Costa respondeu sua mensagem no chat.", section: "chat" },
+    { id: 2, text: "Nova vídeo-aula disponível: Introdução às frações.", section: "video-aulas" },
+    { id: 3, text: "Novo comunicado no mural da turma.", section: "murais" },
+  ],
+  responsavel: [
+    { id: 1, text: "Fernanda Lima enviou uma mensagem para você.", section: "chat" },
+    { id: 2, text: "Novo comunicado no mural da escola.", section: "murais" },
+  ],
+  funcionario: [
+    { id: 1, text: "João Pedro enviou uma dúvida no chat.", section: "chat" },
+    { id: 2, text: "Novo comentário em uma publicação sua.", section: "feed" },
+  ],
+};
+
+/** Formata o tamanho de um arquivo para exibição. */
+export function formatFileSize(bytes: number) {
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
 
 /** Quem cada perfil pode iniciar conversa (controle de privacidade do chat). */
 export const chatAllowedKinds: Record<SocialRole, ContactKind[]> = {

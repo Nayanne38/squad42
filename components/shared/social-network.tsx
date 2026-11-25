@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useSessionIn } from "@/lib/demo-session";
 import { ArrowLeft, Bell, BookOpen, Home, MessageCircle, Search, Settings, Sparkles, Users, Video } from "lucide-react";
-import { mockClasses, mockGroups, mockHobbies, mockPosts, mockVideos, type SocialRole } from "@/data/shared/social";
+import { mockClasses, mockGroups, mockHobbies, mockNotifications, mockPosts, mockVideos, type Attachment, type SocialRole } from "@/data/shared/social";
 import { Chat } from "@/components/social/chat/chat";
 import { StudyGroupsView } from "@/components/social/groups/group-components";
 import { HobbyCard } from "@/components/social/hobbies/hobby-components";
@@ -44,12 +44,15 @@ export default function SocialNetwork({ role = "aluno", initialSection = "feed",
   const [watchedVideoIds, setWatchedVideoIds] = useState<number[]>([]);
   const [videoFilter, setVideoFilter] = useState<"todas" | "pendentes" | "concluidas">("todas");
   const [joinedGroupIds, setJoinedGroupIds] = useState<number[]>([1]);
+  const [query, setQuery] = useState("");
+  const [notifOpen, setNotifOpen] = useState(false);
+  const [notifRead, setNotifRead] = useState<number[]>([]);
   const nav = allowed[role];
   // Só abre seções permitidas ao perfil; qualquer outra URL cai na primeira seção do menu.
   const section = nav.some((item) => item.key === requestedSection) || (requestedSection === "publicar" && role !== "responsavel") ? requestedSection : nav[0].key;
   const current = nav.find((item) => item.key === section) ?? nav[0];
   const profile = profileLabels[role];
-  const publish = (text: string) => { const id = Date.now(); setOwnPostIds((currentIds) => [...currentIds, id]); setPosts((currentPosts) => [{ ...mockPosts[0], id, name: profile, profile: role === "aluno" ? "Aluno" : "Professora", initials: role === "aluno" ? "AM" : "FL", color: role === "aluno" ? "blue" : "purple", date: "Agora", text, likes: 0, comments: 0, image: undefined }, ...currentPosts]); };
+  const publish = (text: string, attachments?: Attachment[], image?: string) => { const id = Date.now(); setOwnPostIds((currentIds) => [...currentIds, id]); setPosts((currentPosts) => [{ ...mockPosts[0], id, name: profile, profile: role === "aluno" ? "Aluno" : "Professora", initials: role === "aluno" ? "AM" : "FL", color: role === "aluno" ? "blue" : "purple", date: "Agora", text, likes: 0, comments: 0, image, attachments }, ...currentPosts]); };
   const createMural = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const title = newMuralTitle.trim();
@@ -74,6 +77,10 @@ export default function SocialNetwork({ role = "aluno", initialSection = "feed",
   };
   const like = (postId: number) => { const liked = likedPosts.includes(postId); setLikedPosts((currentIds) => liked ? currentIds.filter((id) => id !== postId) : [...currentIds, postId]); setPosts((currentPosts) => currentPosts.map((post) => post.id === postId ? { ...post, likes: post.likes + (liked ? -1 : 1) } : post)); };
   const comment = (postId: number, text: string) => { setCommentsByPost((current) => ({ ...current, [postId]: [...(current[postId] ?? []), text] })); setPosts((currentPosts) => currentPosts.map((post) => post.id === postId ? { ...post, comments: post.comments + 1 } : post)); };
+  const term = query.trim().toLowerCase();
+  const visiblePosts = term ? posts.filter((post) => `${post.text} ${post.name} ${post.profile}`.toLowerCase().includes(term)) : posts;
+  const notifications = mockNotifications[role];
+  const unread = notifications.filter((item) => !notifRead.includes(item.id)).length;
   const feed = <>
   <div className="social-heading">
     <div>
@@ -85,7 +92,7 @@ export default function SocialNetwork({ role = "aluno", initialSection = "feed",
   {(role === "aluno" || role === "funcionario") && <PostComposer role={role} onPublish={publish} />}
   <div className="feed-list">
     {
-    posts.map(
+    visiblePosts.length === 0 ? <p className="zx-empty">Nenhuma publicação encontrada para "{query}".</p> : visiblePosts.map(
       (post) => <PostCard key={post.id} post={post} liked={likedPosts.includes(post.id)}
       onLike={() => like(post.id)} 
       onComment={(text) => comment(post.id, text)} comments={commentsByPost[post.id] ?? []} isOwn={ownPostIds.includes(post.id)} 
@@ -110,5 +117,5 @@ export default function SocialNetwork({ role = "aluno", initialSection = "feed",
 
   if (!authorized) return null;
 
-  return <div className="social-shell"><aside className="social-nav"><div className="social-brand"><img src={logo} alt="CEPI" /><div><b>ZENIX EDUCATION</b><small>Rede Social Escolar</small></div></div><button className="back-platform" onClick={() => window.history.back()}><ArrowLeft /> Voltar à plataforma</button><nav>{nav.map((item) => { const Icon = item.icon; return <button className={section === item.key ? "active" : ""} key={item.key} onClick={() => setSection(item.key)}><Icon />{item.label}</button>; })}</nav><div className="social-user"><Avatar initials={role === "funcionario" ? "FL" : "AM"} color="green" /><span><b>{profile}</b><small>Perfil conectado</small></span></div></aside><main className="social-main"><header className="social-header"><div><b>Rede Social Escolar</b><small>Conecte-se, compartilhe e aprenda</small></div><div className="social-header-actions"><Search /><Bell /><Avatar initials={role === "funcionario" ? "FL" : "AM"} color="green" /></div></header><div className="social-content">{content}</div></main>{video && <VideoModal video={video} watched={watchedVideoIds.includes(video.id)} onComplete={() => setWatchedVideoIds((current) => current.includes(video.id) ? current : [...current, video.id])} onClose={() => setVideo(null)} />}</div>;
+  return <div className="social-shell"><aside className="social-nav"><div className="social-brand"><img src={logo} alt="CEPI" /><div><b>ZENIX EDUCATION</b><small>Rede Social Escolar</small></div></div><button className="back-platform" onClick={() => window.history.back()}><ArrowLeft /> Voltar à plataforma</button><nav>{nav.map((item) => { const Icon = item.icon; return <button className={section === item.key ? "active" : ""} key={item.key} onClick={() => setSection(item.key)}><Icon />{item.label}</button>; })}</nav><div className="social-user"><Avatar initials={role === "funcionario" ? "FL" : "AM"} color="green" /><span><b>{profile}</b><small>Perfil conectado</small></span></div></aside><main className="social-main"><header className="social-header"><div><b>Rede Social Escolar</b><small>Conecte-se, compartilhe e aprenda</small></div><div className="social-header-actions"><label className="social-search"><Search /><input value={query} onChange={(event) => { setQuery(event.target.value); if (section !== "feed") setSection("feed"); }} placeholder="Buscar publicações" aria-label="Buscar publicações" />{query && <button type="button" aria-label="Limpar busca" onClick={() => setQuery("")}>×</button>}</label><div className="notif-wrap"><button type="button" className="notif-button" aria-label="Notificações" aria-expanded={notifOpen} onClick={() => setNotifOpen((open) => !open)}><Bell />{unread > 0 && <i>{unread}</i>}</button>{notifOpen && <div className="notif-pop" role="menu">{notifications.map((item) => <button type="button" role="menuitem" className={notifRead.includes(item.id) ? "read" : ""} key={item.id} onClick={() => { setNotifRead((current) => current.includes(item.id) ? current : [...current, item.id]); if (nav.some((entry) => entry.key === item.section)) setSection(item.section); setNotifOpen(false); }}>{item.text}</button>)}<button type="button" className="notif-all" onClick={() => setNotifRead(notifications.map((item) => item.id))}>Marcar todas como lidas</button></div>}</div><Avatar initials={role === "funcionario" ? "FL" : "AM"} color="green" /></div></header><div className="social-content">{content}</div></main>{video && <VideoModal video={video} watched={watchedVideoIds.includes(video.id)} onComplete={() => setWatchedVideoIds((current) => current.includes(video.id) ? current : [...current, video.id])} onClose={() => setVideo(null)} />}</div>;
 }

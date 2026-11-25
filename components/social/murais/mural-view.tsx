@@ -2,7 +2,7 @@
 
 import { useState, type Dispatch, type SetStateAction } from "react";
 import { ArrowLeft, ChevronRight, Plus } from "lucide-react";
-import { mockPosts, type Post, type SocialRole } from "@/data/shared/social";
+import { mockPosts, type Attachment, type Post, type SocialRole } from "@/data/shared/social";
 import { PostCard, PostComposer } from "@/components/social/feed/feed-components";
 import { Badge, PageIntro } from "@/components/social/shared/social-ui";
 
@@ -59,7 +59,7 @@ export function MuralView({
       [active]: current[active].map((post) => post.id === postId ? { ...post, comments: post.comments + 1 } : post),
     }));
   };
-  const publishPost = (text: string) => {
+  const publishPost = (text: string, attachments?: Attachment[], image?: string) => {
     if (!active) return;
     const profileLabels = { aluno: "Aluno", responsavel: "Responsável", funcionario: "Funcionário" };
     const colors = { aluno: "blue", responsavel: "blue", funcionario: "purple" };
@@ -83,6 +83,8 @@ export function MuralView({
           color: colors[role],
           likes: 0,
           comments: 0,
+          image,
+          attachments,
         }, ...posts],
       };
     });

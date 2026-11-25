@@ -2,7 +2,7 @@
 
 import { useState, type Dispatch, type SetStateAction } from "react";
 import { ArrowLeft, ChevronRight } from "lucide-react";
-import { type Group, type Post, type SocialRole } from "@/data/shared/social";
+import { type Attachment, type Group, type Post, type SocialRole } from "@/data/shared/social";
 import { PostCard, PostComposer } from "@/components/social/feed/feed-components";
 import { Badge, PageIntro } from "@/components/social/shared/social-ui";
 
@@ -68,7 +68,7 @@ export function StudyGroupsView({
     setCreatingGroup(false);
   };
 
-  const publishPost = (text: string) => {
+  const publishPost = (text: string, attachments?: Attachment[], image?: string) => {
     if (activeGroupId === null) return;
     const id = Math.max(0, ...(groupPosts[activeGroupId] ?? []).map((post) => post.id)) + 1;
     const profileLabels = { aluno: "Aluno", responsavel: "Responsável", funcionario: "Funcionário" };
@@ -85,6 +85,8 @@ export function StudyGroupsView({
         color: colors[role],
         likes: 0,
         comments: 0,
+        image,
+        attachments,
       }, ...(current[activeGroupId] ?? [])],
     }));
     setOwnPostIdsByGroup((current) => ({
