@@ -127,15 +127,6 @@ export function StudentDashboard({
                 </>
               );
 
-              if (name === "Comunicados") {
-                return (
-                  <Link
-                    key={name} href={`/${routeRole}/comunicados`} className="quick-item">
-                    {content}
-                  </Link>
-                );
-              }
-
               if (name === "Agenda de aulas") {
                 return (
                   <Link key={name} href={`/${routeRole}/agenda`} className="quick-item">
