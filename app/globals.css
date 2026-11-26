@@ -4071,3 +4071,18 @@ body:has(.agenda-page,.calendar-page,.comunicados-page,.schedule-page,.grades-pa
   .admin-title { flex-wrap: wrap; gap: 12px; }
   .modal, .rs-modal { max-width: calc(100vw - 24px); }
 }
+
+/* Tabelas viram cartões empilhados no celular */
+@media (max-width: 600px) {
+  .zx-table, .zx-table tbody, .zx-table tr, .zx-table td { display: block; width: 100%; }
+  .zx-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .zx-table tr { border: 1px solid #e3e8e5; border-radius: 12px; margin-bottom: 10px; padding: 8px 12px; background: #fff; }
+  .zx-table td { border: 0; padding: 5px 0; display: flex; justify-content: space-between; gap: 12px; text-align: right; }
+  .zx-table td::before { content: attr(data-label); font-size: 11px; font-weight: 700; letter-spacing: .04em; color: #6b7a72; text-align: left; text-transform: uppercase; flex: 0 0 38%; }
+  .zx-table-wrap { overflow: visible; border: 0; background: transparent; box-shadow: none; }
+}
+
+/* Avatares neutros (círculo cinza) como no Figma */
+.rs-shell .social-avatar, .rs-shell .social-avatar.blue, .rs-shell .social-avatar.purple, .rs-shell .social-avatar.green, .rs-shell .social-avatar.gold, .rs-shell .social-avatar.orange {
+  background: #e4e7e5; color: #4b5650; border: 0; font-weight: 700;
+}

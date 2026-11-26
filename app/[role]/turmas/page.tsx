@@ -102,9 +102,9 @@ export default function TurmasPage() {
                     const linked = getGuardiansOfStudent(student.id);
                     return (
                       <tr key={student.id}>
-                        <td>{student.name}</td>
-                        <td>{student.ra}</td>
-                        <td>
+                        <td data-label="ALUNO">{student.name}</td>
+                        <td data-label="RA">{student.ra}</td>
+                        <td data-label="RESPONSÁVEL">
                           {linked.length > 0 ? (
                             linked.map((guardian) => `${guardian.name} (${guardian.relationships[student.id]})`).join(", ")
                           ) : (

@@ -224,7 +224,7 @@ function Table({ head, rows }: { head: string[]; rows: React.ReactNode[][] }) {
           {rows.map((row, index) => (
             <tr key={index}>
               {row.map((cell, cellIndex) => (
-                <td key={cellIndex}>{cell}</td>
+                <td key={cellIndex} data-label={head[cellIndex]}>{cell}</td>
               ))}
             </tr>
           ))}
