@@ -62,7 +62,7 @@ export function SideNav({
   setView,
   open,
   userName = "Fabricya Nayanne Santos",
-  userEmail = "admin@cepi.com",
+  userEmail = "igor@cepi.com",
   professor = false,
   variant,
 }: {

@@ -142,7 +142,7 @@ const lists: Record<string, ListConfig> = {
     seed: [
       { pessoa: "Atabisio Henry", tipo: "Entrada", hora: "07:02" },
       { pessoa: "Rafael da Silva Moura", tipo: "Entrada", hora: "07:05" },
-      { pessoa: "Fernanda Lima", tipo: "Entrada", hora: "06:50" },
+      { pessoa: "Luan Santana Souza", tipo: "Entrada", hora: "06:50" },
     ],
     addLabel: "Registrar acesso",
   },

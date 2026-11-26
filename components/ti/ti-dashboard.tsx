@@ -1,6 +1,7 @@
 "use client";
 
 import { ChevronDown, KeyRound, ScrollText, Settings, ShieldAlert, Users } from "lucide-react";
+import { useDemoUser } from "@/lib/demo-session";
 import { Header, SideNav } from "@/components/shared/platform-shell";
 import { getRegistrationNotices, guardians, staff, students } from "@/data/shared/school";
 
@@ -16,18 +17,19 @@ const links: [string, string][] = [
 ];
 
 export function TiDashboard({ onBack }: { onBack: () => void }) {
+  const user = useDemoUser("admin");
   const notices = getRegistrationNotices();
   const totalNotices = notices.reduce((total, item) => total + item.students.length, 0);
   return (
     <div className="admin-shell">
-      <SideNav view="admin" setView={onBack} open={false} variant="ti" userName="Administrador TI" userEmail="admin@cepi.com" />
+      <SideNav view="admin" setView={onBack} open={false} variant="ti" userName={user.name} userEmail={user.email} />
       <div className="admin-main">
-        <Header onMenu={() => {}} initials="TI" />
+        <Header onMenu={() => {}} initials={user.initials} />
         <div className="admin-content">
           <div className="admin-title">
             <div>
-              <h1>Olá, administrador 👋</h1>
-              <p>Administração · controle de pessoas, acessos e segurança do sistema.</p>
+              <h1>Olá, {user.firstName} 👋</h1>
+              <p>{user.roleTitle} · controle de pessoas, acessos e segurança do sistema.</p>
             </div>
             <div className="admin-title-actions">
               <a className="outline-button" href="/admin/perfil">

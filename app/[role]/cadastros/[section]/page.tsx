@@ -142,10 +142,10 @@ export default function CadastrosPage() {
         head={["DATA", "USUÁRIO", "PERFIL", "AÇÃO"]}
         rows={[
           ["25/11 08:12", "rafael@cepi.com", "Aluno", "Login realizado"],
-          ["25/11 08:05", "fernanda@cepi.com", "Docência", "Lançou notas do 1º bimestre"],
+          ["25/11 08:05", "luan@cepi.com", "Docência", "Lançou notas do 1º bimestre"],
           ["25/11 07:58", "fabricya.direcao@cepi.com", "Direção", "Publicou comunicado"],
           ["25/11 07:40", "fabricya@cepi.com", "Responsável", "Login realizado"],
-          ["24/11 18:22", "admin@cepi.com", "Administração", "Alterou permissões"],
+          ["24/11 18:22", "igor@cepi.com", "Administração", "Alterou permissões"],
         ]}
       />
     );

@@ -4,7 +4,7 @@ import { useParams } from "next/navigation";
 import { useEffect, useState, type FormEvent } from "react";
 import { Megaphone } from "lucide-react";
 import Link from "next/link";
-import { useDemoGuard } from "@/lib/demo-session";
+import { getDemoUser, useDemoGuard } from "@/lib/demo-session";
 import { getClass, readSelectedStudent, schoolClasses } from "@/data/shared/school";
 
 const STORAGE_KEY = "zenix-comunicados-publicados";
@@ -143,7 +143,7 @@ export default function ComunicadosPage() {
         id: Date.now(),
         titulo: titulo.trim(),
         mensagem: mensagemNova.trim(),
-        remetente: role === "direcao" ? "Direção · Fabricya Nayanne Santos" : "Fernanda Lima · Professora",
+        remetente: role === "direcao" ? "Direção · Fabricya Nayanne Santos" : `${getDemoUser("funcionario").name} · Professor`,
         data,
         importante: importanteNovo,
         lido: false,

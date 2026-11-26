@@ -8,6 +8,7 @@ import {
   ShieldAlert,
 } from "lucide-react";
 import Link from "next/link";
+import { useDemoUser } from "@/lib/demo-session";
 import { SocialCta } from "@/components/shared/social-cta";
 import { Header, SideNav } from "@/components/shared/platform-shell";
 import {
@@ -18,6 +19,7 @@ import {
 } from "@/data/shared/school";
 
 export function ProfessorDashboard({ onBack }: { onBack: () => void }) {
+  const user = useDemoUser("funcionario");
   const myClasses = getClassesOfStaff(CURRENT_STAFF_ID);
   const myStudents = myClasses.reduce((total, item) => total + getStudentsOfClass(item.id).length, 0);
   return (
@@ -26,17 +28,17 @@ export function ProfessorDashboard({ onBack }: { onBack: () => void }) {
         view="admin"
         setView={onBack}
         open={false}
-        userName="Fernanda Lima"
-        userEmail="fernanda@cepi.com"
+        userName={user.name}
+        userEmail={user.email}
         professor
       />
       <div className="admin-main">
-        <Header onMenu={() => {}} initials="FL" />
+        <Header onMenu={() => {}} initials={user.initials} />
         <div className="admin-content">
           <div className="admin-title">
             <div>
-              <h1>Olá, professora Fernanda 👋</h1>
-              <p>Professora · Coordenação Pedagógica · resumo das suas atividades de hoje.</p>
+              <h1>Olá, professor {user.firstName} 👋</h1>
+              <p>{user.roleTitle} · resumo das suas atividades de hoje.</p>
             </div>
             <div className="admin-title-actions">
               <button className="outline-button" onClick={onBack}>

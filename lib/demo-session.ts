@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { readSelectedStudent, resolveStudentForRole, type Student } from "@/data/shared/school";
 import { useRouter } from "next/navigation";
+import { USER_KEY, defaultAccount, demoAccounts, type DemoAccount } from "@/data/shared/accounts";
 
 export const DEMO_SESSION_KEY = "zenix-demo-session";
 
@@ -62,3 +63,32 @@ export function useSelectedStudent(role: string) {
 
   return student;
 }
+
+/** Conta demonstrativa logada (nome e função); cai no padrão do perfil quando não há login gravado. */
+export function useDemoUser(session: DemoAccount["session"]) {
+  const [account, setAccount] = useState<DemoAccount>(defaultAccount(session));
+  useEffect(() => {
+    try {
+      const email = sessionStorage.getItem(USER_KEY);
+      const found = demoAccounts.find((item) => item.email === email && item.session === session);
+      if (found) setAccount(found);
+    } catch {
+      /* mantém o padrão */
+    }
+  }, [session]);
+  return account;
+}
+
+/** Leitura direta (fora do render), para gravar autoria em publicações. */
+export function getDemoUser(session: DemoAccount["session"]): DemoAccount {
+  try {
+    const email = sessionStorage.getItem(USER_KEY);
+    return demoAccounts.find((item) => item.email === email && item.session === session) ?? defaultAccount(session);
+  } catch {
+    return defaultAccount(session);
+  }
+}
+
+/** Sessão demonstrativa correspondente a cada perfil da rede social. */
+export const sessionOfSocial = (role: string): DemoAccount["session"] =>
+  role === "coordenacao" ? "direcao" : (role as DemoAccount["session"]);

@@ -3,73 +3,43 @@
 import { useState, type FormEvent } from "react";
 import { ArrowLeft } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
+import { USER_KEY, demoAccounts, loginGroups } from "@/data/shared/accounts";
 
 const roleCopy = {
-  aluno: {
-    title: "Login do Aluno",
-    subtitle: "Acesse suas notas, horários e comunicados.",
-    label: "Aluno",
-    email: "rafael@cepi.com",
-    password: "rafael123",
-  },
-  responsavel: {
-    title: "Login do Responsável",
-    subtitle: "Acompanhe o desempenho do seu filho.",
-    label: "Responsável",
-    email: "fabricya@cepi.com",
-    password: "fabricya123",
-  },
-  funcionario: {
-    title: "Login da Docência",
-    subtitle: "Professores e direção / coordenação.",
-    label: "Docência",
-    email: "fernanda@cepi.com",
-    password: "fernanda123",
-    alternateEmail: "fabricya.direcao@cepi.com",
-    alternatePassword: "fabricya123",
-  },
-  admin: {
-    title: "Login da Administração",
-    subtitle: "Controle de pessoas, acessos e segurança do sistema (TI).",
-    label: "Administração (TI)",
-    email: "admin@cepi.com",
-    password: "admin123",
-  },
+  aluno: { subtitle: "Acesse suas notas, horários e comunicados.", label: "Aluno" },
+  responsavel: { subtitle: "Acompanhe o desempenho do seu filho.", label: "Responsável" },
+  funcionario: { subtitle: "Professores e direção / coordenação.", label: "Docência" },
+  admin: { subtitle: "Controle de pessoas, acessos e segurança do sistema (TI).", label: "Administração (TI)" },
+} as const;
+
+const destinations = {
+  aluno: "/aluno",
+  responsavel: "/responsavel",
+  funcionario: "/funcionario",
+  direcao: "/direcao",
+  admin: "/admin",
 } as const;
 
 export default function LoginPage() {
   const { role } = useParams<{ role: string }>();
   const router = useRouter();
   const copy = roleCopy[role as keyof typeof roleCopy] ?? roleCopy.aluno;
-  const destination =
-    role === "aluno"
-      ? "/aluno"
-      : role === "responsavel"
-        ? "/responsavel"
-        : role === "admin"
-          ? "/admin"
-          : "/funcionario";
+  const accounts = demoAccounts.filter((item) => (loginGroups[role] ?? loginGroups.aluno).includes(item.session));
   // Login de demonstração já preenchido: basta clicar em "Entrar".
-  const [email, setEmail] = useState<string>(copy.email);
-  const [password, setPassword] = useState<string>(copy.password);
+  const [email, setEmail] = useState<string>(accounts[0].email);
+  const [password, setPassword] = useState<string>(accounts[0].password);
   const [message, setMessage] = useState("");
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const isPrimary =
-      email.trim().toLowerCase() === copy.email && password === copy.password;
-    const isAlternate =
-      "alternateEmail" in copy &&
-      email.trim().toLowerCase() === copy.alternateEmail &&
-      password === copy.alternatePassword;
-    if (isPrimary || isAlternate) {
-      const sessionRole = isAlternate ? "direcao" : role;
-      sessionStorage.setItem("zenix-demo-session", sessionRole);
+    const account = accounts.find(
+      (item) => item.email === email.trim().toLowerCase() && item.password === password,
+    );
+    if (account) {
+      sessionStorage.setItem("zenix-demo-session", account.session);
+      sessionStorage.setItem(USER_KEY, account.email);
       setMessage("Acesso demonstrativo liberado. Bem-vindo à Zenix Education!");
-      window.setTimeout(
-        () => router.push(isAlternate ? "/direcao" : destination),
-        250,
-      );
+      window.setTimeout(() => router.push(destinations[account.session]), 250);
       return;
     }
     setMessage("E-mail ou senha inválidos para este perfil.");
@@ -111,28 +81,21 @@ export default function LoginPage() {
             </div>
             <button type="submit" className="fg-submit">Entrar</button>
           </form>
-          {"alternateEmail" in copy && (
+          {accounts.length > 1 && (
             <div className="login-demo-switch">
-              <button
-                type="button"
-                onClick={() => {
-                  setEmail(copy.email);
-                  setPassword(copy.password);
-                  setMessage("");
-                }}
-              >
-                Professora
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setEmail(copy.alternateEmail);
-                  setPassword(copy.alternatePassword);
-                  setMessage("");
-                }}
-              >
-                Direção / Coordenação
-              </button>
+              {accounts.map((item) => (
+                <button
+                  key={item.email}
+                  type="button"
+                  onClick={() => {
+                    setEmail(item.email);
+                    setPassword(item.password);
+                    setMessage("");
+                  }}
+                >
+                  {item.shortcut}
+                </button>
+              ))}
             </div>
           )}
           {message && (
