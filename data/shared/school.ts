@@ -1,7 +1,7 @@
 // Dados simulados da escola (sem banco de dados). Centraliza alunos, responsáveis,
 // professores, turmas e as permissões de cada perfil, com seus relacionamentos.
 
-export type AreaRole = "aluno" | "responsavel" | "funcionario" | "admin";
+export type AreaRole = "aluno" | "responsavel" | "funcionario" | "direcao" | "admin";
 
 export type SchoolClassRecord = {
   id: number;
@@ -48,7 +48,7 @@ export const schoolClasses: SchoolClassRecord[] = [
 
 export const students: Student[] = [
   { id: 1, name: "Rafael da Silva Moura", ra: "20260011", classId: 1, guardianIds: [1], birth: "2012-03-14", hasPhoto: true },
-  { id: 2, name: "Yan Francisco Jesus de Oliveira", ra: "20260012", classId: 4, guardianIds: [1], birth: "2014-08-02", hasPhoto: false },
+  { id: 2, name: "Yan Francisco Jesus de Oliveira", ra: "20260012", classId: 4, guardianIds: [], birth: "2014-08-02", hasPhoto: false },
   { id: 3, name: "João Vitor Braz Mourão", ra: "20260013", classId: 1, guardianIds: [2], birth: "2012-06-21", hasPhoto: true },
   { id: 4, name: "Atabisio Henry", ra: "20260014", classId: 1, guardianIds: [3], hasPhoto: false },
   { id: 5, name: "Igor Gabriel", ra: "20260015", classId: 1, guardianIds: [], birth: "2012-11-30", hasPhoto: false },
@@ -61,16 +61,16 @@ export const students: Student[] = [
 ];
 
 export const guardians: Guardian[] = [
-  { id: 1, name: "Responsável Modelo", email: "responsavel@zenixeducation.com.br", phone: "(81) 99999-0001", relationships: { 1: "Mãe", 2: "Mãe" } },
+  { id: 1, name: "Fabricya Nayanne Santos", email: "fabricya@cepi.com", phone: "(81) 99999-0001", relationships: { 1: "Mãe" } },
   { id: 2, name: "Carlos Pedro", email: "carlos.pedro@email.com", phone: "(81) 99999-0002", relationships: { 3: "Pai" } },
   { id: 3, name: "Helena Souza", email: "helena.souza@email.com", phone: "(81) 99999-0003", relationships: { 4: "Mãe" } },
 ];
 
 export const staff: Staff[] = [
-  { id: 1, name: "Fernanda Lima", email: "fernanda.lima@zenixeducation.com.br", position: "Professora e Coordenadora", subject: "Coordenação Pedagógica", classIds: [1, 2, 3, 4] },
-  { id: 2, name: "Mariana Costa", email: "mariana.costa@zenixeducation.com.br", position: "Professora", subject: "Ciências", classIds: [1, 2, 4] },
-  { id: 3, name: "Luan Santana Souza", email: "ricardo.mendes@zenixeducation.com.br", position: "Professor", subject: "Matemática", classIds: [1, 3] },
-  { id: 4, name: "Ana Beatriz", email: "ana.beatriz@zenixeducation.com.br", position: "Professora", subject: "Língua Inglesa", classIds: [2, 3, 4] },
+  { id: 1, name: "Fernanda Lima", email: "fernanda@cepi.com", position: "Professora e Coordenadora", subject: "Coordenação Pedagógica", classIds: [1, 2, 3, 4] },
+  { id: 2, name: "Mariana Costa", email: "mariana@cepi.com", position: "Professora", subject: "Ciências", classIds: [1, 2, 4] },
+  { id: 3, name: "Luan Santana Souza", email: "luan@cepi.com", position: "Professor", subject: "Matemática", classIds: [1, 3] },
+  { id: 4, name: "Ana Beatriz", email: "ana@cepi.com", position: "Professora", subject: "Língua Inglesa", classIds: [2, 3, 4] },
 ];
 
 /** Usuários que representam a sessão DEMO de cada perfil. */
@@ -179,33 +179,41 @@ export const staffLessonsToday: StaffLesson[] = [
 export const profileDefaults: Record<AreaRole, ProfileData> = {
   aluno: {
     name: "Rafael da Silva Moura",
-    email: "20260011@zenixeducation.com.br",
+    email: "rafael@cepi.com",
     phone: "(81) 98888-0011",
     bio: "Gosto de ciências, música e de estudar em grupo.",
     interests: "Música, Tecnologia",
     photo: "",
   },
   responsavel: {
-    name: "Responsável Modelo",
-    email: "responsavel@zenixeducation.com.br",
+    name: "Fabricya Nayanne Santos",
+    email: "fabricya@cepi.com",
     phone: "(81) 99999-0001",
-    bio: "Mãe de alunos do 8º Ano A e do 6º Ano A.",
+    bio: "Mãe de Rafael, aluno do 8º Ano A.",
     interests: "",
     photo: "",
   },
   funcionario: {
     name: "Fernanda Lima",
-    email: "fernanda.lima@zenixeducation.com.br",
+    email: "fernanda@cepi.com",
     phone: "(81) 97777-0001",
     bio: "Professora e coordenadora pedagógica.",
     interests: "Leitura, Projetos escolares",
     photo: "",
   },
-  admin: {
-    name: "Fabricya Nayanne Santos",
-    email: "admin@zenixeducation.com.br",
+  direcao: {
+    name: "Marina Albuquerque",
+    email: "marina@cepi.com",
     phone: "(81) 96666-0001",
-    bio: "Administração do portal Zenix Education.",
+    bio: "Direção e coordenação do Colégio CEPI Expansão.",
+    interests: "",
+    photo: "",
+  },
+  admin: {
+    name: "Administrador TI",
+    email: "admin@cepi.com",
+    phone: "(81) 95555-0001",
+    bio: "Administração do sistema e controle de acessos.",
     interests: "",
     photo: "",
   },

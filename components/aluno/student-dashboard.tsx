@@ -70,17 +70,17 @@ export function StudentDashboard({
       <div className="portal-head">
         <Brand compact />
         <div className="portal-profile">
-          <span>{"RM"}</span>
+          <span>{isParent ? "FN" : "RM"}</span>
           <ChevronDown size={14} />
         </div>
       </div>
       {isParent ? (
         <>
           <div className="welcome blue-bg">
-            <div className="big-avatar">RM</div>
+            <div className="big-avatar">FN</div>
             <div>
               <small>Portal do Responsável</small>
-              <h2>Olá, Responsável!</h2>
+              <h2>Olá, Fabricya!</h2>
               <p>
                 {linkedStudents.length} {linkedStudents.length === 1 ? "aluno vinculado" : "alunos vinculados"}
               </p>

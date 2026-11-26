@@ -141,7 +141,7 @@ export const mockVideos: Video[] = [
     professor: "Prof. Luan Santana Souza",
     duration: "12 min",
     color: "blue",
-    initials: "RM",
+    initials: "LS",
     videoUrl:
       "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
   },

@@ -354,3 +354,16 @@ public/
 Observações:
 - Notas, horários, agenda, calendário e comunicados já são telas independentes em `app/[role]/`; o texto das seções 1 e 2 que diz o contrário está desatualizado.
 - O responsável só enxerga os alunos vinculados a ele; a escolha do filho vale para notas, horários, agenda, calendário e comunicados.
+
+
+## 10. Perfis e logins de demonstração (atualizado)
+
+| Entrada na tela inicial | Perfil | E-mail | Senha |
+|---|---|---|---|
+| Sou Aluno | Rafael da Silva Moura | rafael@cepi.com | rafael123 |
+| Sou Responsável | Fabricya Nayanne Santos (mãe de Rafael) | fabricya@cepi.com | fabricya123 |
+| Docência | Professora Fernanda Lima | fernanda@cepi.com | fernanda123 |
+| Docência (botão Direção / Coordenação) | Diretora Marina Albuquerque | marina@cepi.com | marina123 |
+| Administração (TI) | Administrador TI | admin@cepi.com | admin123 |
+
+Rotas: /aluno, /responsavel, /funcionario (professora), /direcao (direção/coordenação) e /admin (administração/TI: pessoas, permissões, logs e backup).

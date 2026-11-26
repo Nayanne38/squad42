@@ -88,11 +88,11 @@ export function StudyGroupsView({
       ...current,
       [activeGroupId]: [{
         id,
-        name: role === "funcionario" ? "Fernanda Lima" : role === "responsavel" ? "Responsável Modelo" : "Rafael da Silva Moura",
+        name: role === "funcionario" ? "Fernanda Lima" : role === "responsavel" ? "Fabricya Nayanne Santos" : "Rafael da Silva Moura",
         profile: profileLabels[role],
         date: "Agora",
         text,
-        initials: role === "funcionario" ? "FL" : "RM",
+        initials: role === "funcionario" ? "FL" : role === "responsavel" ? "FN" : "RM",
         color: colors[role],
         likes: 0,
         comments: 0,

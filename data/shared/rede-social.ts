@@ -24,11 +24,11 @@ export const socialIdentity: Record<SocialRole, Identity> = {
     dashboard: "/aluno",
   },
   responsavel: {
-    name: "Responsável Modelo",
-    firstName: "Responsável",
-    initials: "RM",
+    name: "Fabricya Nayanne Santos",
+    firstName: "Fabricya",
+    initials: "FN",
     badge: "Perfil · Responsável",
-    subtitle: "Responsável · Rafael da Silva Moura (8º ano A) e Yan Francisco Jesus de Oliveira (6º ano A)",
+    subtitle: "Responsável · Mãe de Rafael da Silva Moura (8º ano A)",
     dashboard: "/responsavel",
   },
   funcionario: {
@@ -40,12 +40,12 @@ export const socialIdentity: Record<SocialRole, Identity> = {
     dashboard: "/funcionario",
   },
   coordenacao: {
-    name: "Fabricya Nayanne Santos",
-    firstName: "Fabricya",
-    initials: "FN",
+    name: "Marina Albuquerque",
+    firstName: "Marina",
+    initials: "MA",
     badge: "Perfil · Coordenação",
     subtitle: "Diretora · Direção e Coordenação · Ensino Fundamental II",
-    dashboard: "/admin",
+    dashboard: "/direcao",
   },
 };
 

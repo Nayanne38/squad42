@@ -27,7 +27,7 @@ export function ProfessorDashboard({ onBack }: { onBack: () => void }) {
         setView={onBack}
         open={false}
         userName="Fernanda Lima"
-        userEmail="fernanda.lima@zenixeducation.com..."
+        userEmail="fernanda@cepi.com"
         professor
       />
       <div className="admin-main">
