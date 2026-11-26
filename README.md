@@ -87,6 +87,6 @@ Mais detalhes em [`MAPA_DO_PROJETO.md`](MAPA_DO_PROJETO.md).
 
 ## Limitações conhecidas
 
-- Sem back-end: os dados voltam ao padrão ao limpar o navegador e nada é salvo em servidor.
+- Sem back-end: nada é salvo em servidor. Posts, curtidas, comentários, murais, grupos e demais ações da rede social ficam no `localStorage` do navegador (assim como notas, comunicados e perfil), e cada navegador tem os seus próprios dados. Para limpar, use o botão **Restaurar dados de demonstração** no menu da rede social (computador) ou limpe os dados do site.
 - O login é apenas demonstrativo e não oferece segurança real.
 - Logs, backup e recuperação de senha são simulados.
