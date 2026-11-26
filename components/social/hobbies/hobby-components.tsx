@@ -1,5 +1,6 @@
 "use client";
 
+import { usePersisted } from "@/lib/persist";
 import { useState, type FormEvent } from "react";
 import { ChevronRight } from "lucide-react";
 import { hobbyCatalog, hobbyCategories, type HobbyItem } from "@/data/shared/rede-social";
@@ -11,8 +12,8 @@ export function HobbyCard({ hobby }: { hobby: Hobby }) {
 }
 
 export function HobbiesView() {
-  const [items, setItems] = useState<HobbyItem[]>(hobbyCatalog);
-  const [joined, setJoined] = useState<number[]>([1]);
+  const [items, setItems] = usePersisted<HobbyItem[]>("hobbies:items", hobbyCatalog);
+  const [joined, setJoined] = usePersisted<number[]>("hobbies:joined", [1]);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState<string>("Todos");
   const [suggesting, setSuggesting] = useState(false);

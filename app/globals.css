@@ -4086,3 +4086,7 @@ body:has(.agenda-page,.calendar-page,.comunicados-page,.schedule-page,.grades-pa
 .rs-shell .social-avatar, .rs-shell .social-avatar.blue, .rs-shell .social-avatar.purple, .rs-shell .social-avatar.green, .rs-shell .social-avatar.gold, .rs-shell .social-avatar.orange {
   background: #e4e7e5; color: #4b5650; border: 0; font-weight: 700;
 }
+
+.rs-shell .rs-side-bottom .rs-reset{width:100%;margin-top:6px;font-size:11px;color:#7a8780;background:transparent;border:0;text-align:left;padding:6px 13px;cursor:pointer}
+.rs-shell .rs-side-bottom .rs-reset:hover{color:#1c2a22;text-decoration:underline;background:transparent}
+@media (max-width: 900px){.rs-shell .rs-side-bottom .rs-reset{display:none}}

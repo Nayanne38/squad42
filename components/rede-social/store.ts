@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { usePersisted } from "@/lib/persist";
 import {
   boardNotes,
   doubts,
@@ -13,21 +14,21 @@ export type Report = { id: number; title: string; reason: string; by: string };
 
 /** Estado compartilhado entre as seções da rede social (dados simulados, em memória). */
 export function useSocialStore() {
-  const [notes, setNotes] = useState(boardNotes);
-  const [doubtList, setDoubtList] = useState(doubts);
-  const [approvals, setApprovals] = useState(pendingApprovals);
-  const [reports, setReports] = useState<Report[]>([
+  const [notes, setNotes] = usePersisted("store:notes", boardNotes);
+  const [doubtList, setDoubtList] = usePersisted("store:doubts", doubts);
+  const [approvals, setApprovals] = usePersisted("store:approvals", pendingApprovals);
+  const [reports, setReports] = usePersisted<Report[]>("store:reports", [
     { id: 1, title: "Comentário em “Dúvida de Português”", reason: "Linguagem imprópria", by: "Denunciado por 2 usuários" },
     { id: 2, title: "Publicação em “Hobbies · Futebol”", reason: "Spam", by: "Denunciado por 1 usuário" },
   ]);
-  const [activity, setActivity] = useState<string[]>([
+  const [activity, setActivity] = usePersisted<string[]>("store:activity", [
     "Aprovou o grupo “Revisão para provas”",
     "Enviou comunicado a responsáveis",
     "Removeu 1 comentário denunciado",
   ]);
-  const [sent, setSent] = useState(sentNotices);
-  const [notices, setNotices] = useState(schoolNotices);
-  const [resolvedReports, setResolvedReports] = useState(12);
+  const [sent, setSent] = usePersisted("store:sent", sentNotices);
+  const [notices, setNotices] = usePersisted("store:notices", schoolNotices);
+  const [resolvedReports, setResolvedReports] = usePersisted("store:resolved", 12);
 
   const log = (text: string) => setActivity((current) => [text, ...current].slice(0, 6));
 
