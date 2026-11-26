@@ -1,4 +1,4 @@
-export type SocialRole = "aluno" | "responsavel" | "funcionario";
+export type SocialRole = "aluno" | "responsavel" | "funcionario" | "coordenacao";
 export type Attachment = { name: string; size: string };
 export type Post = {
   id: number;
@@ -230,6 +230,15 @@ export const mockContacts: Contact[] = [
     online: true,
   },
   {
+    id: 6,
+    kind: "coordenacao",
+    name: "Secretaria",
+    profile: "Secretaria · Funcionário",
+    initials: "SE",
+    color: "orange",
+    online: true,
+  },
+  {
     id: 5,
     kind: "responsavel",
     name: "Carlos Pedro",
@@ -255,7 +264,11 @@ export const mockNotifications: Record<SocialRole, Notification[]> = {
   ],
   funcionario: [
     { id: 1, text: "João Pedro enviou uma dúvida no chat.", section: "chat" },
-    { id: 2, text: "Novo comentário em uma publicação sua.", section: "feed" },
+    { id: 2, text: "3 dúvidas esperando resposta.", section: "duvidas" },
+  ],
+  coordenacao: [
+    { id: 1, text: "3 aprovações pendentes na moderação.", section: "moderacao" },
+    { id: 2, text: "Uma denúncia aberta para revisar hoje.", section: "moderacao" },
   ],
 };
 
@@ -271,6 +284,7 @@ export const chatAllowedKinds: Record<SocialRole, ContactKind[]> = {
   aluno: ["professor", "coordenacao", "aluno"],
   responsavel: ["professor", "coordenacao"],
   funcionario: ["professor", "coordenacao", "aluno", "responsavel"],
+  coordenacao: ["professor", "coordenacao", "aluno", "responsavel"],
 };
 export const mockMessages: Message[] = [
   {

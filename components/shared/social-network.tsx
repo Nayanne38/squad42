@@ -2,35 +2,39 @@
 
 import { useState } from "react";
 import { useSessionIn } from "@/lib/demo-session";
-import { ArrowLeft, Bell, BookOpen, Home, MessageCircle, Search, Settings, Sparkles, Users, Video } from "lucide-react";
-import { mockClasses, mockGroups, mockHobbies, mockNotifications, mockPosts, mockVideos, type Attachment, type SocialRole } from "@/data/shared/social";
+import { ArrowLeft, Bell, Search, Users } from "lucide-react";
+import { mockClasses, mockNotifications, mockPosts, type Attachment, type SocialRole } from "@/data/shared/social";
+import { studyGroupCatalog } from "@/data/shared/rede-social";
 import { Chat } from "@/components/social/chat/chat";
 import { StudyGroupsView } from "@/components/social/groups/group-components";
-import { HobbyCard } from "@/components/social/hobbies/hobby-components";
 import { initialMuralPosts, initialMurals, MuralView } from "@/components/social/murais/mural-view";
 import { ProfileView } from "@/components/social/perfil/profile-view";
 import { PostCard, PostComposer } from "@/components/social/feed/feed-components";
 import { Avatar, Badge } from "@/components/social/shared/social-ui";
-import { VideoCard, VideoModal } from "@/components/social/videos/video-components";
+import { VideoModal } from "@/components/social/videos/video-components";
+import { CEPI_LOGO, feedSeed, feedSeedCoordenacao, feedSeedResponsavel, socialIdentity, socialNav, type LibraryVideo } from "@/data/shared/rede-social";
+import { NavIcon } from "@/components/rede-social/ui";
+import { MuraisBoard } from "@/components/rede-social/murais-board";
+import { StudentVideos, TeacherVideos } from "@/components/rede-social/video-views";
+import { HobbiesView } from "@/components/social/hobbies/hobby-components";
+import { useSocialStore } from "@/components/rede-social/store";
+import { ChildrenView, CoordClassesView, CoordNoticesView, DoubtsView, ModerationView, NoticesView, ReportsView, TeacherClassesView } from "@/components/rede-social/role-views";
 
-const logo = "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-7Ezo2vTuYX5AbUDY3GNV6xgjvUfGqs.png";
-const profileLabels = { aluno: "Aluno Modelo 101", responsavel: "Responsável Modelo", funcionario: "Fernanda Lima" };
-const allowed: Record<SocialRole, { key: string; label: string; icon: typeof Home }[]> = {
-  aluno: [{ key: "feed", label: "Feed", icon: Home }, { key: "murais", label: "Murais", icon: BookOpen }, { key: "video-aulas", label: "Vídeo-aulas", icon: Video }, { key: "grupos", label: "Grupos de estudos", icon: Users }, { key: "hobbies", label: "Hobbies", icon: Sparkles }, { key: "chat", label: "Chat direto", icon: MessageCircle }, { key: "perfil", label: "Meu perfil", icon: Settings }],
-  responsavel: [{ key: "feed", label: "Feed", icon: Home }, { key: "murais", label: "Murais", icon: BookOpen }, { key: "video-aulas", label: "Vídeo-aulas", icon: Video }, { key: "chat", label: "Chat direto", icon: MessageCircle }, { key: "perfil", label: "Meu perfil", icon: Settings }],
-  funcionario: [{ key: "feed", label: "Feed", icon: Home }, { key: "murais", label: "Murais", icon: BookOpen }, { key: "grupos", label: "Grupos de estudos", icon: Users }, { key: "chat", label: "Chat direto", icon: MessageCircle }, { key: "perfil", label: "Meu perfil", icon: Settings }, { key: "turmas", label: "Turmas", icon: Users }],
-};
+const logo = CEPI_LOGO;
+const profileLabels = { aluno: socialIdentity.aluno.name, responsavel: socialIdentity.responsavel.name, funcionario: socialIdentity.funcionario.name, coordenacao: socialIdentity.coordenacao.name };
+const allowed: Record<SocialRole, { key: string; label: string; icon: string }[]> = socialNav;
 
 function PageIntro({ title, text }: { title: string; text: string }) { return <div className="social-heading"><Badge>Rede Social Escolar</Badge><h1>{title}</h1><p>{text}</p></div>; }
 
 export default function SocialNetwork({ role = "aluno", initialSection = "feed", sessions, onBack }: { role?: SocialRole; initialSection?: string; sessions?: string[]; onBack?: () => void }) {
   const authorized = useSessionIn(sessions ?? [role]);
   const [requestedSection, setSection] = useState(initialSection);
-  const [posts, setPosts] = useState(mockPosts);
+  const store = useSocialStore();
+  const [posts, setPosts] = useState(() => [...(role === "coordenacao" ? feedSeedCoordenacao : role === "responsavel" ? feedSeedResponsavel : feedSeed), ...mockPosts]);
   const [murals, setMurals] = useState(initialMurals);
   const [postsByMural, setPostsByMural] = useState(initialMuralPosts);
   const [ownPostIdsByMural, setOwnPostIdsByMural] = useState<Record<string, number[]>>({});
-  const [studyGroups, setStudyGroups] = useState(mockGroups);
+  const [studyGroups, setStudyGroups] = useState(studyGroupCatalog);
   const [groupPosts, setGroupPosts] = useState<Record<number, (typeof mockPosts)[number][]>>({});
   const [ownPostIdsByGroup, setOwnPostIdsByGroup] = useState<Record<number, number[]>>({});
   const [likedPostIdsByGroup, setLikedPostIdsByGroup] = useState<Record<number, number[]>>({});
@@ -40,9 +44,8 @@ export default function SocialNetwork({ role = "aluno", initialSection = "feed",
   const [likedPosts, setLikedPosts] = useState<number[]>([]);
   const [ownPostIds, setOwnPostIds] = useState<number[]>([]);
   const [commentsByPost, setCommentsByPost] = useState<Record<number, string[]>>({});
-  const [video, setVideo] = useState<(typeof mockVideos)[number] | null>(null);
+  const [video, setVideo] = useState<LibraryVideo | null>(null);
   const [watchedVideoIds, setWatchedVideoIds] = useState<number[]>([]);
-  const [videoFilter, setVideoFilter] = useState<"todas" | "pendentes" | "concluidas">("todas");
   const [joinedGroupIds, setJoinedGroupIds] = useState<number[]>([1]);
   const [query, setQuery] = useState("");
   const [notifOpen, setNotifOpen] = useState(false);
@@ -52,7 +55,7 @@ export default function SocialNetwork({ role = "aluno", initialSection = "feed",
   const section = nav.some((item) => item.key === requestedSection) || (requestedSection === "publicar" && role !== "responsavel") ? requestedSection : nav[0].key;
   const current = nav.find((item) => item.key === section) ?? nav[0];
   const profile = profileLabels[role];
-  const publish = (text: string, attachments?: Attachment[], image?: string) => { const id = Date.now(); setOwnPostIds((currentIds) => [...currentIds, id]); setPosts((currentPosts) => [{ ...mockPosts[0], id, name: profile, profile: role === "aluno" ? "Aluno" : "Professora", initials: role === "aluno" ? "AM" : "FL", color: role === "aluno" ? "blue" : "purple", date: "Agora", text, likes: 0, comments: 0, image, attachments }, ...currentPosts]); };
+  const publish = (text: string, attachments?: Attachment[], image?: string) => { const id = Date.now(); setOwnPostIds((currentIds) => [...currentIds, id]); setPosts((currentPosts) => [{ ...mockPosts[0], id, name: profile, profile: role === "aluno" ? "Aluno" : role === "coordenacao" ? "Coordenação" : "Professora", initials: socialIdentity[role].initials, color: role === "aluno" ? "blue" : "purple", date: "Agora", text, likes: 0, comments: 0, image, attachments }, ...currentPosts]); };
   const createMural = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const title = newMuralTitle.trim();
@@ -89,7 +92,7 @@ export default function SocialNetwork({ role = "aluno", initialSection = "feed",
       <p>Acompanhe as novidades da sua comunidade.</p>
     </div>
   </div>
-  {(role === "aluno" || role === "funcionario") && <PostComposer role={role} onPublish={publish} />}
+  {(role === "aluno" || role === "funcionario" || role === "coordenacao") && <PostComposer role={role} onPublish={publish} />}
   <div className="feed-list">
     {
     visiblePosts.length === 0 ? <p className="zx-empty">Nenhuma publicação encontrada para "{query}".</p> : visiblePosts.map(
@@ -103,19 +106,22 @@ export default function SocialNetwork({ role = "aluno", initialSection = "feed",
   </>;
   
   let content: React.ReactNode = feed;
-  if (section === "murais") content = <MuralView role={role} murals={murals} postsByMural={postsByMural} setPostsByMural={setPostsByMural} ownPostIdsByMural={ownPostIdsByMural} setOwnPostIdsByMural={setOwnPostIdsByMural} onNavigateToCreateMural={() => setSection("publicar")} />;
-  if (section === "video-aulas") {
-    const visibleVideos = mockVideos.filter((item) => videoFilter === "todas" || (videoFilter === "concluidas") === watchedVideoIds.includes(item.id));
-    content = <><PageIntro title="Vídeo-aulas" text="Aprenda no seu ritmo com os conteúdos dos seus professores." /><p className="video-progress">{watchedVideoIds.length} de {mockVideos.length} aulas concluídas · {mockVideos.length - watchedVideoIds.length} pendentes</p><div className="zx-tabs">{([["todas", "Todas"], ["pendentes", "Pendentes"], ["concluidas", "Concluídas"]] as const).map(([key, label]) => <button key={key} className={videoFilter === key ? "active" : ""} onClick={() => setVideoFilter(key)}>{label}</button>)}</div>{visibleVideos.length === 0 ? <p className="zx-empty">Nenhuma vídeo-aula nesta lista.</p> : <div className="video-grid">{visibleVideos.map((item) => <VideoCard key={item.id} video={item} watched={watchedVideoIds.includes(item.id)} onOpen={setVideo} />)}</div>}</>;
-  }
+  if (section === "murais") content = <MuraisBoard role={role} notes={store.notes} setNotes={store.setNotes} />;
+  if (section === "video-aulas") content = role === "funcionario" ? <TeacherVideos onOpen={setVideo} /> : <StudentVideos watchedIds={watchedVideoIds} onOpen={setVideo} />;
   if (section === "grupos") content = <StudyGroupsView role={role} joinedIds={joinedGroupIds} onToggleJoin={toggleJoin} groups={studyGroups} setGroups={setStudyGroups} groupPosts={groupPosts} setGroupPosts={setGroupPosts} ownPostIdsByGroup={ownPostIdsByGroup} setOwnPostIdsByGroup={setOwnPostIdsByGroup} likedPostIdsByGroup={likedPostIdsByGroup} setLikedPostIdsByGroup={setLikedPostIdsByGroup} commentsByGroup={commentsByGroup} setCommentsByGroup={setCommentsByGroup} />;
-  if (section === "hobbies") content = <><PageIntro title="Hobbies" text="Descubra interesses em comum com a comunidade escolar." /><div className="hobbies-grid">{mockHobbies.map((hobby) => <HobbyCard key={hobby.id} hobby={hobby} />)}</div></>;
+  if (section === "hobbies") content = <HobbiesView />;
+  if (section === "filhos") content = <ChildrenView />;
+  if (section === "comunicados") content = role === "coordenacao" ? <CoordNoticesView store={store} /> : <NoticesView store={store} />;
+  if (section === "duvidas") content = <DoubtsView store={store} />;
+  if (section === "moderacao") content = <ModerationView store={store} />;
+  if (section === "relatorios") content = <ReportsView store={store} />;
   if (section === "chat") content = <Chat role={role} />;
   if (section === "perfil") content = <ProfileView role={role} posts={posts} ownPostIds={ownPostIds} likedPosts={likedPosts} groups={studyGroups} joinedIds={joinedGroupIds} />;
   if (section === "publicar") content = <><PageIntro title="Criar mural" text="Crie um espaço para compartilhar comunicados e novidades com a comunidade escolar." /><form className="social-card publish-form" onSubmit={createMural}><label htmlFor="mural-title">Nome do mural</label><input id="mural-title" value={newMuralTitle} onChange={(event) => setNewMuralTitle(event.target.value)} placeholder="Ex.: Feira de Ciências" required /><label htmlFor="mural-description">Descrição</label><textarea id="mural-description" value={newMuralDescription} onChange={(event) => setNewMuralDescription(event.target.value)} placeholder="Descreva o objetivo deste mural..." required /><button className="primary-button" type="submit">Criar mural</button></form></>;
-  if (section === "turmas") content = <><PageIntro title="Turmas" text="Gerencie as turmas e acompanhe a comunidade de cada sala." /><div className="classes-table">{mockClasses.map((item) => <div className="class-row" key={item.id}><div className="group-icon blue"><Users /></div><div><b>{item.name}</b><small>{item.subject} · {item.room}</small></div><Badge>{item.students} alunos</Badge></div>)}</div></>;
+  if (section === "turmas") content = role === "coordenacao" ? <CoordClassesView /> : role === "funcionario" ? <TeacherClassesView store={store} /> : <><PageIntro title="Turmas" text="Gerencie as turmas e acompanhe a comunidade de cada sala." /><div className="classes-table">{mockClasses.map((item) => <div className="class-row" key={item.id}><div className="group-icon blue"><Users /></div><div><b>{item.name}</b><small>{item.subject} · {item.room}</small></div><Badge>{item.students} alunos</Badge></div>)}</div></>;
 
   if (!authorized) return null;
 
-  return <div className="social-shell"><aside className="social-nav"><div className="social-brand"><img src={logo} alt="CEPI" /><div><b>ZENIX EDUCATION</b><small>Rede Social Escolar</small></div></div><button className="back-platform" onClick={() => window.history.back()}><ArrowLeft /> Voltar à plataforma</button><nav>{nav.map((item) => { const Icon = item.icon; return <button className={section === item.key ? "active" : ""} key={item.key} onClick={() => setSection(item.key)}><Icon />{item.label}</button>; })}</nav><div className="social-user"><Avatar initials={role === "funcionario" ? "FL" : "AM"} color="green" /><span><b>{profile}</b><small>Perfil conectado</small></span></div></aside><main className="social-main"><header className="social-header"><div><b>Rede Social Escolar</b><small>Conecte-se, compartilhe e aprenda</small></div><div className="social-header-actions"><label className="social-search"><Search /><input value={query} onChange={(event) => { setQuery(event.target.value); if (section !== "feed") setSection("feed"); }} placeholder="Buscar publicações" aria-label="Buscar publicações" />{query && <button type="button" aria-label="Limpar busca" onClick={() => setQuery("")}>×</button>}</label><div className="notif-wrap"><button type="button" className="notif-button" aria-label="Notificações" aria-expanded={notifOpen} onClick={() => setNotifOpen((open) => !open)}><Bell />{unread > 0 && <i>{unread}</i>}</button>{notifOpen && <div className="notif-pop" role="menu">{notifications.map((item) => <button type="button" role="menuitem" className={notifRead.includes(item.id) ? "read" : ""} key={item.id} onClick={() => { setNotifRead((current) => current.includes(item.id) ? current : [...current, item.id]); if (nav.some((entry) => entry.key === item.section)) setSection(item.section); setNotifOpen(false); }}>{item.text}</button>)}<button type="button" className="notif-all" onClick={() => setNotifRead(notifications.map((item) => item.id))}>Marcar todas como lidas</button></div>}</div><Avatar initials={role === "funcionario" ? "FL" : "AM"} color="green" /></div></header><div className="social-content">{content}</div></main>{video && <VideoModal video={video} watched={watchedVideoIds.includes(video.id)} onComplete={() => setWatchedVideoIds((current) => current.includes(video.id) ? current : [...current, video.id])} onClose={() => setVideo(null)} />}</div>;
+  const identity = socialIdentity[role];
+  return <div className="social-shell rs-shell"><aside className="social-nav rs-side"><div className="rs-brand"><img src={logo} alt="CEPI Expansão" /><div><b>CEPI Expansão</b><small>Rede Social Escolar</small></div></div><span className={`rs-role-pill role-${role}`}>{identity.badge}</span><nav>{nav.map((item) => <button className={section === item.key ? "active" : ""} key={item.key} onClick={() => setSection(item.key)}><NavIcon name={item.icon} />{item.label}</button>)}</nav><button className="back-platform" onClick={() => window.history.back()}><ArrowLeft size={15} /> Voltar à plataforma</button><div className="social-user"><Avatar initials={identity.initials} color="green" /><span><b>{profile}</b><small>{identity.subtitle.split(" · ")[0]}</small></span></div></aside><main className="social-main"><header className="social-header"><div><b>{current.label}</b><small>{identity.subtitle}</small></div><div className="social-header-actions"><label className="social-search"><Search /><input value={query} onChange={(event) => { setQuery(event.target.value); if (section !== "feed") setSection("feed"); }} placeholder="Buscar publicações" aria-label="Buscar publicações" />{query && <button type="button" aria-label="Limpar busca" onClick={() => setQuery("")}>×</button>}</label><div className="notif-wrap"><button type="button" className="notif-button" aria-label="Notificações" aria-expanded={notifOpen} onClick={() => setNotifOpen((open) => !open)}><Bell />{unread > 0 && <i>{unread}</i>}</button>{notifOpen && <div className="notif-pop" role="menu">{notifications.map((item) => <button type="button" role="menuitem" className={notifRead.includes(item.id) ? "read" : ""} key={item.id} onClick={() => { setNotifRead((current) => current.includes(item.id) ? current : [...current, item.id]); if (nav.some((entry) => entry.key === item.section)) setSection(item.section); setNotifOpen(false); }}>{item.text}</button>)}<button type="button" className="notif-all" onClick={() => setNotifRead(notifications.map((item) => item.id))}>Marcar todas como lidas</button></div>}</div><Avatar initials={identity.initials} color="green" /></div></header><div className="social-content">{content}</div></main>{video && <VideoModal video={video as never} watched={watchedVideoIds.includes(video.id)} onComplete={() => setWatchedVideoIds((current) => current.includes(video.id) ? current : [...current, video.id])} onClose={() => setVideo(null)} />}</div>;
 }

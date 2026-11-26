@@ -5,6 +5,7 @@ import { ArrowLeft, ChevronRight } from "lucide-react";
 import { type Attachment, type Group, type Post, type SocialRole } from "@/data/shared/social";
 import { PostCard, PostComposer } from "@/components/social/feed/feed-components";
 import { Badge, PageIntro } from "@/components/social/shared/social-ui";
+import { GroupsGrid } from "@/components/rede-social/group-grid";
 
 export function GroupCard({ group, joined = false, onClick }: { group: Group; joined?: boolean; onClick: () => void }) {
   return <button className="group-card" onClick={onClick}><div className={`group-icon ${group.color}`}>{group.icon}</div><div><b>{group.title}</b><small>{group.subject}</small><span>{group.members}{joined ? " · Participando" : ""}</span></div><ChevronRight /></button>;
@@ -41,6 +42,7 @@ export function StudyGroupsView({
 }) {
   const [activeGroupId, setActiveGroupId] = useState<number | null>(null);
   const [creatingGroup, setCreatingGroup] = useState(false);
+  const [groupNotice, setGroupNotice] = useState("");
   const [newGroupTitle, setNewGroupTitle] = useState("");
   const [newGroupDescription, setNewGroupDescription] = useState("");
   const activeGroup = groups.find((group) => group.id === activeGroupId);
@@ -50,10 +52,19 @@ export function StudyGroupsView({
 
   const createGroup = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (role !== "funcionario") return;
+    if (role !== "funcionario" && role !== "aluno") return;
     const title = newGroupTitle.trim();
     const subject = newGroupDescription.trim();
     if (!title || !subject) return;
+
+    // Grupos criados por alunos passam por aprovação da coordenação antes de aparecer na lista.
+    if (role === "aluno") {
+      setNewGroupTitle("");
+      setNewGroupDescription("");
+      setCreatingGroup(false);
+      setGroupNotice(`O grupo "${title}" foi enviado para aprovação da coordenação.`);
+      return;
+    }
 
     setGroups((current) => [...current, {
       id: Math.max(0, ...current.map((group) => group.id)) + 1,
@@ -71,8 +82,8 @@ export function StudyGroupsView({
   const publishPost = (text: string, attachments?: Attachment[], image?: string) => {
     if (activeGroupId === null) return;
     const id = Math.max(0, ...(groupPosts[activeGroupId] ?? []).map((post) => post.id)) + 1;
-    const profileLabels = { aluno: "Aluno", responsavel: "Responsável", funcionario: "Funcionário" };
-    const colors = { aluno: "blue", responsavel: "blue", funcionario: "purple" };
+    const profileLabels = { aluno: "Aluno", responsavel: "Responsável", funcionario: "Funcionário", coordenacao: "Coordenação" };
+    const colors = { aluno: "blue", responsavel: "blue", funcionario: "purple", coordenacao: "gold" };
     setGroupPosts((current) => ({
       ...current,
       [activeGroupId]: [{
@@ -144,15 +155,15 @@ export function StudyGroupsView({
       </>;
     }
 
-    return <>
-      <PageIntro title="Grupos de estudos" text="Encontre seus colegas e aprenda em conjunto." />
-      {role === "funcionario" && <div className="direita"><button className="primary-button" onClick={() => setCreatingGroup(true)}>Criar grupo</button></div>}
-      <div className="groups-grid">
-        {groups.map((group) => (
-          <GroupCard key={group.id} group={group} joined={role !== "funcionario" && joinedIds.includes(group.id)} onClick={() => setActiveGroupId(group.id)} />
-        ))}
-      </div>
-    </>;
+    return <GroupsGrid
+      role={role}
+      groups={groups}
+      joinedIds={joinedIds}
+      notice={groupNotice}
+      onOpen={setActiveGroupId}
+      onToggleJoin={onToggleJoin}
+      onCreate={() => { setGroupNotice(""); setCreatingGroup(true); }}
+    />;
   }
 
   return <>
