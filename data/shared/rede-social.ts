@@ -126,6 +126,11 @@ export const feedSeed: Post[] = [
   },
 ];
 
+feedSeed.push(
+  { id: 104, name: "Aluno Modelo 101", profile: "8º ano A", date: "há 3 dias", text: "Terminei o resumo de Geografia sobre relevo e hidrografia. Quem quiser estudar junto, é só chamar no grupo.", initials: "AM", color: "blue", likes: 6, comments: 1 },
+  { id: 105, name: "Fernanda Lima", profile: "Professora", date: "há 2 dias", text: "Lembrete: entrega do trabalho de Ciências na próxima segunda. Dúvidas, me chamem no chat.", initials: "FL", color: "purple", likes: 9, comments: 2 },
+);
+
 export const feedSeedCoordenacao: Post[] = [feedSeed[2], feedSeed[0]];
 export const feedSeedResponsavel: Post[] = [
   {
