@@ -3,20 +3,21 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { AdminDashboard } from "@/components/administrador/admin-dashboard";
+import { TiDashboard } from "@/components/ti/ti-dashboard";
 import { StudentDashboard } from "@/components/aluno/student-dashboard";
 import { ProfessorDashboard } from "@/components/professor/professor-dashboard";
 
 export function AreaDashboard({
   area,
 }: {
-  area: "admin" | "aluno" | "responsavel" | "funcionario";
+  area: "admin" | "direcao" | "aluno" | "responsavel" | "funcionario";
 }) {
   const router = useRouter();
   const [authorized, setAuthorized] = useState(false);
 
   useEffect(() => {
     const session = sessionStorage.getItem("zenix-demo-session");
-    const expected = area === "admin" ? "admin" : area;
+    const expected = area;
 
     if (session === expected) {
       setAuthorized(true);
@@ -31,7 +32,8 @@ export function AreaDashboard({
   }
 
   if (!authorized) return null;
-  if (area === "admin") return <AdminDashboard onBack={logout} />;
+  if (area === "admin") return <TiDashboard onBack={logout} />;
+  if (area === "direcao") return <AdminDashboard onBack={logout} />;
   if (area === "funcionario") return <ProfessorDashboard onBack={logout} />;
 
   return (

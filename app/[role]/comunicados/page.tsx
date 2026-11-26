@@ -8,7 +8,7 @@ import { useDemoGuard } from "@/lib/demo-session";
 import { getClass, readSelectedStudent, schoolClasses } from "@/data/shared/school";
 
 const STORAGE_KEY = "zenix-comunicados-publicados";
-const PUBLISHERS = ["funcionario", "admin"];
+const PUBLISHERS = ["funcionario", "direcao"];
 
 type Comunicado = {
   id: number;
@@ -85,7 +85,7 @@ function formatarData(data: string) {
 export default function ComunicadosPage() {
   const { role } = useParams<{ role: string }>();
 
-  const authorized = useDemoGuard(role, ["aluno", "responsavel", "funcionario", "admin"]);
+  const authorized = useDemoGuard(role, ["aluno", "responsavel", "funcionario", "direcao"]);
   const podePublicar = PUBLISHERS.includes(role);
   const [publicados, setPublicados] = useState<Comunicado[]>([]);
   const [lidos, setLidos] = useState<number[]>([]);
@@ -143,7 +143,7 @@ export default function ComunicadosPage() {
         id: Date.now(),
         titulo: titulo.trim(),
         mensagem: mensagemNova.trim(),
-        remetente: role === "admin" ? "Administração" : "Fernanda Lima · Professora",
+        remetente: role === "direcao" ? "Direção · Marina Albuquerque" : "Fernanda Lima · Professora",
         data,
         importante: importanteNovo,
         lido: false,

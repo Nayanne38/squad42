@@ -4,7 +4,7 @@ const copy = {
   aluno: "Feed, murais, vídeo aulas, grupos de estudo e mensagens com a sua turma.",
   responsavel: "Comunicados, murais e mensagens com professores e coordenação.",
   funcionario: "Publique nos murais, responda dúvidas e fale com alunos e responsáveis.",
-  admin: "Moderação, comunicados, turmas e relatórios da comunidade escolar.",
+  direcao: "Moderação, comunicados, turmas e relatórios da comunidade escolar.",
 } as const;
 
 export function SocialCta({ role }: { role: keyof typeof copy }) {

@@ -19,12 +19,12 @@ import {
 } from "@/data/shared/school";
 
 const adminLinks: [string, string][] = [
-  ["Gerenciar alunos", "/admin/cadastros/alunos"],
-  ["Gerenciar turmas", "/admin/turmas"],
-  ["Enviar mensagem", "/admin/comunicados"],
-  ["Mensagens em massa", "/admin/comunicados"],
-  ["Equipe", "/admin/cadastros/equipe"],
-  ["Configurações", "/admin/cadastros/permissoes"],
+  ["Turmas", "/direcao/turmas"],
+  ["Enviar comunicado", "/direcao/comunicados"],
+  ["Moderação da comunidade", "/direcao/rede-social/moderacao"],
+  ["Relatórios", "/direcao/rede-social/relatorios"],
+  ["Ocorrências", "/direcao/academico/ocorrencias"],
+  ["Provas e simulados", "/direcao/academico/provas"],
 ];
 
 export function AdminDashboard({ onBack }: { onBack: () => void }) {
@@ -33,17 +33,17 @@ export function AdminDashboard({ onBack }: { onBack: () => void }) {
   const birthdays = getUpcomingBirthdays();
   return (
     <div className="admin-shell">
-      <SideNav view="admin" setView={onBack} open={false} />
+      <SideNav view="admin" setView={onBack} open={false} variant="direcao" userName="Marina Albuquerque" userEmail="marina@cepi.com" />
       <div className="admin-main">
         <Header onMenu={() => {}} />
         <div className="admin-content">
           <div className="admin-title">
             <div>
-              <h1>Olá, diretora Fabricya 👋</h1>
+              <h1>Olá, diretora Marina 👋</h1>
               <p>Direção e Coordenação · resumo do portal hoje.</p>
             </div>
             <div className="admin-title-actions">
-              <a className="outline-button" href="/admin/perfil">
+              <a className="outline-button" href="/direcao/perfil">
                 <Settings size={15} /> Meu perfil
               </a>
               <button className="outline-button" onClick={onBack}>
@@ -51,7 +51,7 @@ export function AdminDashboard({ onBack }: { onBack: () => void }) {
               </button>
             </div>
           </div>
-          <SocialCta role="admin" />
+          <SocialCta role="direcao" />
           <div className="stats">
             <div>
               <Users size={18} />
@@ -66,7 +66,7 @@ export function AdminDashboard({ onBack }: { onBack: () => void }) {
             <div>
               <BookOpen size={18} />
               <b>{staff.length}</b>
-              <span>Profissionais</span>
+              <span>Professores</span>
             </div>
           </div>
           <div className="admin-card">
@@ -81,26 +81,10 @@ export function AdminDashboard({ onBack }: { onBack: () => void }) {
               <div style={{ padding: "6px 0", fontSize: 13 }}>{birthdays.map((item) => item.name).join(", ")}</div>
             )}
           </div>
-          <div className="admin-card notices">
-            <div className="card-title">
-              <ShieldAlert size={15} /> Avisos de cadastro <mark>{totalNotices}</mark>
-            </div>
-            {notices.map(({ title, description, students: affected }) => (
-              <a className="notice" key={title} href="/admin/cadastros/avisos" style={{ textDecoration: "none", color: "inherit" }}>
-                <ShieldAlert size={17} />
-                <div>
-                  <b>{title}</b>
-                  <small>{description}</small>
-                </div>
-                <mark>{affected.length}</mark>
-                <ChevronDown size={14} />
-              </a>
-            ))}
-          </div>
           <div className="admin-card">
             <div className="card-title quick-title">ACESSO RÁPIDO</div>
             <div className="admin-links">
-              <a href="/admin/rede-social/feed">
+              <a href="/direcao/rede-social/feed">
                 <MessageCircle size={16} /> Rede Social Escolar
               </a>
               {adminLinks.map(([item, href]) => (

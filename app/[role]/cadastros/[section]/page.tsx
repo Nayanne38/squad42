@@ -23,12 +23,15 @@ const tabs = [
   ["vinculos", "Vínculos"],
   ["avisos", "Avisos de cadastro"],
   ["permissoes", "Permissões"],
+  ["logs", "Logs de acesso"],
+  ["backup", "Backup e segurança"],
 ] as const;
 
 export default function CadastrosPage() {
   const { role, section } = useParams<{ role: string; section: string }>();
   const authorized = useDemoGuard(role, ["admin"]);
   const [search, setSearch] = useState("");
+  const [backupMsg, setBackupMsg] = useState("");
 
   if (!authorized) return null;
 
@@ -133,6 +136,34 @@ export default function CadastrosPage() {
         ))}
       </div>
     );
+  } else if (current[0] === "logs") {
+    body = (
+      <Table
+        head={["DATA", "USUÁRIO", "PERFIL", "AÇÃO"]}
+        rows={[
+          ["25/11 08:12", "rafael@cepi.com", "Aluno", "Login realizado"],
+          ["25/11 08:05", "fernanda@cepi.com", "Docência", "Lançou notas do 1º bimestre"],
+          ["25/11 07:58", "marina@cepi.com", "Direção", "Publicou comunicado"],
+          ["25/11 07:40", "fabricya@cepi.com", "Responsável", "Login realizado"],
+          ["24/11 18:22", "admin@cepi.com", "Administração", "Alterou permissões"],
+        ]}
+      />
+    );
+  } else if (current[0] === "backup") {
+    body = (
+      <div className="zx-card" style={{ display: "grid", gap: 10 }}>
+        <b>Backup e segurança (demonstração)</b>
+        <small>Último backup simulado: hoje, 03:00 · Autenticação em duas etapas: desativada · Sessões ativas: 4</small>
+        <button
+          type="button"
+          className="rs-primary"
+          onClick={() => setBackupMsg(`Backup gerado às ${new Date().toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" })} (nenhum arquivo é criado na demonstração).`)}
+        >
+          Gerar backup agora
+        </button>
+        {backupMsg && <p className="rs-note-msg" role="status">{backupMsg}</p>}
+      </div>
+    );
   } else {
     body = (
       <>
@@ -140,7 +171,7 @@ export default function CadastrosPage() {
           Níveis de acesso simulados de cada perfil. Em produção estas regras seriam aplicadas pelo servidor.
         </p>
         <Table
-          head={["RECURSO", "ALUNO", "RESPONSÁVEL", "PROFESSOR", "ADMINISTRADOR"]}
+          head={["RECURSO", "ALUNO", "RESPONSÁVEL", "DOCÊNCIA", "DIREÇÃO / TI"]}
           rows={permissionMatrix.map((row) => [row.resource, row.aluno, row.responsavel, row.funcionario, row.admin])}
         />
       </>
@@ -152,9 +183,9 @@ export default function CadastrosPage() {
   return (
     <ZxPage
       role={role}
-      eyebrow="ADMINISTRAÇÃO"
+      eyebrow="ADMINISTRAÇÃO · TI"
       title="Cadastros e acessos"
-      subtitle="Consulte alunos, responsáveis, equipe, vínculos e permissões."
+      subtitle="Controle de pessoas, acessos, logs e segurança do sistema."
     >
       <div className="zx-tabs">
         {tabs.map(([key, label]) => (
@@ -162,7 +193,6 @@ export default function CadastrosPage() {
             {label}
           </Link>
         ))}
-        <Link href={`/${role}/turmas`}>Turmas →</Link>
       </div>
       {searchable && (
         <input

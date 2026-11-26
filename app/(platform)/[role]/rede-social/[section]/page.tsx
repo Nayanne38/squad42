@@ -11,15 +11,11 @@ export default async function SocialRoute({
   const { role, section } = await params;
   const safeRole = roles.has(role as SocialRole)
     ? (role as SocialRole)
-    : role === "admin"
+    : role === "direcao"
       ? "coordenacao"
       : "aluno";
   // Sessões que podem abrir esta rota: cada perfil só entra na própria área.
   const sessions =
-    role === "admin"
-      ? ["admin"]
-      : safeRole === "funcionario"
-        ? ["funcionario", "admin"]
-        : [safeRole];
+    role === "direcao" ? ["direcao"] : [safeRole];
   return <SocialNetwork role={safeRole} initialSection={section} sessions={sessions} />;
 }

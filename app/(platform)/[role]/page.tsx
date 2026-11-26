@@ -7,6 +7,7 @@ export default function AreaPage() {
   const { role } = useParams<{ role: string }>();
   const validArea =
     role === "admin" ||
+    role === "direcao" ||
     role === "aluno" ||
     role === "responsavel" ||
     role === "funcionario"

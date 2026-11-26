@@ -15,14 +15,14 @@ import {
 
 export default function TurmasPage() {
   const { role } = useParams<{ role: string }>();
-  const authorized = useDemoGuard(role, ["funcionario", "admin"]);
+  const authorized = useDemoGuard(role, ["funcionario", "direcao"]);
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const [search, setSearch] = useState("");
 
   if (!authorized) return null;
 
   // O professor vê apenas as turmas que leciona; o administrador vê todas.
-  const classes = role === "admin" ? schoolClasses : getClassesOfStaff(CURRENT_STAFF_ID);
+  const classes = role === "direcao" ? schoolClasses : getClassesOfStaff(CURRENT_STAFF_ID);
   const selected = classes.find((item) => item.id === selectedId) ?? null;
   const roster = selected
     ? getStudentsOfClass(selected.id).filter((item) => item.name.toLowerCase().includes(search.toLowerCase()))
@@ -32,7 +32,7 @@ export default function TurmasPage() {
     <ZxPage
       role={role}
       eyebrow="ÁREA DO PROFESSOR"
-      title={role === "admin" ? "Turmas" : "Minhas turmas"}
+      title={role === "direcao" ? "Turmas" : "Minhas turmas"}
       subtitle="Acompanhe as turmas, os alunos e os responsáveis vinculados."
     >
       {!selected ? (

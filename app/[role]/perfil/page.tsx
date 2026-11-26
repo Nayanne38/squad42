@@ -20,12 +20,13 @@ import {
   type ProfileData,
 } from "@/data/shared/school";
 
-const areas: AreaRole[] = ["aluno", "responsavel", "funcionario", "admin"];
+const areas: AreaRole[] = ["aluno", "responsavel", "funcionario", "direcao", "admin"];
 const roleLabel: Record<AreaRole, string> = {
   aluno: "Aluno",
   responsavel: "Responsável",
   funcionario: "Professor / Funcionário",
-  admin: "Administrador",
+  direcao: "Direção / Coordenação",
+  admin: "Administração (TI)",
 };
 
 export default function PerfilPage() {

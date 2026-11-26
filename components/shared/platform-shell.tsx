@@ -37,7 +37,7 @@ export function Brand({ compact = false }: { compact?: boolean }) {
   );
 }
 
-export function Header({ onMenu, initials = "FN" }: { onMenu: () => void; initials?: string }) {
+export function Header({ onMenu, initials = "MA" }: { onMenu: () => void; initials?: string }) {
   return (
     <header className="topbar">
       <button className="mobile-menu" onClick={onMenu} aria-label="Abrir menu">
@@ -61,9 +61,10 @@ export function SideNav({
   view,
   setView,
   open,
-  userName = "Fabricya Nayanne Santos",
-  userEmail = "admin@zenixeducation.com...",
+  userName = "Marina Albuquerque",
+  userEmail = "admin@cepi.com",
   professor = false,
+  variant,
 }: {
   view: View;
   setView: (view: View) => void;
@@ -71,7 +72,9 @@ export function SideNav({
   userName?: string;
   userEmail?: string;
   professor?: boolean;
+  variant?: "professor" | "direcao" | "ti";
 }) {
+  const kind = variant ?? (professor ? "professor" : "direcao");
   const professorMenu = (
     <>
       <div className="nav-section">
@@ -134,13 +137,13 @@ export function SideNav({
       >
         <X size={18} />
       </button>
-      {professor ? (
+      {kind === "professor" ? (
         professorMenu
-      ) : (
+      ) : kind === "ti" ? (
         <>
           <div className="nav-section">
             <span>
-              CADASTRO <ChevronDown size={12} />
+              PESSOAS E ACESSOS <ChevronDown size={12} />
             </span>
             <a className="nav-link" href="/admin/cadastros/alunos">
               <Users size={15} /> Alunos
@@ -148,24 +151,55 @@ export function SideNav({
             <a className="nav-link" href="/admin/cadastros/responsaveis">
               <UserRound size={15} /> Responsáveis
             </a>
-            <a className="nav-link" href="/admin/turmas">
-              <BookOpen size={15} /> Turmas
-            </a>
             <a className="nav-link" href="/admin/cadastros/equipe">
               <Users size={15} /> Equipe
             </a>
-          </div>
-          <div className="nav-section">
-            <span>
-              COMUNICAÇÃO E CONTA <ChevronDown size={12} />
-            </span>
-            <a className="nav-link" href="/admin/comunicados">
-              <Bell size={15} /> Avisos e comunicados
+            <a className="nav-link" href="/admin/cadastros/vinculos">
+              <ClipboardList size={15} /> Vínculos
             </a>
             <a className="nav-link" href="/admin/cadastros/permissoes">
               <ShieldAlert size={15} /> Permissões de acesso
             </a>
+          </div>
+          <div className="nav-section">
+            <span>
+              SISTEMA <ChevronDown size={12} />
+            </span>
+            <a className="nav-link" href="/admin/cadastros/avisos">
+              <Bell size={15} /> Avisos de cadastro
+            </a>
+            <a className="nav-link" href="/admin/cadastros/logs">
+              <ClipboardList size={15} /> Logs de acesso
+            </a>
+            <a className="nav-link" href="/admin/cadastros/backup">
+              <ShieldAlert size={15} /> Backup e segurança
+            </a>
+          </div>
+          <div className="nav-section">
+            <span>
+              CONTA <ChevronDown size={12} />
+            </span>
             <a className="nav-link" href="/admin/perfil">
+              <UserRound size={15} /> Perfil
+            </a>
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="nav-section">
+            <span>
+              GESTÃO ESCOLAR <ChevronDown size={12} />
+            </span>
+            <a className="nav-link" href="/direcao/turmas">
+              <BookOpen size={15} /> Turmas
+            </a>
+            <a className="nav-link" href="/direcao/comunicados">
+              <Bell size={15} /> Avisos e comunicados
+            </a>
+            <a className="nav-link" href="/direcao/rede-social/feed">
+              <MessageCircle size={15} /> Rede Social Escolar
+            </a>
+            <a className="nav-link" href="/direcao/perfil">
               <UserRound size={15} /> Perfil
             </a>
           </div>
@@ -173,22 +207,22 @@ export function SideNav({
             <span>
               ACADÊMICO <ChevronDown size={12} />
             </span>
-            <a className="nav-link" href="/admin/calendario">
+            <a className="nav-link" href="/direcao/calendario">
           <CalendarDays size={15} /> Calendário
         </a>
-            <a className="nav-link" href="/admin/academico/lancar-notas">
+            <a className="nav-link" href="/direcao/academico/lancar-notas">
           <ClipboardList size={15} /> Lançamento de Notas
         </a>
-            <a className="nav-link" href="/admin/academico/diario">
+            <a className="nav-link" href="/direcao/academico/diario">
           <NotebookPen size={15} /> Diário de Classe
         </a>
-            <a className="nav-link" href="/admin/academico/horarios">
+            <a className="nav-link" href="/direcao/academico/horarios">
           <CalendarDays size={15} /> Horários
         </a>
-            <a className="nav-link" href="/admin/academico/reforco">
+            <a className="nav-link" href="/direcao/academico/reforco">
           <BookOpen size={15} /> Reforço / Extras
         </a>
-            <a className="nav-link" href="/admin/academico/ocorrencias">
+            <a className="nav-link" href="/direcao/academico/ocorrencias">
           <ShieldAlert size={15} /> Ocorrências
         </a>
           </div>
@@ -196,13 +230,13 @@ export function SideNav({
             <span>
               SIMULADOS E PROVAS <ChevronDown size={12} />
             </span>
-            <a className="nav-link" href="/admin/academico/banco-questoes">
+            <a className="nav-link" href="/direcao/academico/banco-questoes">
           <ClipboardList size={15} /> Banco de Questões
         </a>
-            <a className="nav-link" href="/admin/academico/simulados">
+            <a className="nav-link" href="/direcao/academico/simulados">
           <ClipboardList size={15} /> Simulados
         </a>
-            <a className="nav-link" href="/admin/academico/provas">
+            <a className="nav-link" href="/direcao/academico/provas">
           <ClipboardList size={15} /> Provas
         </a>
           </div>
@@ -210,19 +244,19 @@ export function SideNav({
             <span>
               PORTARIA <ChevronDown size={12} />
             </span>
-            <a className="nav-link" href="/admin/academico/painel">
+            <a className="nav-link" href="/direcao/academico/painel">
           <ShieldAlert size={15} /> Painel ao vivo
         </a>
-            <a className="nav-link" href="/admin/academico/visitantes">
+            <a className="nav-link" href="/direcao/academico/visitantes">
           <Users size={15} /> Visitantes
         </a>
-            <a className="nav-link" href="/admin/academico/saidas">
+            <a className="nav-link" href="/direcao/academico/saidas">
           <UserRound size={15} /> Autorizações de saída
         </a>
-            <a className="nav-link" href="/admin/academico/ocorrencias">
+            <a className="nav-link" href="/direcao/academico/ocorrencias">
           <ShieldAlert size={15} /> Ocorrências
         </a>
-            <a className="nav-link" href="/admin/academico/historico">
+            <a className="nav-link" href="/direcao/academico/historico">
           <ClipboardList size={15} /> Histórico de acesso
         </a>
           </div>
@@ -230,7 +264,7 @@ export function SideNav({
       )}
       <div className="side-user">
         <div className="avatar green">
-          {userName === "Fabricya Nayanne Santos" ? "FN" : "FL"}
+          {userName === "Marina Albuquerque" ? "MA" : "FL"}
         </div>
         <div>
           <b>{userName}</b>

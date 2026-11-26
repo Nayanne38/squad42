@@ -163,7 +163,7 @@ const lists: Record<string, ListConfig> = {
   },
 };
 
-const eyebrowOf = (role: string) => (role === "admin" ? "ÁREA DA DIREÇÃO / COORDENAÇÃO" : "ÁREA DO PROFESSOR");
+const eyebrowOf = (role: string) => (role === "direcao" ? "ÁREA DA DIREÇÃO / COORDENAÇÃO" : "ÁREA DO PROFESSOR");
 
 function useStored<T>(key: string, seed: T) {
   const [value, setValue] = useState<T>(seed);
@@ -253,7 +253,7 @@ function ListSection({ id, config, role }: { id: string; config: ListConfig; rol
 }
 
 function GradesSection({ role }: { role: string }) {
-  const classes = role === "admin" ? schoolClasses : getClassesOfStaff(CURRENT_STAFF_ID);
+  const classes = role === "direcao" ? schoolClasses : getClassesOfStaff(CURRENT_STAFF_ID);
   const [classId, setClassId] = useState(classes[0].id);
   const [term, setTerm] = useState("1º Bimestre");
   const [stored, setStored] = useStored<Record<string, string>>("zenix-academico-notas", {});
@@ -317,7 +317,7 @@ function GradesSection({ role }: { role: string }) {
 }
 
 function DiarySection({ role }: { role: string }) {
-  const classes = role === "admin" ? schoolClasses : getClassesOfStaff(CURRENT_STAFF_ID);
+  const classes = role === "direcao" ? schoolClasses : getClassesOfStaff(CURRENT_STAFF_ID);
   const [classId, setClassId] = useState(classes[0].id);
   const [content, setContent] = useState("");
   const [absent, setAbsent] = useState<number[]>([]);
@@ -392,13 +392,13 @@ function ScheduleSection({ role }: { role: string }) {
 
 export default function AcademicoPage() {
   const { role, section } = useParams<{ role: string; section: string }>();
-  const authorized = useDemoGuard(role, ["funcionario", "admin"]);
+  const authorized = useDemoGuard(role, ["funcionario", "direcao"]);
   if (!authorized) return null;
 
   if (section === "lancar-notas") return <GradesSection role={role} />;
   if (section === "diario") return <DiarySection role={role} />;
   if (section === "horarios") return <ScheduleSection role={role} />;
   const config = lists[section];
-  if (!config || (config.adminOnly && role !== "admin")) notFound();
+  if (!config || (config.adminOnly && role !== "direcao")) notFound();
   return <ListSection id={section} config={config} role={role} />;
 }

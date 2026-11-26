@@ -9,31 +9,31 @@ const roleCopy = {
     title: "Login do Aluno",
     subtitle: "Acesse suas notas, horários e comunicados.",
     label: "Aluno",
-    email: "20260011@zenixeducation.com.br",
-    password: "ZxDt2NjdpGuq#41",
+    email: "rafael@cepi.com",
+    password: "rafael123",
   },
   responsavel: {
     title: "Login do Responsável",
     subtitle: "Acompanhe o desempenho do seu filho.",
     label: "Responsável",
-    email: "responsavel@zenixeducation.com.br",
-    password: "ZxfurWbZnely#76",
+    email: "fabricya@cepi.com",
+    password: "fabricya123",
   },
   funcionario: {
-    title: "Login do Funcionário",
-    subtitle: "Acesse o painel administrativo da escola.",
-    label: "Funcionário",
-    email: "fernanda.lima@zenixeducation.com.br",
-    password: "admin123",
-    alternateEmail: "admin@zenixeducation.com.br",
-    alternatePassword: "ZxygsZeQg3Hp#88",
+    title: "Login da Docência",
+    subtitle: "Professores e direção / coordenação.",
+    label: "Docência",
+    email: "fernanda@cepi.com",
+    password: "fernanda123",
+    alternateEmail: "marina@cepi.com",
+    alternatePassword: "marina123",
   },
   admin: {
-    title: "Login da Direção / Coordenação",
-    subtitle: "Acesse cadastros, permissões, moderação e relatórios.",
-    label: "Direção / Coordenação",
-    email: "admin@zenixeducation.com.br",
-    password: "ZxygsZeQg3Hp#88",
+    title: "Login da Administração",
+    subtitle: "Controle de pessoas, acessos e segurança do sistema (TI).",
+    label: "Administração (TI)",
+    email: "admin@cepi.com",
+    password: "admin123",
   },
 } as const;
 
@@ -63,11 +63,11 @@ export default function LoginPage() {
       email.trim().toLowerCase() === copy.alternateEmail &&
       password === copy.alternatePassword;
     if (isPrimary || isAlternate) {
-      const sessionRole = isAlternate ? "admin" : role;
+      const sessionRole = isAlternate ? "direcao" : role;
       sessionStorage.setItem("zenix-demo-session", sessionRole);
       setMessage("Acesso demonstrativo liberado. Bem-vindo à Zenix Education!");
       window.setTimeout(
-        () => router.push(isAlternate ? "/admin" : destination),
+        () => router.push(isAlternate ? "/direcao" : destination),
         250,
       );
       return;
