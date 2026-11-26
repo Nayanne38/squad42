@@ -218,15 +218,6 @@ export function StudentDashboard({
             })}
         </div>
       </div>
-      <a
-        className="back-button"
-        href={`/ ${isParent ? "responsavel" : "aluno"}/rede-social/feed`.replace(
-          " ",
-          "",
-        )}
-      >
-        Abrir Rede Social Escolar
-      </a>
       <button className="back-button" onClick={onBack}>
         Sair
       </button>

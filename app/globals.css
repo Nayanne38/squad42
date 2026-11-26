@@ -3943,3 +3943,23 @@ body:has(.portal){background:#f4f6f5}
 .admin-links a,.admin-links button,.admin-links .nav-link{border:0!important;border-radius:12px;box-shadow:0 1px 5px rgba(20,40,30,.09);background:#fff;transition:transform .15s}
 .admin-links a:hover,.admin-links button:hover{transform:translateY(-2px);background:#e5f6ea}
 .admin-links svg{color:#00893f}
+
+.admin-shell .admin-title{position:relative;overflow:hidden;background:linear-gradient(100deg,#00a84f,#006b30);color:#fff;border-radius:16px;padding:30px 28px;margin-bottom:18px;align-items:center}
+.admin-shell .admin-title::after{content:"";position:absolute;right:-60px;top:-70px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.1);pointer-events:none}
+.admin-shell .admin-title h1,.admin-shell .admin-title p{color:#fff;position:relative;z-index:1}
+.admin-shell .admin-title h1{font-size:26px}
+.admin-shell .admin-title-actions{position:relative;z-index:2;display:flex;gap:8px}
+.admin-shell .admin-title-actions .outline-button{background:#fff;border:0;color:#00893f;font-weight:700;border-radius:999px}
+.admin-shell .stats>div{border:0;border-top:3px solid #00893f;border-radius:14px;box-shadow:0 1px 6px rgba(20,40,30,.09)}
+.admin-shell .stats>div:nth-child(2){border-top-color:#3b36d6}.admin-shell .stats>div:nth-child(3){border-top-color:#f5c431}
+.admin-shell .stats b{font-size:28px;color:#1c2a22}
+.admin-shell .sidenav .active,.admin-shell .sidenav a:hover{background:#e5f6ea;color:#00893f}
+
+.portal .big-avatar.small{background:#e5f6ea;color:#00893f;border:0;width:46px;height:46px;font-size:15px}
+.portal .student-select{display:inline-flex;vertical-align:top;margin:0 12px 12px 0;width:300px;background:#fff;border:0}
+.portal .student-select b{color:#1c2a22}
+.portal .student-select span{background:#00893f;color:#fff}
+.portal .student-row{background:#e5f6ea;border-radius:12px}
+
+.portal .student-select span{height:auto;width:auto;padding:3px 10px;border-radius:999px;font-size:10px;align-self:center;margin-left:auto}
+.portal .student-row .big-avatar.small{margin-right:4px}
