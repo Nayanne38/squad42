@@ -172,7 +172,7 @@ export default function LoginPage() {
       >
         <div className="institutional-panel">
           <img
-            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-7Ezo2vTuYX5AbUDY3GNV6xgjvUfGqs.png"
+            src="/logo-cepi.png"
             alt="Colégio CEPI Expansão"
           />
           <span>Educação que transforma</span>

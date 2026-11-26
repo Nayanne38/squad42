@@ -16,7 +16,7 @@ import {
 } from "@/components/shared/platform-shell";
 
 const cepiLogo =
-  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-7Ezo2vTuYX5AbUDY3GNV6xgjvUfGqs.png";
+  "/logo-cepi.png";
 
 type Role = "Aluno" | "Responsável" | "Funcionário" | "Administrador";
 

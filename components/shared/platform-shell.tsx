@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 
 const cepiLogo =
-  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-7Ezo2vTuYX5AbUDY3GNV6xgjvUfGqs.png";
+  "/logo-cepi.png";
 
 export type View = "home" | "student" | "responsible" | "admin";
 
