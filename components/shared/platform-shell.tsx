@@ -264,7 +264,7 @@ export function SideNav({
       )}
       <div className="side-user">
         <div className="avatar green">
-          {userName === "Fabricya Nayanne Santos" ? "FN" : "FL"}
+          {userName.split(" ").filter(Boolean).map((w) => w[0]).slice(0, 2).join("").toUpperCase()}
         </div>
         <div>
           <b>{userName}</b>

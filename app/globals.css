@@ -4042,3 +4042,8 @@ body:has(.agenda-page,.calendar-page,.comunicados-page,.schedule-page,.grades-pa
 .zx-page .rs-note-msg{background:#e5f6ea;color:#0a5c2e;padding:8px 12px;border-radius:10px;font-size:13px}
 .zx-page .rs-error{color:#d62828;font-size:13px}
 .zx-page .rs-table{width:100%;border-collapse:collapse}.zx-page .rs-table th{text-align:left;font-size:11px;letter-spacing:.05em;padding:8px}.zx-page .rs-table td{padding:10px 8px;border-top:1px solid #e3ebe5}
+
+/* Campo de publicação compacto (Figma) */
+.rs-shell .composer textarea{min-height:44px;height:44px;resize:none;padding:11px 14px;transition:height .15s}
+.rs-shell .composer textarea:focus{height:96px}
+.rs-shell .composer .post-head small{display:none}
