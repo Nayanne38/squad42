@@ -40,10 +40,10 @@ export type Staff = {
 };
 
 export const schoolClasses: SchoolClassRecord[] = [
-  { id: 1, name: "8º Ano A", room: "Sala 12", level: "Ensino Fundamental II", teacherIds: [1, 2, 3] },
-  { id: 2, name: "7º Ano B", room: "Sala 08", level: "Ensino Fundamental II", teacherIds: [1, 2, 4] },
-  { id: 3, name: "9º Ano A", room: "Sala 15", level: "Ensino Fundamental II", teacherIds: [1, 3, 4] },
-  { id: 4, name: "6º Ano A", room: "Sala 05", level: "Ensino Fundamental II", teacherIds: [1, 2, 4] },
+  { id: 1, name: "8º Ano A", room: "Sala 12", level: "Ensino Fundamental II", teacherIds: [1, 2, 3, 5, 6, 7, 9] },
+  { id: 2, name: "7º Ano B", room: "Sala 08", level: "Ensino Fundamental II", teacherIds: [1, 2, 4, 5, 7] },
+  { id: 3, name: "9º Ano A", room: "Sala 15", level: "Ensino Fundamental II", teacherIds: [1, 3, 4, 6, 8] },
+  { id: 4, name: "6º Ano A", room: "Sala 05", level: "Ensino Fundamental II", teacherIds: [1, 2, 4, 7, 8, 9] },
 ];
 
 export const students: Student[] = [
@@ -71,6 +71,11 @@ export const staff: Staff[] = [
   { id: 2, name: "Mariana Costa", email: "mariana@cepi.com", position: "Professora", subject: "Ciências", classIds: [1, 2, 4] },
   { id: 3, name: "Luan Santana Souza", email: "luan@cepi.com", position: "Professor", subject: "Matemática", classIds: [1, 3] },
   { id: 4, name: "Ana Beatriz", email: "ana@cepi.com", position: "Professora", subject: "Língua Inglesa", classIds: [2, 3, 4] },
+  { id: 5, name: "Rafael da Silva Moura", email: "rafael.prof@cepi.com", position: "Professor", subject: "História", classIds: [1, 2] },
+  { id: 6, name: "João Vitor Braz Mourão", email: "joao.prof@cepi.com", position: "Professor", subject: "Geografia", classIds: [1, 3] },
+  { id: 7, name: "Atabisio Henry", email: "atabisio.prof@cepi.com", position: "Professor", subject: "Língua Portuguesa", classIds: [1, 2, 4] },
+  { id: 8, name: "Igor Gabriel", email: "igor.prof@cepi.com", position: "Professor", subject: "Educação Física", classIds: [3, 4] },
+  { id: 9, name: "Yan Francisco Jesus de Oliveira", email: "yan.prof@cepi.com", position: "Professor", subject: "Artes", classIds: [1, 4] },
 ];
 
 /** Usuários que representam a sessão DEMO de cada perfil. */
