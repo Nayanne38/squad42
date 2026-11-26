@@ -8,6 +8,7 @@ import {
   ShieldAlert,
 } from "lucide-react";
 import Link from "next/link";
+import { SocialCta } from "@/components/shared/social-cta";
 import { Header, SideNav } from "@/components/shared/platform-shell";
 import {
   CURRENT_STAFF_ID,
@@ -43,6 +44,7 @@ export function ProfessorDashboard({ onBack }: { onBack: () => void }) {
               </button>
             </div>
           </div>
+          <SocialCta role="funcionario" />
           <div className="stats">
             <div>
               <BookOpen size={18} />

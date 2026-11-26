@@ -1,5 +1,6 @@
 "use client";
 
+import { SocialCta } from "@/components/shared/social-cta";
 import {
   BookOpen,
   ChevronDown,
@@ -50,6 +51,7 @@ export function AdminDashboard({ onBack }: { onBack: () => void }) {
               </button>
             </div>
           </div>
+          <SocialCta role="admin" />
           <div className="stats">
             <div>
               <Users size={18} />

@@ -14,6 +14,7 @@ import {
   ShieldAlert,
 } from "lucide-react";
 import { Brand } from "@/components/shared/platform-shell";
+import { SocialCta } from "@/components/shared/social-cta";
 import {
   CURRENT_GUARDIAN_ID,
   SELECTED_STUDENT_KEY,
@@ -118,6 +119,7 @@ export function StudentDashboard({
           </div>
         </div>
       )}
+      <SocialCta role={routeRole} />
       <div className="portal-card">
         {isParent ? (
           <div className="student-row">
@@ -140,23 +142,6 @@ export function StudentDashboard({
         )}
         <div className="card-title quick-title">ACESSO RÁPIDO</div>
         <div className="quick-grid">
-          {!isParent && (
-            <a
-              href="/aluno/rede-social/feed"
-              className="quick-item social-quick-item"
-            >
-              <div className="quick-icon social-quick-icon">
-                <MessageCircle size={17} />
-              </div>
-              <div>
-                <b>Rede Social Escolar</b>
-                <small>
-                  Feed, murais, grupos e comunicação com a comunidade escolar
-                </small>
-              </div>
-              <ChevronRight size={15} />
-            </a>
-          )}
             {quickItems.map(([name, description, Icon, color]) => {
               const content = (
                 <>
