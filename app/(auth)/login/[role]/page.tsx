@@ -111,12 +111,6 @@ export default function LoginPage() {
             </div>
             <button type="submit" className="fg-submit">Entrar</button>
           </form>
-          <p className="fg-or">ou</p>
-          <div className="fg-social">
-            <button type="button" onClick={() => setMessage("Login com Google indisponível no modo demonstração.")}>Entrar com Google</button>
-            <button type="button" onClick={() => setMessage("Login com Microsoft indisponível no modo demonstração.")}>Entrar com Microsoft</button>
-          </div>
-          <p className="fg-signup">Ainda não tem conta? <a href="/">Cadastre-se</a></p>
           {"alternateEmail" in copy && (
             <div className="login-demo-switch">
               <button

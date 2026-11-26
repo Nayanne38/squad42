@@ -3890,3 +3890,6 @@ button.zx-card.selected {
 .rs-shell .rs-top-actions .notif-button{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;box-shadow:0 1px 5px rgba(20,40,30,.12);padding:0}
 .rs-shell .rs-feed-grid{margin-right:-30px}
 @media(max-width:720px){.rs-shell .social-content{padding-right:18px}}
+
+.landing-image.fg-right{background:#f0f9f3}
+.landing-image.fg-right img{width:min(300px,50%)}

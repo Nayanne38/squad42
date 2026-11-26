@@ -1,7 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronRight } from "lucide-react";
+import {
+  ChevronRight,
+  ClipboardList,
+  GraduationCap,
+  ShieldCheck,
+  Users,
+} from "lucide-react";
 import { AdminDashboard } from "@/components/administrador/admin-dashboard";
 import { StudentDashboard } from "@/components/aluno/student-dashboard";
 import {
@@ -14,43 +20,88 @@ const cepiLogo =
 
 type Role = "Aluno" | "Responsável" | "Funcionário" | "Administrador";
 
-const roleText: Record<Role, string> = {
-  Aluno: "Acesse notas, horários e comunicados.",
-  Responsável: "Acompanhe o desempenho do seu filho.",
-  Funcionário: "Gerencie turmas, avisos e a rede social.",
-  Administrador: "Acesse o painel administrativo.",
-};
-
-function RoleCard({ role, href }: { role: Role; href: string }) {
+function RoleCard({
+  role,
+  icon: Icon,
+  color,
+  href,
+}: {
+  role: Role;
+  icon: typeof GraduationCap;
+  color: string;
+  href: string;
+}) {
   return (
-    <a className="fg-role" href={href}>
-      <div>
-        <strong>Sou {role.toLowerCase()}</strong>
-        <small>{roleText[role]}</small>
+    <a className="role-card" href={href}>
+      <div className={`role-icon ${color}`}>
+        <Icon size={23} />
       </div>
-      <ChevronRight size={16} />
+      <div>
+        <strong>Sou {role}</strong>
+        <small>
+          {role === "Aluno"
+            ? "Acesse notas, horários e comunicados"
+            : role === "Responsável"
+              ? "Acompanhe o desempenho do seu filho"
+              : role === "Funcionário"
+                ? "Gerencie turmas, avisos e a rede social"
+                : "Acesse o painel administrativo"}
+        </small>
+      </div>
+      <ChevronRight size={19} />
     </a>
   );
 }
 
 function Home({ go: _go }: { go: (view: View) => void }) {
   return (
-    <main className="fg-split">
-      <section className="fg-left">
-        <div className="fg-box">
-          <h1>Bem-vindo!</h1>
-          <p className="fg-sub">Selecione seu perfil para acessar o sistema.</p>
-          <div className="fg-roles">
-            <RoleCard role="Aluno" href="/login/aluno" />
-            <RoleCard role="Responsável" href="/login/responsavel" />
-            <RoleCard role="Funcionário" href="/login/funcionario" />
-            <RoleCard role="Administrador" href="/login/admin" />
-          </div>
-          <p className="fg-foot">Dentro da escola o uso do celular é restrito: acesse pelo computador.</p>
+    <main className="landing">
+      <section className="landing-copy">
+        <Brand />
+        <div className="award">
+          ♨ <b>43 Anos de Excelência</b>
         </div>
+        <h1>
+          Bem-vindo ao
+          <br />
+          Zenix Education
+        </h1>
+        <p>Selecione seu perfil para acessar o sistema</p>
+        <div className="roles">
+          <RoleCard
+            role="Aluno"
+            icon={GraduationCap}
+            color="green"
+            href="/login/aluno"
+          />
+          <RoleCard
+            role="Responsável"
+            icon={Users}
+            color="cyan"
+            href="/login/responsavel"
+          />
+          <RoleCard
+            role="Funcionário"
+            icon={ClipboardList}
+            color="olive"
+            href="/login/funcionario"
+          />
+          <RoleCard
+            role="Administrador"
+            icon={ShieldCheck}
+            color="blue"
+            href="/login/admin"
+          />
+        </div>
+        <footer>© 2025 Zenix Education · Todos os direitos reservados</footer>
       </section>
-      <section className="fg-right" aria-label="Colégio CEPI Expansão">
-        <i className="fg-tri a" /><i className="fg-tri b" /><i className="fg-tri c" />
+      <section
+        className="landing-image fg-right"
+        aria-label="Área institucional do Colégio CEPI"
+      >
+        <i className="fg-tri a" />
+        <i className="fg-tri b" />
+        <i className="fg-tri c" />
         <img src={cepiLogo} alt="Colégio CEPI Expansão" />
       </section>
     </main>
