@@ -35,8 +35,8 @@ export function ProfessorDashboard({ onBack }: { onBack: () => void }) {
         <div className="admin-content">
           <div className="admin-title">
             <div>
-              <h1>Olá, Fernanda 👋</h1>
-              <p>Aqui está um resumo das suas atividades de hoje.</p>
+              <h1>Olá, professora Fernanda 👋</h1>
+              <p>Professora · Coordenação Pedagógica · resumo das suas atividades de hoje.</p>
             </div>
             <div className="admin-title-actions">
               <button className="outline-button" onClick={onBack}>

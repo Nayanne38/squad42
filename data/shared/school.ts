@@ -202,7 +202,7 @@ export const profileDefaults: Record<AreaRole, ProfileData> = {
     photo: "",
   },
   admin: {
-    name: "Administrador Modelo",
+    name: "Diretora Modelo",
     email: "admin@zenixeducation.com.br",
     phone: "(81) 96666-0001",
     bio: "Administração do portal Zenix Education.",

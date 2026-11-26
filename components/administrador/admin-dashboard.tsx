@@ -39,8 +39,8 @@ export function AdminDashboard({ onBack }: { onBack: () => void }) {
         <div className="admin-content">
           <div className="admin-title">
             <div>
-              <h1>Olá, Administrador 👋</h1>
-              <p>Aqui está um resumo do portal hoje.</p>
+              <h1>Olá, diretora 👋</h1>
+              <p>Direção e Coordenação · resumo do portal hoje.</p>
             </div>
             <div className="admin-title-actions">
               <a className="outline-button" href="/admin/perfil">

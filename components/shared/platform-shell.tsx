@@ -61,7 +61,7 @@ export function SideNav({
   view,
   setView,
   open,
-  userName = "Administrador Modelo",
+  userName = "Diretora Modelo",
   userEmail = "admin@zenixeducation.com...",
   professor = false,
 }: {
@@ -230,7 +230,7 @@ export function SideNav({
       )}
       <div className="side-user">
         <div className="avatar green">
-          {userName === "Administrador Modelo" ? "AM" : "FL"}
+          {userName === "Diretora Modelo" ? "DM" : "FL"}
         </div>
         <div>
           <b>{userName}</b>

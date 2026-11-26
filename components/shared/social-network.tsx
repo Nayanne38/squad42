@@ -87,7 +87,7 @@ export default function SocialNetwork({ role = "aluno", initialSection = "feed",
   const visiblePosts = term ? posts.filter((post) => `${post.text} ${post.name} ${post.profile}`.toLowerCase().includes(term)) : posts;
   const notifications = mockNotifications[role];
   const unread = notifications.filter((item) => !notifRead.includes(item.id)).length;
-  const greeting = role === "coordenacao" ? "Feed da escola" : `Bom dia, ${profile.split(" ")[0]}`;
+  const greeting = role === "coordenacao" ? "Feed da escola" : role === "funcionario" ? `Bom dia, professora ${profile.split(" ")[0]}` : `Bom dia, ${profile.split(" ")[0]}`;
   const feedSub = role === "coordenacao" ? "Publicações oficiais e da comunidade" : role === "responsavel" ? "Acompanhando seus filhos no mesmo login" : role === "funcionario" ? "Acompanhe a comunidade das suas turmas" : "Você tem 2 prazos esta semana";
   const feed = <div className="rs-feed-grid">
   <div className="rs-feed-main">

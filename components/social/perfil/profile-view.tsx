@@ -10,7 +10,7 @@ import { PostCardProfile } from "@/components/social/feed/feed-components";
 export function ProfileView({ role, posts, ownPostIds, likedPosts, groups = [], joinedIds = [] }: { role: SocialRole; posts: typeof mockPosts; ownPostIds: number[]; likedPosts: number[]; groups?: Group[]; joinedIds?: number[] }) {
   const [tab, setTab] = useState<"posts" | "groups">("posts");
   const myGroups = role === "funcionario" || role === "coordenacao" ? groups : groups.filter((group) => joinedIds.includes(group.id));
-  const profileLabels = { aluno: "Aluno Modelo 101", responsavel: "Responsável Modelo", funcionario: "Fernanda Lima", coordenacao: "Administrador Modelo" };
+  const profileLabels = { aluno: "Aluno Modelo 101", responsavel: "Responsável Modelo", funcionario: "Fernanda Lima", coordenacao: "Diretora Modelo" };
   const profilePosts = posts.filter((post) => post.name === profileLabels[role] || ownPostIds.includes(post.id));
   const lPosts = posts.filter((post) => post.name === profileLabels[role] || likedPosts.includes(post.id));
   return <>
@@ -21,7 +21,7 @@ export function ProfileView({ role, posts, ownPostIds, likedPosts, groups = [], 
   </div>
   
   <div className="profile-hero social-card">
-    <Avatar initials={role === "funcionario" ? "FL" : role === "coordenacao" ? "AD" : "AM"} color="blue" />
+    <Avatar initials={role === "funcionario" ? "FL" : role === "coordenacao" ? "DM" : "AM"} color="blue" />
     <div>
       <h2>{profileLabels[role]}</h2>
       <p>{role === "aluno" ? "Aluno · 8º Ano A" : role === "responsavel" ? "Responsável de Aluno Modelo 101" : "Coordenação Pedagógica"}</p>

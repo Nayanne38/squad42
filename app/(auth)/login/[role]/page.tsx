@@ -29,9 +29,9 @@ const roleCopy = {
     alternatePassword: "ZxygsZeQg3Hp#88",
   },
   admin: {
-    title: "Login do Administrador",
-    subtitle: "Acesse cadastros, turmas, avisos e permissões.",
-    label: "Administrador",
+    title: "Login da Direção / Coordenação",
+    subtitle: "Acesse cadastros, permissões, moderação e relatórios.",
+    label: "Direção / Coordenação",
     email: "admin@zenixeducation.com.br",
     password: "ZxygsZeQg3Hp#88",
   },
@@ -121,7 +121,7 @@ export default function LoginPage() {
                   setMessage("");
                 }}
               >
-                Professor
+                Professora
               </button>
               <button
                 type="button"
@@ -131,7 +131,7 @@ export default function LoginPage() {
                   setMessage("");
                 }}
               >
-                Administrador
+                Direção / Coordenação
               </button>
             </div>
           )}

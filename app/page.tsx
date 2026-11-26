@@ -37,15 +37,15 @@ function RoleCard({
         <Icon size={23} />
       </div>
       <div>
-        <strong>Sou {role}</strong>
+        <strong>{role === "Administrador" ? "Sou direção / coordenação" : role === "Funcionário" ? "Sou professor(a)" : `Sou ${role}`}</strong>
         <small>
           {role === "Aluno"
             ? "Acesse notas, horários e comunicados"
             : role === "Responsável"
               ? "Acompanhe o desempenho do seu filho"
               : role === "Funcionário"
-                ? "Gerencie turmas, avisos e a rede social"
-                : "Acesse o painel administrativo"}
+                ? "Turmas, notas, murais e dúvidas dos alunos"
+                : "Cadastros, permissões, moderação e relatórios"}
         </small>
       </div>
       <ChevronRight size={19} />

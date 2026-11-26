@@ -40,11 +40,11 @@ export const socialIdentity: Record<SocialRole, Identity> = {
     dashboard: "/funcionario",
   },
   coordenacao: {
-    name: "Administrador Modelo",
-    firstName: "Administrador",
-    initials: "AD",
+    name: "Diretora Modelo",
+    firstName: "Diretora",
+    initials: "DM",
     badge: "Perfil · Coordenação",
-    subtitle: "Coordenação · Ensino Fundamental II",
+    subtitle: "Diretora · Direção e Coordenação · Ensino Fundamental II",
     dashboard: "/admin",
   },
 };
