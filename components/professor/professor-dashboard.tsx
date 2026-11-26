@@ -31,7 +31,7 @@ export function ProfessorDashboard({ onBack }: { onBack: () => void }) {
         professor
       />
       <div className="admin-main">
-        <Header onMenu={() => {}} />
+        <Header onMenu={() => {}} initials="FL" />
         <div className="admin-content">
           <div className="admin-title">
             <div>
@@ -76,21 +76,21 @@ export function ProfessorDashboard({ onBack }: { onBack: () => void }) {
               <Link href="/funcionario/perfil">
                 <NotebookPen size={16} /> Meu perfil
               </Link>
-              <button>
+              <Link href="/funcionario/academico/lancar-notas">
                 <ClipboardList size={16} /> Lançamento de Notas
-              </button>
-              <button>
+              </Link>
+              <Link href="/funcionario/academico/diario">
                 <NotebookPen size={16} /> Diário de Classe
-              </button>
-              <button>
+              </Link>
+              <Link href="/funcionario/academico/horarios">
                 <CalendarDays size={16} /> Horários
-              </button>
-              <button>
+              </Link>
+              <Link href="/funcionario/academico/reforco">
                 <BookOpen size={16} /> Reforço / Extras
-              </button>
-              <button>
+              </Link>
+              <Link href="/funcionario/academico/ocorrencias">
                 <ShieldAlert size={16} /> Ocorrências
-              </button>
+              </Link>
             </div>
           </div>
           <div className="admin-card">

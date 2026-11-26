@@ -37,7 +37,7 @@ export function Brand({ compact = false }: { compact?: boolean }) {
   );
 }
 
-export function Header({ onMenu }: { onMenu: () => void }) {
+export function Header({ onMenu, initials = "FN" }: { onMenu: () => void; initials?: string }) {
   return (
     <header className="topbar">
       <button className="mobile-menu" onClick={onMenu} aria-label="Abrir menu">
@@ -50,7 +50,7 @@ export function Header({ onMenu }: { onMenu: () => void }) {
       </div>
       <div className="top-actions">
         <Bell size={18} />
-        <div className="avatar">RM</div>
+        <div className="avatar">{initials}</div>
         <ChevronDown size={14} />
       </div>
     </header>
@@ -61,7 +61,7 @@ export function SideNav({
   view,
   setView,
   open,
-  userName = "Diretora Modelo",
+  userName = "Fabricya Nayanne Santos",
   userEmail = "admin@zenixeducation.com...",
   professor = false,
 }: {
@@ -84,24 +84,24 @@ export function SideNav({
         <a className="nav-link" href="/funcionario/comunicados">
           <Bell size={15} /> Avisos e comunicados
         </a>
-        <button>
+        <a className="nav-link" href="/funcionario/academico/lancar-notas">
           <ClipboardList size={15} /> Lançamento de Notas
-        </button>
-        <button>
+        </a>
+        <a className="nav-link" href="/funcionario/academico/diario">
           <NotebookPen size={15} /> Diário de Classe
-        </button>
-        <button>
+        </a>
+        <a className="nav-link" href="/funcionario/academico/horarios">
           <CalendarDays size={15} /> Horários
-        </button>
-        <button>
+        </a>
+        <a className="nav-link" href="/funcionario/academico/reforco">
           <BookOpen size={15} /> Reforço / Extras
-        </button>
-        <button>
+        </a>
+        <a className="nav-link" href="/funcionario/academico/ocorrencias">
           <ShieldAlert size={15} /> Ocorrências
-        </button>
-        <button>
+        </a>
+        <a className="nav-link" href="/funcionario/calendario">
           <CalendarDays size={15} /> Calendário
-        </button>
+        </a>
       </div>
       <div className="nav-section">
         <span>
@@ -173,64 +173,64 @@ export function SideNav({
             <span>
               ACADÊMICO <ChevronDown size={12} />
             </span>
-            <button>
-              <CalendarDays size={15} /> Calendário
-            </button>
-            <button>
-              <ClipboardList size={15} /> Lançamento de Notas
-            </button>
-            <button>
-              <NotebookPen size={15} /> Diário de Classe
-            </button>
-            <button>
-              <CalendarDays size={15} /> Horários
-            </button>
-            <button>
-              <BookOpen size={15} /> Reforço / Extras
-            </button>
-            <button>
-              <ShieldAlert size={15} /> Ocorrências
-            </button>
+            <a className="nav-link" href="/admin/calendario">
+          <CalendarDays size={15} /> Calendário
+        </a>
+            <a className="nav-link" href="/admin/academico/lancar-notas">
+          <ClipboardList size={15} /> Lançamento de Notas
+        </a>
+            <a className="nav-link" href="/admin/academico/diario">
+          <NotebookPen size={15} /> Diário de Classe
+        </a>
+            <a className="nav-link" href="/admin/academico/horarios">
+          <CalendarDays size={15} /> Horários
+        </a>
+            <a className="nav-link" href="/admin/academico/reforco">
+          <BookOpen size={15} /> Reforço / Extras
+        </a>
+            <a className="nav-link" href="/admin/academico/ocorrencias">
+          <ShieldAlert size={15} /> Ocorrências
+        </a>
           </div>
           <div className="nav-section">
             <span>
               SIMULADOS E PROVAS <ChevronDown size={12} />
             </span>
-            <button>
-              <ClipboardList size={15} /> Banco de Questões
-            </button>
-            <button>
-              <ClipboardList size={15} /> Simulados
-            </button>
-            <button>
-              <ClipboardList size={15} /> Provas
-            </button>
+            <a className="nav-link" href="/admin/academico/banco-questoes">
+          <ClipboardList size={15} /> Banco de Questões
+        </a>
+            <a className="nav-link" href="/admin/academico/simulados">
+          <ClipboardList size={15} /> Simulados
+        </a>
+            <a className="nav-link" href="/admin/academico/provas">
+          <ClipboardList size={15} /> Provas
+        </a>
           </div>
           <div className="nav-section">
             <span>
               PORTARIA <ChevronDown size={12} />
             </span>
-            <button>
-              <ShieldAlert size={15} /> Painel ao vivo
-            </button>
-            <button>
-              <Users size={15} /> Visitantes
-            </button>
-            <button>
-              <UserRound size={15} /> Autorizações de saída
-            </button>
-            <button>
-              <ShieldAlert size={15} /> Ocorrências
-            </button>
-            <button>
-              <ClipboardList size={15} /> Histórico de acesso
-            </button>
+            <a className="nav-link" href="/admin/academico/painel">
+          <ShieldAlert size={15} /> Painel ao vivo
+        </a>
+            <a className="nav-link" href="/admin/academico/visitantes">
+          <Users size={15} /> Visitantes
+        </a>
+            <a className="nav-link" href="/admin/academico/saidas">
+          <UserRound size={15} /> Autorizações de saída
+        </a>
+            <a className="nav-link" href="/admin/academico/ocorrencias">
+          <ShieldAlert size={15} /> Ocorrências
+        </a>
+            <a className="nav-link" href="/admin/academico/historico">
+          <ClipboardList size={15} /> Histórico de acesso
+        </a>
           </div>
         </>
       )}
       <div className="side-user">
         <div className="avatar green">
-          {userName === "Diretora Modelo" ? "DM" : "FL"}
+          {userName === "Fabricya Nayanne Santos" ? "FN" : "FL"}
         </div>
         <div>
           <b>{userName}</b>
