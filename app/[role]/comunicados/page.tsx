@@ -143,7 +143,7 @@ export default function ComunicadosPage() {
         id: Date.now(),
         titulo: titulo.trim(),
         mensagem: mensagemNova.trim(),
-        remetente: role === "direcao" ? "Direção · Marina Albuquerque" : "Fernanda Lima · Professora",
+        remetente: role === "direcao" ? "Direção · Fabricya Nayanne Santos" : "Fernanda Lima · Professora",
         data,
         importante: importanteNovo,
         lido: false,

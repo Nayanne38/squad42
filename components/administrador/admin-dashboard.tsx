@@ -33,13 +33,13 @@ export function AdminDashboard({ onBack }: { onBack: () => void }) {
   const birthdays = getUpcomingBirthdays();
   return (
     <div className="admin-shell">
-      <SideNav view="admin" setView={onBack} open={false} variant="direcao" userName="Marina Albuquerque" userEmail="marina@cepi.com" />
+      <SideNav view="admin" setView={onBack} open={false} variant="direcao" userName="Fabricya Nayanne Santos" userEmail="fabricya.direcao@cepi.com" />
       <div className="admin-main">
         <Header onMenu={() => {}} />
         <div className="admin-content">
           <div className="admin-title">
             <div>
-              <h1>Olá, diretora Marina 👋</h1>
+              <h1>Olá, diretora Fabricya 👋</h1>
               <p>Direção e Coordenação · resumo do portal hoje.</p>
             </div>
             <div className="admin-title-actions">

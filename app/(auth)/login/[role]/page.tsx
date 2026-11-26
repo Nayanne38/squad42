@@ -25,8 +25,8 @@ const roleCopy = {
     label: "Docência",
     email: "fernanda@cepi.com",
     password: "fernanda123",
-    alternateEmail: "marina@cepi.com",
-    alternatePassword: "marina123",
+    alternateEmail: "fabricya.direcao@cepi.com",
+    alternatePassword: "fabricya123",
   },
   admin: {
     title: "Login da Administração",

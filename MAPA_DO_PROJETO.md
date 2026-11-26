@@ -363,7 +363,7 @@ Observações:
 | Sou Aluno | Rafael da Silva Moura | rafael@cepi.com | rafael123 |
 | Sou Responsável | Fabricya Nayanne Santos (mãe de Rafael) | fabricya@cepi.com | fabricya123 |
 | Docência | Professora Fernanda Lima | fernanda@cepi.com | fernanda123 |
-| Docência (botão Direção / Coordenação) | Diretora Marina Albuquerque | marina@cepi.com | marina123 |
+| Docência (botão Direção / Coordenação) | Diretora Fabricya Nayanne Santos | fabricya.direcao@cepi.com | fabricya123 |
 | Administração (TI) | Administrador TI | admin@cepi.com | admin123 |
 
 Rotas: /aluno, /responsavel, /funcionario (professora), /direcao (direção/coordenação) e /admin (administração/TI: pessoas, permissões, logs e backup).

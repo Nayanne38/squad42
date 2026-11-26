@@ -37,7 +37,7 @@ export function Brand({ compact = false }: { compact?: boolean }) {
   );
 }
 
-export function Header({ onMenu, initials = "MA" }: { onMenu: () => void; initials?: string }) {
+export function Header({ onMenu, initials = "FN" }: { onMenu: () => void; initials?: string }) {
   return (
     <header className="topbar">
       <button className="mobile-menu" onClick={onMenu} aria-label="Abrir menu">
@@ -61,7 +61,7 @@ export function SideNav({
   view,
   setView,
   open,
-  userName = "Marina Albuquerque",
+  userName = "Fabricya Nayanne Santos",
   userEmail = "admin@cepi.com",
   professor = false,
   variant,
@@ -264,7 +264,7 @@ export function SideNav({
       )}
       <div className="side-user">
         <div className="avatar green">
-          {userName === "Marina Albuquerque" ? "MA" : "FL"}
+          {userName === "Fabricya Nayanne Santos" ? "FN" : "FL"}
         </div>
         <div>
           <b>{userName}</b>

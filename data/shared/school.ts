@@ -202,8 +202,8 @@ export const profileDefaults: Record<AreaRole, ProfileData> = {
     photo: "",
   },
   direcao: {
-    name: "Marina Albuquerque",
-    email: "marina@cepi.com",
+    name: "Fabricya Nayanne Santos",
+    email: "fabricya.direcao@cepi.com",
     phone: "(81) 96666-0001",
     bio: "Direção e coordenação do Colégio CEPI Expansão.",
     interests: "",
