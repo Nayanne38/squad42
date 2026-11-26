@@ -3963,3 +3963,44 @@ body:has(.portal){background:#f4f6f5}
 
 .portal .student-select span{height:auto;width:auto;padding:3px 10px;border-radius:999px;font-size:10px;align-self:center;margin-left:auto}
 .portal .student-row .big-avatar.small{margin-right:4px}
+
+/* ===== Tipografia: Inter (texto) + Poppins (títulos) ===== */
+html,body,button,input,select,textarea,.rs-shell,.fg-split,.portal,.admin-shell,.zx-page{font-family:var(--font-body),"Segoe UI",Arial,sans-serif}
+h1,h2,h3,.rs-head h1,.fg-box h1,.welcome h2,.admin-title h1,.zx-welcome h1,.zx-welcome h2,.rs-card h3,.rs-aside-card h3,.rs-panel h2,.card-title,.rs-note h3,.profile-hero h2,.fg-role strong{font-family:var(--font-title),var(--font-body),Arial,sans-serif;letter-spacing:-.01em}
+.rs-head h1,.fg-box h1{font-weight:600}
+.rs-shell .rs-side nav button,.rs-shell .rs-side-bottom button{font-weight:500}
+.modal-youtube{width:100%;aspect-ratio:16/9;border:0;border-radius:12px;background:#000}
+
+/* ===== Páginas acadêmicas no padrão do Figma ===== */
+body:has(.zx-page){background:#f4f6f5}
+.zx-page{max-width:1080px;padding:0 20px 30px}
+.zx-header{height:86px;border-bottom:0}
+.zx-logo{width:72px;height:auto}
+.zx-back{color:#00893f;font-weight:600;background:#fff;border-radius:999px;padding:8px 14px;box-shadow:0 1px 5px rgba(20,40,30,.1);text-decoration:none}
+.zx-welcome{position:relative;overflow:hidden;background:linear-gradient(100deg,#00a84f,#006b30);border-radius:16px;padding:30px 28px;margin-bottom:18px}
+.zx-welcome::after{content:"";position:absolute;right:-60px;top:-70px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.1)}
+.zx-welcome h1{font-size:26px}
+.zx-content,.zx-page .portal-card{background:#fff;border:0;border-radius:16px;box-shadow:0 1px 6px rgba(20,40,30,.08)}
+.zx-tabs button.active,.zx-pill.active{background:#00893f;border-color:#00893f;color:#fff}
+.zx-page table th{color:#1c2a22;font-weight:700}
+
+/* ===== Páginas acadêmicas: padrão do Figma ===== */
+body:has(.agenda-page,.calendar-page,.comunicados-page,.schedule-page,.grades-page){background:#f4f6f5}
+.agenda-page,.calendar-page,.comunicados-page,.schedule-page,.grades-page{max-width:1080px;padding:0 20px 30px;font-family:var(--font-body),Arial,sans-serif}
+.agenda-header,.calendar-header,.comunicados-header,.schedule-header,.grades-header{height:86px;border-bottom:0}
+.agenda-back,.calendar-back,.comunicados-back,.schedule-back,.grades-back{color:#00893f!important;font-weight:600;background:#fff;border-radius:999px;padding:8px 14px;box-shadow:0 1px 5px rgba(20,40,30,.1);text-decoration:none}
+.agenda-welcome,.calendar-welcome,.comunicados-welcome,.schedule-welcome,.grades-welcome{position:relative;overflow:hidden;background:linear-gradient(100deg,#00a84f,#006b30)!important;border-radius:16px!important;padding:30px 28px;margin-bottom:18px}
+.agenda-welcome,.calendar-welcome,.comunicados-welcome,.schedule-welcome,.grades-welcome h1{font-family:var(--font-title),Arial,sans-serif;font-size:26px}
+.agenda-student,.calendar-student,.comunicados-student,.schedule-student,.grades-student{border:0!important;border-radius:14px!important;box-shadow:0 1px 6px rgba(20,40,30,.08)}
+.grades-page section:not(.grades-welcome):not(.grades-student),.schedule-page section:not(.schedule-welcome):not(.schedule-student),.agenda-page section:not(.agenda-welcome):not(.agenda-student),.calendar-page section:not(.calendar-welcome):not(.calendar-student),.comunicados-page section:not(.comunicados-welcome){border:0!important;border-radius:16px!important;box-shadow:0 1px 6px rgba(20,40,30,.08)}
+.grades-page button.active,.grades-tabs button.active{background:#e5f6ea!important;border-color:#00893f!important;color:#00893f!important}
+/* verde vibrante da logo na tela inicial */
+.landing{background:#00873a}
+.landing-copy::before{background:radial-gradient(circle at 16% 88%,rgba(120,255,160,.28),transparent 38%),linear-gradient(145deg,#00a84f 0%,#00873a 100%)}
+.landing-copy .brand small{color:#c8ffd9}
+.landing-copy>p{color:#e3ffea}
+.landing .role-card{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.35)}
+.landing .role-card small{color:#e3ffea}
+.landing .role-card:hover{background:rgba(255,255,255,.24)}
+
+.fg-role,.fg-submit{background:#00a04a}.fg-role{box-shadow:0 4px 0 #007a38}.fg-role:hover,.fg-submit:hover{background:#00b552}

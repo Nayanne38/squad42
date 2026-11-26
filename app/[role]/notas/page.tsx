@@ -62,7 +62,7 @@ export default function NotasPage() {
         <Link href={`/${role}`} className="grades-back">
           ← Voltar ao dashboard
         </Link>
-        <span>ZENIX EDUCATION</span>
+        <img className="zx-logo" src="/logo-cepi.png" alt="Colégio CEPI Expansão" />
       </header>
 
       <section className="grades-welcome">

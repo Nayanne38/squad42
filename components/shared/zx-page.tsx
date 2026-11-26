@@ -27,7 +27,7 @@ export function ZxPage({
         <Link href={backHref ?? `/${role}`} className="zx-back">
           {backLabel}
         </Link>
-        <span>ZENIX EDUCATION</span>
+        <img className="zx-logo" src="/logo-cepi.png" alt="Colégio CEPI Expansão" />
       </header>
       <section className="zx-welcome">
         <small>{eyebrow}</small>

@@ -154,7 +154,7 @@ export default function AgendaPage() {
         <Link href={`/${role}`} className="agenda-back">
           ← Voltar ao dashboard
         </Link>
-        <span>ZENIX EDUCATION</span>
+        <img className="zx-logo" src="/logo-cepi.png" alt="Colégio CEPI Expansão" />
       </header>
 
       <section className="agenda-welcome">

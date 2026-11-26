@@ -94,7 +94,7 @@ export default function HorariosPage() {
         <Link href={`/${role}`} className="schedule-back">
           ← Voltar ao dashboard
         </Link>
-        <span>ZENIX EDUCATION</span>
+        <img className="zx-logo" src="/logo-cepi.png" alt="Colégio CEPI Expansão" />
       </header>
 
       <section className="schedule-welcome">

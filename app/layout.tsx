@@ -1,6 +1,10 @@
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
+import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
+
+const inter = Inter({ subsets: ["latin"], variable: "--font-body", display: "swap" });
+const poppins = Poppins({ subsets: ["latin"], weight: ["500", "600", "700"], variable: "--font-title", display: "swap" });
 
 export const metadata: Metadata = {
   title: "Zenix Education | Gestão Escolar",
@@ -40,7 +44,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body className="antialiased">
+      <body className={`antialiased ${inter.variable} ${poppins.variable}`}>
         {children}
         {process.env.NODE_ENV === "production" && <Analytics />}
       </body>

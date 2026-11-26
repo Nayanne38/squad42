@@ -191,6 +191,7 @@ export type LibraryVideo = {
   color: string;
   initials: string;
   videoUrl?: string;
+  youtubeId?: string;
   subject: string;
   description: string;
   progress: number;
@@ -202,12 +203,12 @@ export type LibraryVideo = {
 export const videoLibrary: LibraryVideo[] = [
   {
     id: 1,
+    youtubeId: "ZZO9jwHdl40",
     title: "Função Quadrática: introdução",
     professor: "Prof. Ricardo Mendes",
-    duration: "12 min",
+    duration: "YouTube",
     color: "green",
     initials: "RM",
-    videoUrl: "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
     subject: "Matemática",
     description: "Conceito, forma geral e o papel dos coeficientes.",
     progress: 100,
@@ -217,9 +218,10 @@ export const videoLibrary: LibraryVideo[] = [
   },
   {
     id: 2,
+    youtubeId: "nLvQ_tbGUMI",
     title: "Vértice e raízes",
     professor: "Prof. Ricardo Mendes",
-    duration: "18 min",
+    duration: "YouTube",
     color: "green",
     initials: "RM",
     subject: "Matemática",
@@ -231,9 +233,10 @@ export const videoLibrary: LibraryVideo[] = [
   },
   {
     id: 3,
+    youtubeId: "8NhDE9-IG_w",
     title: "Resolvendo exercícios",
     professor: "Prof. Ricardo Mendes",
-    duration: "25 min",
+    duration: "YouTube",
     color: "green",
     initials: "RM",
     subject: "Matemática",
@@ -246,9 +249,10 @@ export const videoLibrary: LibraryVideo[] = [
   },
   {
     id: 4,
+    youtubeId: "68ZCvCZ5idA",
     title: "Interpretação de texto",
     professor: "Profa. Lúcia",
-    duration: "15 min",
+    duration: "YouTube",
     color: "green",
     initials: "PL",
     subject: "Português",
@@ -260,9 +264,10 @@ export const videoLibrary: LibraryVideo[] = [
   },
   {
     id: 5,
+    youtubeId: "c49l7HjQCeE",
     title: "Relevo e hidrografia",
     professor: "Prof. Davi",
-    duration: "20 min",
+    duration: "YouTube",
     color: "green",
     initials: "PD",
     subject: "Geografia",
@@ -274,9 +279,10 @@ export const videoLibrary: LibraryVideo[] = [
   },
   {
     id: 6,
+    youtubeId: "byb71MxuSDU",
     title: "O ciclo da água",
     professor: "Profa. Rita",
-    duration: "14 min",
+    duration: "YouTube",
     color: "green",
     initials: "PR",
     subject: "Ciências",
