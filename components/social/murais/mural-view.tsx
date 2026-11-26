@@ -63,7 +63,7 @@ export function MuralView({
     if (!active) return;
     const profileLabels = { aluno: "Aluno", responsavel: "Responsável", funcionario: "Funcionário", coordenacao: "Coordenação" };
     const colors = { aluno: "blue", responsavel: "blue", funcionario: "purple", coordenacao: "gold" };
-    const initials = role === "funcionario" ? "FL" : "AM";
+    const initials = role === "funcionario" ? "FL" : "RM";
     const id = Math.max(0, ...(postsByMural[active] ?? []).map((post) => post.id)) + 1;
     setOwnPostIdsByMural((currentIds) => ({
       ...currentIds,
@@ -75,7 +75,7 @@ export function MuralView({
         ...current,
         [active]: [{
           id,
-          name: role === "funcionario" ? "Fernanda Lima" : role === "responsavel" ? "Responsável Modelo" : "Aluno Modelo 101",
+          name: role === "funcionario" ? "Fernanda Lima" : role === "responsavel" ? "Responsável Modelo" : "Rafael da Silva Moura",
           profile: profileLabels[role],
           date: "Agora",
           text,

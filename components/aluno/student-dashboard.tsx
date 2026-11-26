@@ -70,7 +70,7 @@ export function StudentDashboard({
       <div className="portal-head">
         <Brand compact />
         <div className="portal-profile">
-          <span>{isParent ? "RM" : "AM"}</span>
+          <span>{"RM"}</span>
           <ChevronDown size={14} />
         </div>
       </div>
@@ -109,10 +109,10 @@ export function StudentDashboard({
         </>
       ) : (
         <div className="welcome green-bg">
-          <div className="big-avatar">Z</div>
+          <div className="big-avatar">R</div>
           <div>
             <small>Bem-vindo de volta</small>
-            <h2>Aluno Modelo 101</h2>
+            <h2>Rafael da Silva Moura</h2>
             <p>
               RA: <b>20260011</b>
             </p>

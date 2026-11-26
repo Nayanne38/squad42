@@ -47,11 +47,11 @@ export const schoolClasses: SchoolClassRecord[] = [
 ];
 
 export const students: Student[] = [
-  { id: 1, name: "Aluno Modelo 101", ra: "20260011", classId: 1, guardianIds: [1], birth: "2012-03-14", hasPhoto: true },
-  { id: 2, name: "Aluno Modelo 102", ra: "20260012", classId: 4, guardianIds: [1], birth: "2014-08-02", hasPhoto: false },
-  { id: 3, name: "João Pedro", ra: "20260013", classId: 1, guardianIds: [2], birth: "2012-06-21", hasPhoto: true },
-  { id: 4, name: "Maria Clara", ra: "20260014", classId: 1, guardianIds: [3], hasPhoto: false },
-  { id: 5, name: "Rafael Santos", ra: "20260015", classId: 1, guardianIds: [], birth: "2012-11-30", hasPhoto: false },
+  { id: 1, name: "Rafael da Silva Moura", ra: "20260011", classId: 1, guardianIds: [1], birth: "2012-03-14", hasPhoto: true },
+  { id: 2, name: "Yan Francisco Jesus de Oliveira", ra: "20260012", classId: 4, guardianIds: [1], birth: "2014-08-02", hasPhoto: false },
+  { id: 3, name: "João Vitor Braz Mourão", ra: "20260013", classId: 1, guardianIds: [2], birth: "2012-06-21", hasPhoto: true },
+  { id: 4, name: "Atabisio Henry", ra: "20260014", classId: 1, guardianIds: [3], hasPhoto: false },
+  { id: 5, name: "Igor Gabriel", ra: "20260015", classId: 1, guardianIds: [], birth: "2012-11-30", hasPhoto: false },
   { id: 6, name: "Lucas Andrade", ra: "20260016", classId: 2, guardianIds: [], birth: "2013-01-09", hasPhoto: false },
   { id: 7, name: "Beatriz Lima", ra: "20260017", classId: 2, guardianIds: [], hasPhoto: false },
   { id: 8, name: "Pedro Henrique", ra: "20260018", classId: 2, guardianIds: [], birth: "2013-05-18", hasPhoto: false },
@@ -69,7 +69,7 @@ export const guardians: Guardian[] = [
 export const staff: Staff[] = [
   { id: 1, name: "Fernanda Lima", email: "fernanda.lima@zenixeducation.com.br", position: "Professora e Coordenadora", subject: "Coordenação Pedagógica", classIds: [1, 2, 3, 4] },
   { id: 2, name: "Mariana Costa", email: "mariana.costa@zenixeducation.com.br", position: "Professora", subject: "Ciências", classIds: [1, 2, 4] },
-  { id: 3, name: "Ricardo Mendes", email: "ricardo.mendes@zenixeducation.com.br", position: "Professor", subject: "Matemática", classIds: [1, 3] },
+  { id: 3, name: "Luan Santana Souza", email: "ricardo.mendes@zenixeducation.com.br", position: "Professor", subject: "Matemática", classIds: [1, 3] },
   { id: 4, name: "Ana Beatriz", email: "ana.beatriz@zenixeducation.com.br", position: "Professora", subject: "Língua Inglesa", classIds: [2, 3, 4] },
 ];
 
@@ -178,7 +178,7 @@ export const staffLessonsToday: StaffLesson[] = [
 
 export const profileDefaults: Record<AreaRole, ProfileData> = {
   aluno: {
-    name: "Aluno Modelo 101",
+    name: "Rafael da Silva Moura",
     email: "20260011@zenixeducation.com.br",
     phone: "(81) 98888-0011",
     bio: "Gosto de ciências, música e de estudar em grupo.",
@@ -202,7 +202,7 @@ export const profileDefaults: Record<AreaRole, ProfileData> = {
     photo: "",
   },
   admin: {
-    name: "Diretora Modelo",
+    name: "Fabricya Nayanne Santos",
     email: "admin@zenixeducation.com.br",
     phone: "(81) 96666-0001",
     bio: "Administração do portal Zenix Education.",

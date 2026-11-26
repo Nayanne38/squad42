@@ -145,9 +145,9 @@ export function PostComposer({ role, onPublish }: { role: SocialRole; onPublish:
     setText("");
     setFiles([]);
   };
-  const profileLabels = { aluno: "Aluno Modelo 101", responsavel: "Responsável Modelo", funcionario: "Fernanda Lima", coordenacao: "Diretora Modelo" };
+  const profileLabels = { aluno: "Rafael da Silva Moura", responsavel: "Responsável Modelo", funcionario: "Fernanda Lima", coordenacao: "Fabricya Nayanne Santos" };
   const currentName = profileLabels[role];
-  const initials = role === "funcionario" ? "FL" : role === "coordenacao" ? "DM" : "AM";
+  const initials = role === "funcionario" ? "FL" : role === "coordenacao" ? "FN" : "RM";
 
   return (
     <div className="social-card composer">

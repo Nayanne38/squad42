@@ -16,9 +16,9 @@ export type Identity = {
 /** Quem está "conectado" em cada perfil da rede social. */
 export const socialIdentity: Record<SocialRole, Identity> = {
   aluno: {
-    name: "Aluno Modelo 101",
+    name: "Rafael da Silva Moura",
     firstName: "Aluno",
-    initials: "AM",
+    initials: "RM",
     badge: "Perfil · Aluno",
     subtitle: "Aluno · 8º ano – Turma A · Ensino Fundamental II",
     dashboard: "/aluno",
@@ -28,7 +28,7 @@ export const socialIdentity: Record<SocialRole, Identity> = {
     firstName: "Responsável",
     initials: "RM",
     badge: "Perfil · Responsável",
-    subtitle: "Responsável · Aluno Modelo 101 (8º ano A) e Aluno Modelo 102 (6º ano A)",
+    subtitle: "Responsável · Rafael da Silva Moura (8º ano A) e Yan Francisco Jesus de Oliveira (6º ano A)",
     dashboard: "/responsavel",
   },
   funcionario: {
@@ -40,9 +40,9 @@ export const socialIdentity: Record<SocialRole, Identity> = {
     dashboard: "/funcionario",
   },
   coordenacao: {
-    name: "Diretora Modelo",
-    firstName: "Diretora",
-    initials: "DM",
+    name: "Fabricya Nayanne Santos",
+    firstName: "Fabricya",
+    initials: "FN",
     badge: "Perfil · Coordenação",
     subtitle: "Diretora · Direção e Coordenação · Ensino Fundamental II",
     dashboard: "/admin",
@@ -93,22 +93,22 @@ export const socialNav: Record<SocialRole, NavItem[]> = {
 export const feedSeed: Post[] = [
   {
     id: 101,
-    name: "Prof. Ricardo Mendes",
+    name: "Prof. Luan Santana Souza",
     profile: "Professor · Matemática",
     date: "há 1h",
     text: "Pessoal, segue o resumo de Função Quadrática para a revisão de sexta. Vértice, raízes e gráfico em uma página só.",
-    initials: "RM",
+    initials: "LS",
     color: "dark",
     likes: 19,
     comments: 7,
   },
   {
     id: 102,
-    name: "Maria Clara",
+    name: "Atabisio Henry",
     profile: "8º ano A",
     date: "há 3h",
     text: "Alguém pode me ajudar com o exercício de raiz quadrada, pfv?",
-    initials: "MC",
+    initials: "AH",
     color: "gray",
     likes: 10,
     comments: 5,
@@ -127,7 +127,7 @@ export const feedSeed: Post[] = [
 ];
 
 feedSeed.push(
-  { id: 104, name: "Aluno Modelo 101", profile: "8º ano A", date: "há 3 dias", text: "Terminei o resumo de Geografia sobre relevo e hidrografia. Quem quiser estudar junto, é só chamar no grupo.", initials: "AM", color: "blue", likes: 6, comments: 1 },
+  { id: 104, name: "Rafael da Silva Moura", profile: "8º ano A", date: "há 3 dias", text: "Terminei o resumo de Geografia sobre relevo e hidrografia. Quem quiser estudar junto, é só chamar no grupo.", initials: "RM", color: "blue", likes: 6, comments: 1 },
   { id: 105, name: "Fernanda Lima", profile: "Professora", date: "há 2 dias", text: "Lembrete: entrega do trabalho de Ciências na próxima segunda. Dúvidas, me chamem no chat.", initials: "FL", color: "purple", likes: 9, comments: 2 },
 );
 
@@ -146,11 +146,11 @@ export const feedSeedResponsavel: Post[] = [
   },
   {
     id: 202,
-    name: "Prof. Ricardo Mendes",
+    name: "Prof. Luan Santana Souza",
     profile: "Matemática · há 1d",
     date: "há 1d",
     text: "A prova de sexta cobrirá Função Quadrática. O resumo está no mural da turma.",
-    initials: "RM",
+    initials: "LS",
     color: "dark",
     likes: 8,
     comments: 0,
@@ -205,10 +205,10 @@ export const videoLibrary: LibraryVideo[] = [
     id: 1,
     youtubeId: "ZZO9jwHdl40",
     title: "Função Quadrática: introdução",
-    professor: "Prof. Ricardo Mendes",
+    professor: "Prof. Luan Santana Souza",
     duration: "YouTube",
     color: "green",
-    initials: "RM",
+    initials: "LS",
     subject: "Matemática",
     description: "Conceito, forma geral e o papel dos coeficientes.",
     progress: 100,
@@ -220,10 +220,10 @@ export const videoLibrary: LibraryVideo[] = [
     id: 2,
     youtubeId: "nLvQ_tbGUMI",
     title: "Vértice e raízes",
-    professor: "Prof. Ricardo Mendes",
+    professor: "Prof. Luan Santana Souza",
     duration: "YouTube",
     color: "green",
-    initials: "RM",
+    initials: "LS",
     subject: "Matemática",
     description: "Como encontrar o vértice e usar a fórmula de Bhaskara.",
     progress: 62,
@@ -235,10 +235,10 @@ export const videoLibrary: LibraryVideo[] = [
     id: 3,
     youtubeId: "8NhDE9-IG_w",
     title: "Resolvendo exercícios",
-    professor: "Prof. Ricardo Mendes",
+    professor: "Prof. Luan Santana Souza",
     duration: "YouTube",
     color: "green",
-    initials: "RM",
+    initials: "LS",
     subject: "Matemática",
     description: "Resolução comentada dos exercícios das páginas 54 a 67.",
     progress: 0,
@@ -353,7 +353,7 @@ export const childReports: Record<number, ChildReport> = {
     nextDeadline: "30/11 · Matemática",
     status: "Em dia",
     subjects: [
-      { name: "Matemática", teacher: "Prof. Ricardo", average: "8,5", absences: 1 },
+      { name: "Matemática", teacher: "Prof. Luan", average: "8,5", absences: 1 },
       { name: "Português", teacher: "Profa. Lúcia", average: "9,0", absences: 0 },
       { name: "Geografia", teacher: "Prof. Davi", average: "7,8", absences: 2 },
       { name: "Ciências", teacher: "Profa. Rita", average: "8,3", absences: 0 },
@@ -367,7 +367,7 @@ export const childReports: Record<number, ChildReport> = {
     nextDeadline: "01/12 · História",
     status: "1 aviso",
     subjects: [
-      { name: "Matemática", teacher: "Prof. Ricardo", average: "7,6", absences: 2 },
+      { name: "Matemática", teacher: "Prof. Luan", average: "7,6", absences: 2 },
       { name: "Português", teacher: "Profa. Lúcia", average: "8,4", absences: 1 },
       { name: "Geografia", teacher: "Prof. Davi", average: "7,2", absences: 2 },
       { name: "Ciências", teacher: "Profa. Rita", average: "8,0", absences: 0 },
@@ -377,8 +377,8 @@ export const childReports: Record<number, ChildReport> = {
 
 export type Doubt = { id: number; student: string; className: string; question: string; when: string; answer?: string };
 export const doubts: Doubt[] = [
-  { id: 1, student: "Maria Clara", className: "8º A", question: "Como fatorar a raiz de 144?", when: "há 3h" },
-  { id: 2, student: "Aluno Modelo 101", className: "8º A", question: "Qual a diferença entre raiz e potência?", when: "há 5h" },
+  { id: 1, student: "Atabisio Henry", className: "8º A", question: "Como fatorar a raiz de 144?", when: "há 3h" },
+  { id: 2, student: "Rafael da Silva Moura", className: "8º A", question: "Qual a diferença entre raiz e potência?", when: "há 5h" },
   { id: 3, student: "Lucas Andrade", className: "7º B", question: "O vértice sempre é o ponto mais baixo?", when: "há 1d" },
 ];
 
@@ -395,9 +395,9 @@ export const lastActivities = ["hoje, 08h12", "ontem", "há 6 dias", "hoje, 07h4
 
 export type PendingApproval = { id: number; kind: string; title: string; by: string };
 export const pendingApprovals: PendingApproval[] = [
-  { id: 1, kind: "Grupo", title: "Clube de Xadrez", by: "Aluno Modelo 101 · 8º A" },
+  { id: 1, kind: "Grupo", title: "Clube de Xadrez", by: "Rafael da Silva Moura · 8º A" },
   { id: 2, kind: "Grupo", title: "Robótica 9º ano", by: "Gabriel Souza · 9º A" },
-  { id: 3, kind: "Hobby", title: "Fotografia", by: "Maria Clara · 8º A" },
+  { id: 3, kind: "Hobby", title: "Fotografia", by: "Atabisio Henry · 8º A" },
 ];
 
 export const sentNotices = [

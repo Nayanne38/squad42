@@ -35,7 +35,7 @@ export function MuraisBoard({
   });
   const pending = notes.filter((note) => !note.done && !note.hidden).length;
 
-  const title = role === "responsavel" ? "Murais de Aluno Modelo 101" : "Murais";
+  const title = role === "responsavel" ? "Murais de Rafael da Silva Moura" : "Murais";
   const subtitle = isStudent
     ? `Atividades e prazos da sua turma · ${pending} pendentes`
     : role === "responsavel"

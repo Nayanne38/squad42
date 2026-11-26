@@ -38,7 +38,7 @@ export function ChildrenView() {
       <div className="rs-pills" role="tablist" aria-label="Escolha o filho">
         {children.map((item) => (
           <button key={item.id} type="button" role="tab" aria-selected={item.id === child.id} className={item.id === child.id ? "active" : ""} onClick={() => setSelectedId(item.id)}>
-            {item.name.replace("Aluno Modelo ", "Aluno ")} · {getClass(item.classId)?.name.replace(" Ano ", " ano ")}
+            {item.name.split(" ")[0]} · {getClass(item.classId)?.name.replace(" Ano ", " ano ")}
           </button>
         ))}
       </div>
