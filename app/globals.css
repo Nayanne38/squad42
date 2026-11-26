@@ -3893,3 +3893,53 @@ button.zx-card.selected {
 
 .landing-image.fg-right{background:#f0f9f3}
 .landing-image.fg-right img{width:min(300px,50%)}
+
+/* ===== Painéis (aluno, responsável, professor, admin) no padrão do Figma ===== */
+.brand-mark{width:auto;height:auto;background:none;border-radius:0;box-shadow:none;overflow:visible}
+.brand-mark img{width:58px;height:auto;object-fit:contain}
+.portal-head .brand-mark,.topbar .brand-mark{width:auto;height:auto;font-size:inherit}
+.portal-head .brand-mark img{width:72px}
+.topbar .brand-mark img{width:44px}
+.sidenav .brand-mark img{width:70px}
+.sidenav .brand strong,.sidenav .brand small{display:none}
+.sidenav .brand{padding:6px 4px 10px}
+.portal{max-width:1080px;font-family:Arial,Helvetica,sans-serif;color:#1c2a22;padding:0 20px 24px}
+body:has(.portal){background:#f4f6f5}
+.portal-head{height:86px;border-bottom:0}
+.portal-profile{background:#fff;border:0;box-shadow:0 1px 5px rgba(20,40,30,.1);color:#00893f;font-weight:700;padding:7px 12px}
+.portal .welcome{position:relative;overflow:hidden;margin:0 0 20px;padding:34px 28px;border-radius:16px;background:linear-gradient(100deg,#00a84f,#006b30)}
+.portal .welcome.blue-bg{background:linear-gradient(100deg,#6a5cff,#2a26a6)}
+.portal .welcome::after{content:"";position:absolute;right:-60px;top:-60px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.1)}
+.portal .welcome h2{font-size:26px;font-weight:700}
+.portal .big-avatar{width:60px;height:60px;border:3px solid rgba(255,255,255,.7);background:rgba(255,255,255,.2);font-size:20px}
+.portal .portal-card{border:0;border-radius:16px;box-shadow:0 1px 6px rgba(20,40,30,.08);padding:22px}
+.portal .card-title{font-size:15px;font-weight:700;color:#1c2a22}
+.portal .card-title a{color:#00893f;font-weight:700;text-decoration:underline}
+.portal .quick-title{font-size:12px;color:#00893f;letter-spacing:.08em;margin-top:18px}
+.portal .quick-grid{gap:12px}
+.portal .quick-item{border:0;border-radius:14px;padding:15px 16px;box-shadow:0 1px 5px rgba(20,40,30,.09);transition:transform .15s,box-shadow .15s}
+.portal .quick-item:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,100,50,.16)}
+.portal .quick-item b{font-size:14px;color:#1c2a22}.portal .quick-item small{font-size:11px;color:#6b7a72}
+.portal .quick-icon{width:40px;height:40px;border-radius:12px;background:#e5f6ea;color:#00893f}
+.portal .quick-icon.blue,.portal .quick-icon.green,.portal .quick-icon.purple,.portal .quick-icon.indigo,.portal .quick-icon.teal,.portal .quick-icon.orange,.portal .quick-icon.slate{background:#e5f6ea;color:#00893f}
+.portal .social-quick-item{background:#00893f;color:#fff;grid-column:1/-1}
+.portal .social-quick-item b,.portal .social-quick-item small{color:#fff}
+.portal .social-quick-item .social-quick-icon{background:rgba(255,255,255,.2);color:#fff}
+.portal .social-quick-item svg:last-child{color:#fff}
+.portal .student-select{border:0;box-shadow:0 1px 5px rgba(20,40,30,.09);border-radius:14px}
+/* admin / professor */
+.admin-shell{background:#f4f6f5;font-family:Arial,Helvetica,sans-serif}
+.admin-shell .sidenav{background:#fff}
+.admin-shell .sidenav a.active,.admin-shell .sidenav button.active{background:#00893f;color:#fff}
+.admin-shell .admin-card{border:0;border-radius:16px;box-shadow:0 1px 6px rgba(20,40,30,.08)}
+.admin-shell h1{font-size:26px;color:#1c2a22}
+
+.sidenav .brand-mark{width:auto!important;height:auto!important}
+.sidenav .brand-mark img{width:92px!important;height:auto!important}
+@media(min-width:901px){.admin-shell .topbar .brand{display:none}}
+.admin-shell .admin-card a,.admin-shell .admin-card button.quick-link{border:0;border-radius:12px;box-shadow:0 1px 5px rgba(20,40,30,.09)}
+.admin-shell .admin-card svg{color:#00893f}
+
+.admin-links a,.admin-links button,.admin-links .nav-link{border:0!important;border-radius:12px;box-shadow:0 1px 5px rgba(20,40,30,.09);background:#fff;transition:transform .15s}
+.admin-links a:hover,.admin-links button:hover{transform:translateY(-2px);background:#e5f6ea}
+.admin-links svg{color:#00893f}
