@@ -116,7 +116,7 @@ export function TeacherClassesView({ store }: { store: SocialStore }) {
 
   return (
     <>
-      <PageHead title="Minhas turmas" subtitle={`${staff[0].subject} · Ensino Fundamental II`} />
+      <PageHead title="Minhas turmas" subtitle={`${(staff.find((item) => item.id === CURRENT_STAFF_ID)?.subject ?? "Docência")} · Ensino Fundamental II`} />
       <div className="rs-pills" role="tablist" aria-label="Escolha a turma">
         {classes.map((item) => (
           <button key={item.id} type="button" role="tab" aria-selected={item.id === current.id} className={item.id === current.id ? "active" : ""} onClick={() => setSelectedId(item.id)}>

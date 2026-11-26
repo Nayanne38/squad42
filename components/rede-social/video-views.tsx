@@ -89,10 +89,10 @@ export function TeacherVideos({ onOpen }: { onOpen: (video: LibraryVideo) => voi
       {
         id: Date.now(),
         title: file.name.replace(/\.[^.]+$/, ""),
-        professor: "Fernanda Lima",
+        professor: "Luan Santana Souza",
         duration: "-- min",
         color: "green",
-        initials: "FL",
+        initials: "LS",
         subject: "Matemática",
         description: "",
         progress: 0,

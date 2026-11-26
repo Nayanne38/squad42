@@ -358,12 +358,16 @@ Observações:
 
 ## 10. Perfis e logins de demonstração (atualizado)
 
-| Entrada na tela inicial | Perfil | E-mail | Senha |
+| Entrada | Perfil | E-mail | Senha |
 |---|---|---|---|
-| Sou Aluno | Rafael da Silva Moura | rafael@cepi.com | rafael123 |
-| Sou Responsável | Fabricya Nayanne Santos (mãe de Rafael) | fabricya@cepi.com | fabricya123 |
-| Docência | Professora Fernanda Lima | fernanda@cepi.com | fernanda123 |
-| Docência (botão Direção / Coordenação) | Diretora Fabricya Nayanne Santos | fabricya.direcao@cepi.com | fabricya123 |
-| Administração (TI) | Administrador TI | admin@cepi.com | admin123 |
+| Aluno | Rafael da Silva Moura | rafael@cepi.com | rafael123 |
+| Responsável | Fabricya Nayanne Santos (mãe de Rafael) | fabricya@cepi.com | fabricya123 |
+| Docência | Luan Santana Souza (Matemática) | luan@cepi.com | luan123 |
+| Docência | João Vitor Braz Mourão (Geografia) | joao@cepi.com | joao123 |
+| Docência | Atabisio Henry (Língua Portuguesa) | atabisio@cepi.com | atabisio123 |
+| Docência · Direção / Coordenação | Fabricya Nayanne Santos (diretora) | fabricya.direcao@cepi.com | fabricya123 |
+| Administração (TI) | Igor Gabriel (segurança e acessos) | igor@cepi.com | igor123 |
+| Administração (TI) | Yan Francisco Jesus de Oliveira (infraestrutura e backup) | yan@cepi.com | yan123 |
+| Administração (TI) | Rafael da Silva Moura (sistemas e cadastros) | rafael.ti@cepi.com | rafael123 |
 
-Rotas: /aluno, /responsavel, /funcionario (professora), /direcao (direção/coordenação) e /admin (administração/TI: pessoas, permissões, logs e backup).
+Rotas: /aluno, /responsavel, /funcionario (professores), /direcao e /admin (TI). Contas em `data/shared/accounts.ts`.

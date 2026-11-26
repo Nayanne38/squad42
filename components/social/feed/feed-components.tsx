@@ -1,5 +1,6 @@
 "use client";
 
+import { sessionOfSocial, useDemoUser } from "@/lib/demo-session";
 import { useState } from "react";
 import { Heart, MessageCircle, MoreHorizontal, Paperclip, Send, X } from "lucide-react";
 import { formatFileSize, mockPosts, type Attachment, type SocialRole } from "@/data/shared/social";
@@ -145,9 +146,9 @@ export function PostComposer({ role, onPublish }: { role: SocialRole; onPublish:
     setText("");
     setFiles([]);
   };
-  const profileLabels = { aluno: "Rafael da Silva Moura", responsavel: "Fabricya Nayanne Santos", funcionario: "Fernanda Lima", coordenacao: "Fabricya Nayanne Santos" };
-  const currentName = profileLabels[role];
-  const initials = role === "funcionario" ? "FL" : role === "coordenacao" ? "FN" : role === "responsavel" ? "FN" : "RM";
+  const me = useDemoUser(sessionOfSocial(role));
+  const currentName = me.name;
+  const initials = me.initials;
 
   return (
     <div className="social-card composer">

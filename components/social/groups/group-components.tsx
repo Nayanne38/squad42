@@ -1,5 +1,6 @@
 "use client";
 
+import { getDemoUser } from "@/lib/demo-session";
 import { useState, type Dispatch, type SetStateAction } from "react";
 import { ArrowLeft, ChevronRight } from "lucide-react";
 import { type Attachment, type Group, type Post, type SocialRole } from "@/data/shared/social";
@@ -88,11 +89,11 @@ export function StudyGroupsView({
       ...current,
       [activeGroupId]: [{
         id,
-        name: role === "funcionario" ? "Fernanda Lima" : role === "responsavel" ? "Fabricya Nayanne Santos" : "Rafael da Silva Moura",
+        name: role === "funcionario" ? getDemoUser("funcionario").name : role === "responsavel" ? "Fabricya Nayanne Santos" : "Rafael da Silva Moura",
         profile: profileLabels[role],
         date: "Agora",
         text,
-        initials: role === "funcionario" ? "FL" : role === "responsavel" ? "FN" : "RM",
+        initials: role === "funcionario" ? getDemoUser("funcionario").initials : role === "responsavel" ? "FN" : "RM",
         color: colors[role],
         likes: 0,
         comments: 0,

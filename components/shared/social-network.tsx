@@ -1,5 +1,6 @@
 "use client";
 
+import { sessionOfSocial, useDemoUser } from "@/lib/demo-session";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSessionIn } from "@/lib/demo-session";
@@ -57,7 +58,8 @@ export default function SocialNetwork({ role = "aluno", initialSection = "feed",
   // Só abre seções permitidas ao perfil; qualquer outra URL cai na primeira seção do menu.
   const section = nav.some((item) => item.key === requestedSection) || (requestedSection === "publicar" && role !== "responsavel") ? requestedSection : nav[0].key;
   const current = nav.find((item) => item.key === section) ?? nav[0];
-  const profile = profileLabels[role];
+  const demoUser = useDemoUser(sessionOfSocial(role));
+  const profile = demoUser.name;
   const publish = (text: string, attachments?: Attachment[], image?: string) => { const id = Date.now(); setOwnPostIds((currentIds) => [...currentIds, id]); setPosts((currentPosts) => [{ ...mockPosts[0], id, name: profile, profile: role === "aluno" ? "Aluno" : role === "coordenacao" ? "Coordenação" : "Professora", initials: socialIdentity[role].initials, color: role === "aluno" ? "blue" : "purple", date: "Agora", text, likes: 0, comments: 0, image, attachments }, ...currentPosts]); };
   const createMural = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -87,7 +89,7 @@ export default function SocialNetwork({ role = "aluno", initialSection = "feed",
   const visiblePosts = term ? posts.filter((post) => `${post.text} ${post.name} ${post.profile}`.toLowerCase().includes(term)) : posts;
   const notifications = mockNotifications[role];
   const unread = notifications.filter((item) => !notifRead.includes(item.id)).length;
-  const greeting = role === "coordenacao" ? "Feed da escola" : role === "funcionario" ? `Bom dia, professora ${profile.split(" ")[0]}` : `Bom dia, ${profile.split(" ")[0]}`;
+  const greeting = role === "coordenacao" ? "Feed da escola" : role === "funcionario" ? `Bom dia, professor ${demoUser.firstName}` : `Bom dia, ${demoUser.firstName}`;
   const feedSub = role === "coordenacao" ? "Publicações oficiais e da comunidade" : role === "responsavel" ? "Acompanhando seus filhos no mesmo login" : role === "funcionario" ? "Acompanhe a comunidade das suas turmas" : "Você tem 2 prazos esta semana";
   const feed = <div className="rs-feed-grid">
   <div className="rs-feed-main">
@@ -132,7 +134,7 @@ export default function SocialNetwork({ role = "aluno", initialSection = "feed",
 
   if (!authorized) return null;
 
-  const identity = socialIdentity[role];
+  const identity = { ...socialIdentity[role], name: demoUser.name, firstName: demoUser.firstName, initials: demoUser.initials };
   const mainNav = nav.filter((item) => item.key !== "perfil");
   const leave = () => { try { sessionStorage.removeItem("zenix-demo-session"); } catch {} router.push("/"); };
   return <div className={`social-shell rs-shell rs-theme-${role}`}><aside className="social-nav rs-side"><img className="rs-logo" src={logo} alt="Colégio CEPI Expansão" /><span className="rs-role-pill">{identity.badge}</span><nav>{mainNav.map((item) => <button className={section === item.key ? "active" : ""} key={item.key} onClick={() => setSection(item.key)}><NavIcon name={item.icon} />{item.label}</button>)}</nav><div className="rs-side-bottom"><button className={section === "perfil" ? "active" : ""} onClick={() => setSection("perfil")}><NavIcon name="profile" />Perfil</button><button className="rs-leave" onClick={leave}><LogOut size={16} />Sair</button></div></aside><main className="social-main"><div className="rs-top-actions"><div className="notif-wrap"><button type="button" className="notif-button" aria-label="Notificações" aria-expanded={notifOpen} onClick={() => setNotifOpen((open) => !open)}><Bell />{unread > 0 && <i>{unread}</i>}</button>{notifOpen && <div className="notif-pop" role="menu">{notifications.map((item) => <button type="button" role="menuitem" className={notifRead.includes(item.id) ? "read" : ""} key={item.id} onClick={() => { setNotifRead((current) => current.includes(item.id) ? current : [...current, item.id]); if (nav.some((entry) => entry.key === item.section)) setSection(item.section); setNotifOpen(false); }}>{item.text}</button>)}<button type="button" className="notif-all" onClick={() => setNotifRead(notifications.map((item) => item.id))}>Marcar todas como lidas</button></div>}</div></div><div className="social-content">{content}</div></main>{video && <VideoModal video={video as never} watched={watchedVideoIds.includes(video.id)} onComplete={() => setWatchedVideoIds((current) => current.includes(video.id) ? current : [...current, video.id])} onClose={() => setVideo(null)} />}</div>;

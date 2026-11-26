@@ -90,11 +90,11 @@ export const mockPosts: Post[] = [
   },
   {
     id: 3,
-    name: "Fernanda Lima",
+    name: "Luan Santana Souza",
     profile: "Coordenação Pedagógica",
     date: "12 de maio",
     text: "Lembrete: a reunião de responsáveis acontecerá na próxima quinta-feira, às 18h30.",
-    initials: "FL",
+    initials: "LS",
     color: "purple",
     likes: 31,
     comments: 0,
@@ -214,9 +214,9 @@ export const mockContacts: Contact[] = [
   {
     id: 3,
     kind: "coordenacao",
-    name: "Fernanda Lima",
+    name: "Luan Santana Souza",
     profile: "Coordenação Pedagógica",
-    initials: "FL",
+    initials: "LS",
     color: "purple",
     online: false,
   },
@@ -259,7 +259,7 @@ export const mockNotifications: Record<SocialRole, Notification[]> = {
     { id: 3, text: "Novo comunicado no mural da turma.", section: "murais" },
   ],
   responsavel: [
-    { id: 1, text: "Fernanda Lima enviou uma mensagem para você.", section: "chat" },
+    { id: 1, text: "Luan Santana Souza enviou uma mensagem para você.", section: "chat" },
     { id: 2, text: "Novo comunicado no mural da escola.", section: "murais" },
   ],
   funcionario: [

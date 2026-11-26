@@ -32,11 +32,11 @@ export const socialIdentity: Record<SocialRole, Identity> = {
     dashboard: "/responsavel",
   },
   funcionario: {
-    name: "Fernanda Lima",
-    firstName: "Fernanda",
-    initials: "FL",
+    name: "Luan Santana Souza",
+    firstName: "Luan",
+    initials: "LS",
     badge: "Perfil · Professor",
-    subtitle: "Professora · Coordenação Pedagógica · Ensino Fundamental II",
+    subtitle: "Professor de Matemática · Ensino Fundamental II",
     dashboard: "/funcionario",
   },
   coordenacao: {
@@ -128,7 +128,7 @@ export const feedSeed: Post[] = [
 
 feedSeed.push(
   { id: 104, name: "Rafael da Silva Moura", profile: "8º ano A", date: "há 3 dias", text: "Terminei o resumo de Geografia sobre relevo e hidrografia. Quem quiser estudar junto, é só chamar no grupo.", initials: "RM", color: "blue", likes: 6, comments: 1 },
-  { id: 105, name: "Fernanda Lima", profile: "Professora", date: "há 2 dias", text: "Lembrete: entrega do trabalho de Ciências na próxima segunda. Dúvidas, me chamem no chat.", initials: "FL", color: "purple", likes: 9, comments: 2 },
+  { id: 105, name: "Luan Santana Souza", profile: "Professor", date: "há 2 dias", text: "Lembrete: entrega do trabalho de Ciências na próxima segunda. Dúvidas, me chamem no chat.", initials: "LS", color: "purple", likes: 9, comments: 2 },
 );
 
 export const feedSeedCoordenacao: Post[] = [feedSeed[2], feedSeed[0]];
@@ -281,7 +281,7 @@ export const videoLibrary: LibraryVideo[] = [
     id: 6,
     youtubeId: "byb71MxuSDU",
     title: "O ciclo da água",
-    professor: "Prof. Igor",
+    professor: "Prof. Atabisio",
     duration: "YouTube",
     color: "green",
     initials: "PR",
@@ -356,7 +356,7 @@ export const childReports: Record<number, ChildReport> = {
       { name: "Matemática", teacher: "Prof. Luan", average: "8,5", absences: 1 },
       { name: "Português", teacher: "Prof. Atabisio", average: "9,0", absences: 0 },
       { name: "Geografia", teacher: "Prof. João Vitor", average: "7,8", absences: 2 },
-      { name: "Ciências", teacher: "Prof. Igor", average: "8,3", absences: 0 },
+      { name: "Ciências", teacher: "Profa. Mariana", average: "8,3", absences: 0 },
     ],
   },
   2: {
@@ -370,7 +370,7 @@ export const childReports: Record<number, ChildReport> = {
       { name: "Matemática", teacher: "Prof. Luan", average: "7,6", absences: 2 },
       { name: "Português", teacher: "Prof. Atabisio", average: "8,4", absences: 1 },
       { name: "Geografia", teacher: "Prof. João Vitor", average: "7,2", absences: 2 },
-      { name: "Ciências", teacher: "Prof. Igor", average: "8,0", absences: 0 },
+      { name: "Ciências", teacher: "Profa. Mariana", average: "8,0", absences: 0 },
     ],
   },
 };

@@ -1,5 +1,6 @@
 "use client";
 
+import { getDemoUser } from "@/lib/demo-session";
 import { useState, type Dispatch, type SetStateAction } from "react";
 import { ArrowLeft, ChevronRight, Plus } from "lucide-react";
 import { mockPosts, type Attachment, type Post, type SocialRole } from "@/data/shared/social";
@@ -63,7 +64,7 @@ export function MuralView({
     if (!active) return;
     const profileLabels = { aluno: "Aluno", responsavel: "Responsável", funcionario: "Funcionário", coordenacao: "Coordenação" };
     const colors = { aluno: "blue", responsavel: "blue", funcionario: "purple", coordenacao: "gold" };
-    const initials = role === "funcionario" ? "FL" : role === "responsavel" ? "FN" : "RM";
+    const initials = role === "funcionario" ? getDemoUser("funcionario").initials : role === "responsavel" ? "FN" : "RM";
     const id = Math.max(0, ...(postsByMural[active] ?? []).map((post) => post.id)) + 1;
     setOwnPostIdsByMural((currentIds) => ({
       ...currentIds,
@@ -75,7 +76,7 @@ export function MuralView({
         ...current,
         [active]: [{
           id,
-          name: role === "funcionario" ? "Fernanda Lima" : role === "responsavel" ? "Fabricya Nayanne Santos" : "Rafael da Silva Moura",
+          name: role === "funcionario" ? getDemoUser("funcionario").name : role === "responsavel" ? "Fabricya Nayanne Santos" : "Rafael da Silva Moura",
           profile: profileLabels[role],
           date: "Agora",
           text,
