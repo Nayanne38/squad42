@@ -58,9 +58,6 @@ function Home({ go: _go }: { go: (view: View) => void }) {
     <main className="landing">
       <section className="landing-copy">
         <Brand />
-        <div className="award">
-          ♨ <b>43 Anos de Excelência</b>
-        </div>
         <h1>
           Bem-vindo ao
           <br />
