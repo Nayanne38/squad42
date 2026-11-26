@@ -4047,3 +4047,27 @@ body:has(.agenda-page,.calendar-page,.comunicados-page,.schedule-page,.grades-pa
 .rs-shell .composer textarea{min-height:44px;height:44px;resize:none;padding:11px 14px;transition:height .15s}
 .rs-shell .composer textarea:focus{height:96px}
 .rs-shell .composer .post-head small{display:none}
+
+/* ===== Responsivo: celular e tablet ===== */
+@media (max-width: 900px) {
+  .rs-shell { flex-direction: column; }
+  .rs-shell .rs-side { width: 100%; height: auto; position: sticky; top: 0; z-index: 40; padding: 8px 12px; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 6px 10px; border-right: 0; border-bottom: 1px solid #e3e8e5; }
+  .rs-shell .rs-logo { width: 44px; height: auto; margin: 0; }
+  .rs-shell .rs-role-pill { margin: 0; order: 2; }
+  .rs-shell .rs-side nav { order: 4; flex: 1 0 100%; flex-direction: row; flex-wrap: nowrap; overflow-x: auto; gap: 6px; padding-bottom: 4px; scrollbar-width: none; }
+  .rs-shell .rs-side nav a, .rs-shell .rs-side nav button, .rs-shell .rs-side-bottom button { width: auto; flex: 0 0 auto; white-space: nowrap; padding: 8px 12px; }
+  .rs-shell .rs-side-bottom { order: 3; flex-direction: row; margin: 0 0 0 auto; gap: 4px; }
+  .rs-shell .social-content { padding: 16px 14px 48px; max-width: 100%; }
+  .rs-shell .rs-feed-grid { margin-right: 0; }
+  .rs-shell .rs-top-actions { top: 10px; right: 12px; }
+  .rs-shell .rs-feed-grid > *, .rs-shell .social-content > * { min-width: 0; max-width: 100%; }
+  .rs-shell img, .rs-shell video, .rs-shell iframe { max-width: 100%; }
+}
+@media (max-width: 600px) {
+  .rs-shell .rs-top-actions { position: static; display: flex; justify-content: flex-end; margin: 0 4px 8px 0; }
+  .rs-shell .rs-side .rs-role-pill { display: none; }
+  .admin-main, .admin-content, .portal-shell, .zx-page { min-width: 0; }
+  table { display: block; overflow-x: auto; max-width: 100%; }
+  .admin-title { flex-wrap: wrap; gap: 12px; }
+  .modal, .rs-modal { max-width: calc(100vw - 24px); }
+}
