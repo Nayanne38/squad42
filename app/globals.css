@@ -4016,3 +4016,15 @@ body:has(.agenda-page,.calendar-page,.comunicados-page,.schedule-page,.grades-pa
 .social-cta-text em{font-style:normal;font-size:13px;opacity:.95}
 .social-cta-go{position:relative;z-index:1;display:inline-flex;align-items:center;gap:6px;background:#fff;color:#c25e00;font-weight:700;border-radius:999px;padding:11px 20px;white-space:nowrap}
 @media(max-width:640px){.social-cta{flex-wrap:wrap}.social-cta-go{width:100%;justify-content:center}}
+
+/* ===== Tela inicial: tons refinados ===== */
+.landing{background:#009a45}
+.landing-copy::before{background:radial-gradient(circle at 12% 92%,rgba(190,255,210,.30),transparent 40%),linear-gradient(160deg,#00b052 0%,#008f3f 100%)}
+.landing-copy h1{color:#fff}
+.landing-copy .award{border-color:rgba(255,255,255,.55);color:#fff3b0;background:rgba(0,70,30,.18)}
+.landing .role-card{background:#fff;border:0;color:#0c4a26;box-shadow:0 6px 16px rgba(0,60,25,.22);transition:transform .15s,box-shadow .15s}
+.landing .role-card strong{color:#0c4a26;font-family:var(--font-title),Arial,sans-serif}
+.landing .role-card small{color:#5b7a69}
+.landing .role-card>svg{color:#00a04a}
+.landing .role-card:hover{background:#f3fff7;transform:translateY(-2px);box-shadow:0 10px 22px rgba(0,60,25,.3)}
+.landing .role-icon,.landing .role-icon.green,.landing .role-icon.cyan,.landing .role-icon.olive,.landing .role-icon.blue{background:#e1f6e8;color:#00a04a}
