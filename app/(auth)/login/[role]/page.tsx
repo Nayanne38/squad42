@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { ArrowLeft, LockKeyhole, Mail } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 
 const roleCopy = {
@@ -76,107 +76,87 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="login-page">
-      <section className="login-panel">
-        <a className="login-back" href="/">
-          <ArrowLeft size={16} /> Voltar para seleção de perfil
-        </a>
-        <div className="login-brand">
-          <div className="brand-mark">
-            <img
-              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-wFyGlMnsahCQvyrvutRb3pDL8xSyw9.png"
-              alt="Colégio CEPI Expansão"
-            />
-          </div>
-          <div>
-            <strong>ZENIX EDUCATION</strong>
-            <small>Sistema de Gestão Escolar</small>
-          </div>
-        </div>
-        <div className="login-heading">
-          <span className="login-role">{copy.label}</span>
-          <h1>{copy.title}</h1>
-          <p>{copy.subtitle}</p>
-        </div>
-        <form className="login-form" onSubmit={handleSubmit}>
-          <label htmlFor="email">E-mail</label>
-          <div className="login-input">
-            <Mail size={17} />
+    <main className="fg-split">
+      <section className="fg-left">
+        <div className="fg-box login">
+          <a className="fg-back" href="/">
+            <ArrowLeft size={14} /> Voltar para seleção de perfil
+          </a>
+          <h1>Acesse sua conta</h1>
+          <p className="fg-sub">Entre com seu e-mail e senha para continuar.</p>
+          <form className="fg-form" onSubmit={handleSubmit}>
+            <label htmlFor="email">E-mail</label>
             <input
               id="email"
               name="email"
               type="email"
-              placeholder="seu@email.com"
+              placeholder="nome@escola.com.br"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
               required
             />
-          </div>
-          <label htmlFor="password">Senha</label>
-          <div className="login-input">
-            <LockKeyhole size={17} />
+            <label htmlFor="password">Senha</label>
             <input
               id="password"
               name="password"
               type="password"
-              placeholder="Digite sua senha"
+              placeholder="Sua senha"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
               required
             />
+            <div className="fg-row">
+              <label className="fg-check"><input type="checkbox" /> Lembrar de mim</label>
+              <button type="button" className="fg-link" onClick={() => setMessage("Recuperação de senha indisponível no modo demonstração.")}>Esqueci minha senha</button>
+            </div>
+            <button type="submit" className="fg-submit">Entrar</button>
+          </form>
+          <p className="fg-or">ou</p>
+          <div className="fg-social">
+            <button type="button" onClick={() => setMessage("Login com Google indisponível no modo demonstração.")}>Entrar com Google</button>
+            <button type="button" onClick={() => setMessage("Login com Microsoft indisponível no modo demonstração.")}>Entrar com Microsoft</button>
           </div>
-          <button type="submit" className="login-submit">
-            Entrar
-          </button>
-        </form>
-        {"alternateEmail" in copy && (
-          <div className="login-demo-switch">
-            <button
-              type="button"
-              onClick={() => {
-                setEmail(copy.email);
-                setPassword(copy.password);
-                setMessage("");
-              }}
+          <p className="fg-signup">Ainda não tem conta? <a href="/">Cadastre-se</a></p>
+          {"alternateEmail" in copy && (
+            <div className="login-demo-switch">
+              <button
+                type="button"
+                onClick={() => {
+                  setEmail(copy.email);
+                  setPassword(copy.password);
+                  setMessage("");
+                }}
+              >
+                Professor
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setEmail(copy.alternateEmail);
+                  setPassword(copy.alternatePassword);
+                  setMessage("");
+                }}
+              >
+                Administrador
+              </button>
+            </div>
+          )}
+          {message && (
+            <p
+              className={`login-message ${message.startsWith("Acesso") ? "success" : "error"}`}
+              role="status"
             >
-              Professor
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                setEmail(copy.alternateEmail);
-                setPassword(copy.alternatePassword);
-                setMessage("");
-              }}
-            >
-              Administrador
-            </button>
-          </div>
-        )}
-        {message && (
-          <p
-            className={`login-message ${message.startsWith("Acesso") ? "success" : "error"}`}
-            role="status"
-          >
-            {message}
+              {message}
+            </p>
+          )}
+          <p className="fg-foot">
+            Perfil: {copy.label}. Modo demonstração: o login já vem preenchido, é só clicar em Entrar.
           </p>
-        )}
-        <p className="login-note">
-          Modo demonstração: o login deste perfil já vem preenchido, é só
-          clicar em Entrar.
-        </p>
-      </section>
-      <section
-        className="login-visual"
-        aria-label="Área institucional do Colégio CEPI"
-      >
-        <div className="institutional-panel">
-          <img
-            src="/logo-cepi.png"
-            alt="Colégio CEPI Expansão"
-          />
-          <span>Educação que transforma</span>
         </div>
+      </section>
+      <section className="fg-right" aria-label="Colégio CEPI Expansão">
+        <i className="fg-tri a" /><i className="fg-tri b" /><i className="fg-tri c" />
+        <img src="/logo-cepi.png" alt="Colégio CEPI Expansão" />
       </section>
     </main>
   );
